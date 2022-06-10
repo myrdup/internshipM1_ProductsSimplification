@@ -1,0 +1,1215 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     51797,       1207]
+NotebookOptionsPosition[     49897,       1167]
+NotebookOutlinePosition[     50302,       1183]
+CellTagsIndexPosition[     50259,       1180]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{"<<", "Sigma.m"}]], "Input",
+ CellChangeTimes->{{3.863231878927408*^9, 3.8632318827909107`*^9}},
+ CellLabel->"In[2]:=",ExpressionUUID->"796ba272-e485-4ff4-a318-5436f51a0077"],
+
+Cell[BoxData["\<\"Oups, the package is already loaded! You cannot reload \
+it.\"\>"], "Print",
+ CellChangeTimes->{3.863231883836337*^9},
+ CellLabel->
+  "During evaluation of \
+In[2]:=",ExpressionUUID->"9f4110de-5da7-4188-ad94-fa2d688c6973"],
+
+Cell[BoxData["$Aborted"], "Output",
+ CellChangeTimes->{3.8632318838670588`*^9},
+ CellLabel->"Out[2]=",ExpressionUUID->"ed7f258e-0687-4a75-8275-7ed174cdeb60"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Evaluation function: building and use", "Subsubsection",
+ CellChangeTimes->{{3.863232274627853*^9, 3.863232306883436*^9}, 
+   3.863232415234796*^9},ExpressionUUID->"c073ee33-b830-4353-9a28-\
+287876ae3828"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"BuildEvMap", "[", 
+   RowBox[{"tower_", ",", "lowBounds_"}], "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"l", ",", "t", ",", "evMap", ",", "e"}], "}"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"IndexName", "[", "0", "]"}], "=", "1"}], ";", 
+     RowBox[{"Unset", "[", 
+      RowBox[{"IndexName", "[", "0", "]"}], "]"}], ";", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"IndexName", "[", 
+       RowBox[{"-", "2"}], "]"}], "=", "1"}], ";", 
+     RowBox[{"Unset", "[", 
+      RowBox[{"IndexName", "[", 
+       RowBox[{"-", "2"}], "]"}], "]"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"l", "=", 
+      RowBox[{"Length", "[", "lowBounds", "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"t", "=", 
+      RowBox[{
+       RowBox[{"Length", "[", "tower", "]"}], "-", "l"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"evMap", "=", 
+      RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"(*", 
+      RowBox[{"case", " ", "of", " ", "x"}], "*)"}], "\[IndentingNewLine]", 
+     RowBox[{"e", "=", 
+      RowBox[{"tower", "[", 
+       RowBox[{"[", "1", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"If", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{"e", "[", 
+          RowBox[{"[", "2", "]"}], "]"}], "==", "1"}], " ", "&&", 
+        RowBox[{
+         RowBox[{"e", "[", 
+          RowBox[{"[", "3", "]"}], "]"}], "!=", "0"}]}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"evMap", "=", 
+        RowBox[{"Join", "[", 
+         RowBox[{"evMap", ",", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"e", "[", 
+             RowBox[{"[", "1", "]"}], "]"}], "->", " ", 
+            RowBox[{
+             RowBox[{"e", "[", 
+              RowBox[{"[", "3", "]"}], "]"}], "*", 
+             RowBox[{"IndexName", "[", "0", "]"}]}]}], "}"}]}], "]"}]}]}], 
+      "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"(*", 
+      RowBox[{
+       RowBox[{"case", " ", "of", " ", "q", " ", "and", " ", "r"}], "-", 
+       "monomial"}], "*)"}], "\[IndentingNewLine]", 
+     RowBox[{"Do", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"e", "=", 
+         RowBox[{"tower", "[", 
+          RowBox[{"[", "j", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+        RowBox[{"If", " ", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"e", "[", 
+            RowBox[{"[", "3", "]"}], "]"}], "==", "0"}], ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{"evMap", "=", 
+           RowBox[{"Join", "[", 
+            RowBox[{"evMap", ",", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"e", "[", 
+                RowBox[{"[", "1", "]"}], "]"}], "->", " ", 
+               RowBox[{
+                RowBox[{"e", "[", 
+                 RowBox[{"[", "2", "]"}], "]"}], "^", 
+                RowBox[{"IndexName", "[", "0", "]"}]}]}], "}"}]}], "]"}]}]}], 
+         "\[IndentingNewLine]", "]"}], ";"}], "\[IndentingNewLine]", ",", 
+       RowBox[{"{", 
+        RowBox[{"j", ",", "2", ",", "t"}], "}"}]}], "]"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"(*", 
+      RowBox[{
+       RowBox[{"case", " ", "of", " ", "p"}], "-", "monomials"}], "*)"}], 
+     "\[IndentingNewLine]", 
+     RowBox[{"Do", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"e", "=", 
+         RowBox[{"tower", "[", 
+          RowBox[{"[", 
+           RowBox[{"j", "+", "t"}], "]"}], "]"}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"e", "[", 
+            RowBox[{"[", "3", "]"}], "]"}], "==", "0"}], ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{"evMap", "=", 
+           RowBox[{"Join", "[", 
+            RowBox[{"evMap", ",", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"e", "[", 
+                RowBox[{"[", "1", "]"}], "]"}], "->", 
+               RowBox[{"SigmaProduct", "[", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{"(", 
+                   RowBox[{
+                    RowBox[{"TSigma", "[", 
+                    RowBox[{
+                    RowBox[{"e", "[", 
+                    RowBox[{"[", "2", "]"}], "]"}], ",", 
+                    RowBox[{"-", "1"}], ",", "tower"}], "]"}], "/.", " ", 
+                    "evMap"}], ")"}], "/.", 
+                  RowBox[{
+                   RowBox[{"IndexName", "[", "0", "]"}], "->", " ", 
+                   RowBox[{"IndexName", "[", 
+                    RowBox[{"-", "2"}], "]"}]}]}], ",", 
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{"IndexName", "[", 
+                    RowBox[{"-", "2"}], "]"}], ",", 
+                   RowBox[{"lowBounds", "[", 
+                    RowBox[{"[", "j", "]"}], "]"}], ",", 
+                   RowBox[{"IndexName", "[", "0", "]"}]}], "}"}]}], "]"}]}], 
+              "}"}]}], "]"}]}], ",", "\[IndentingNewLine]", 
+          RowBox[{"Print", "[", 
+           RowBox[{"\"\<Fail to build evaluation map with \>\"", ",", " ", 
+            RowBox[{"tower", "[", 
+             RowBox[{"[", 
+              RowBox[{"j", "+", "t"}], "]"}], "]"}]}], "]"}]}], 
+         "\[IndentingNewLine]", "]"}]}], ",", "\[IndentingNewLine]", 
+       RowBox[{"{", 
+        RowBox[{"j", ",", "1", ",", "l"}], "}"}]}], "]"}], ";", 
+     "\[IndentingNewLine]", "evMap"}]}], "\[IndentingNewLine]", 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.863165341096439*^9, 3.8631653584631023`*^9}, {
+   3.863165394302759*^9, 3.863165410670683*^9}, {3.863165675444276*^9, 
+   3.8631656890839*^9}, {3.863166843592544*^9, 3.863166905350224*^9}, {
+   3.8631669801110783`*^9, 3.863167000900373*^9}, {3.863167094975429*^9, 
+   3.863167098285046*^9}, {3.8631720551831713`*^9, 3.863172072901857*^9}, {
+   3.863172370066461*^9, 3.863172374276832*^9}, {3.863172466848713*^9, 
+   3.863172471156126*^9}, {3.863172576168233*^9, 3.863172593474576*^9}, {
+   3.8631726368282843`*^9, 3.863172651683201*^9}, {3.863172698647912*^9, 
+   3.863172746227517*^9}, {3.863172810591689*^9, 3.86317283130717*^9}, {
+   3.863172905759223*^9, 3.863172958634356*^9}, {3.863173013045726*^9, 
+   3.863173077481495*^9}, {3.8631731545765247`*^9, 3.863173187952408*^9}, {
+   3.8631732240319138`*^9, 3.8631733449274387`*^9}, {3.863173390432455*^9, 
+   3.863173390535451*^9}, {3.8631734253192368`*^9, 3.863173425830866*^9}, {
+   3.863173833288292*^9, 3.86317389486684*^9}, {3.863173925655685*^9, 
+   3.8631739374346247`*^9}, {3.863173985039455*^9, 3.863173987965527*^9}, {
+   3.8631741607742662`*^9, 3.8631742126648483`*^9}, {3.863174318556734*^9, 
+   3.863174331775453*^9}, {3.8632463185863237`*^9, 3.863246338797624*^9}, 
+   3.863246453931048*^9, 3.8632468564162283`*^9, {3.863246948446826*^9, 
+   3.863246948793829*^9}, {3.8632508994671917`*^9, 3.863250899784382*^9}, 
+   3.86325350038702*^9, {3.863253622447879*^9, 3.863253645183381*^9}, {
+   3.86325391049949*^9, 3.863253913518222*^9}, {3.86325400881256*^9, 
+   3.863254012005478*^9}, {3.863254113279463*^9, 3.86325412262101*^9}, {
+   3.8632541538319483`*^9, 3.8632541740173798`*^9}, {3.86325421139926*^9, 
+   3.86325431533121*^9}, {3.8632543580865173`*^9, 3.8632544342261477`*^9}, {
+   3.8632544684539757`*^9, 3.863254549129986*^9}, 3.863254597848219*^9, {
+   3.863255121950238*^9, 3.863255153694862*^9}, {3.86325519648976*^9, 
+   3.863255238485456*^9}, {3.863255316424863*^9, 3.863255381348858*^9}, {
+   3.863255450065217*^9, 3.863255484148254*^9}, {3.863255575079095*^9, 
+   3.863255576403447*^9}, {3.8632556537387867`*^9, 3.863255672115583*^9}, {
+   3.863255708494062*^9, 3.863255716978868*^9}, {3.8632559236777153`*^9, 
+   3.863255934288904*^9}, 3.863256860895026*^9},
+ CellLabel->"In[6]:=",ExpressionUUID->"bf513861-4339-4ac6-86f2-3fd08ab4fbc9"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"BuildEvMap", "::", "usage"}], "=", 
+  "\"\<Arguments:\n* tower_: list of elements {t,a,b} such that \
+Tsigma[t]=at+b with p-monomials in the end,\n* lowBounds_: starting indices \
+for evaluations of tower's p-monomials,\nReturns: a mapping of monomials \
+towards elements of the field depending on IndexName[0] (=unkmown evaluation \
+value).\>\""}]], "Input",
+ CellChangeTimes->{{3.863249302920176*^9, 3.863249391550295*^9}, {
+   3.8632494264232883`*^9, 3.863249627934865*^9}, 3.863249663149543*^9, 
+   3.8632501990467033`*^9, {3.8632505817614737`*^9, 3.8632505822244577`*^9}, {
+   3.863250896502481*^9, 3.8632508967982407`*^9}},
+ CellLabel->
+  "In[290]:=",ExpressionUUID->"5d505532-8672-4f40-b20e-b7448c204e02"],
+
+Cell[BoxData["\<\"Arguments:\\n* tower_: list of elements {t,a,b} such that \
+Tsigma[t]=at+b with p-monomials in the end,\\n* lowBounds_: starting indices \
+for evaluations of tower's p-monomials,\\nReturns: a mapping of monomials \
+towards elements of the field depending on IndexName[0] (=unkmown evaluation \
+value).\"\>"], "Output",
+ CellChangeTimes->{3.86324966635843*^9, 3.8632502005438643`*^9, 
+  3.863250582937131*^9, 3.863250905319664*^9},
+ CellLabel->
+  "Out[290]=",ExpressionUUID->"a8da2b5d-2c40-452a-9219-2a49d1b66d61"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"?", "BuildEvMap"}]], "Input",
+ CellChangeTimes->{{3.863249651326235*^9, 3.863249657158835*^9}, {
+  3.8632508930382032`*^9, 3.863250893341576*^9}},
+ CellLabel->
+  "In[291]:=",ExpressionUUID->"fee6f24e-14dd-46b2-ba9f-cf2d6a3127a2"],
+
+Cell[BoxData[
+ InterpretationBox[
+  StyleBox[
+   FrameBox[
+    DynamicModuleBox[{System`InformationDump`open$$ = False, 
+     System`InformationDump`mouseOver$$ = False}, 
+     PaneSelectorBox[{True->
+      TagBox[GridBox[{
+         {
+          ItemBox[
+           PaneBox[
+            StyleBox["\<\" Symbol\"\>", "InformationTitleText",
+             StripOnInput->False,
+             BaseStyle -> None],
+            FrameMargins->{{4, 0}, {-1, 1}}],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           PaneBox[
+            
+            StyleBox["\<\"Arguments:\\n* tower_: list of elements {t,a,b} \
+such that Tsigma[t]=at+b with p-monomials in the end,\\n* lowBounds_: \
+starting indices for evaluations of tower's p-monomials,\\nReturns: a mapping \
+of monomials towards elements of the field depending on IndexName[0] \
+(=unkmown evaluation value).\"\>", "InformationUsageText",
+             StripOnInput->False,
+             LineSpacing->{1.5, 1.5, 3.}],
+            FrameMargins->{{10, 10}, {8, 10}}],
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False]},
+         {
+          PaneBox[
+           TagBox[GridBox[{
+              {
+               StyleBox[
+                TagBox[
+                 TooltipBox[
+                  StyleBox["\<\" Definitions\"\>", "InformationRowLabel",
+                   StripOnInput->False],
+                  "\"Definitions\"",
+                  TooltipStyle->"TextStyling"],
+                 Annotation[#, "Definitions", "Tooltip"]& ], "DialogStyle",
+                StripOnInput->False]},
+              {
+               TemplateBox[{"\"\[ThinSpace]\"", 
+                 GridBox[{{
+                    RowBox[{
+                    RowBox[{"BuildEvMap", "[", 
+                    RowBox[{"tower_", ",", "lowBounds_"}], "]"}], ":=", 
+                    RowBox[{"Module", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"l", ",", "t", ",", "evMap", ",", "e"}], "}"}], 
+                    ",", 
+                    RowBox[{
+                    RowBox[{"l", "=", 
+                    RowBox[{"Length", "[", "lowBounds", "]"}]}], ";", 
+                    RowBox[{"t", "=", 
+                    RowBox[{
+                    RowBox[{"Length", "[", "tower", "]"}], "-", "l"}]}], ";", 
+                    
+                    RowBox[{"evMap", "=", 
+                    RowBox[{"{", "}"}]}], ";", 
+                    RowBox[{"e", "=", 
+                    
+                    RowBox[{"tower", "\[LeftDoubleBracket]", "1", 
+                    "\[RightDoubleBracket]"}]}], ";", 
+                    RowBox[{"If", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{
+                    
+                    RowBox[{"e", "\[LeftDoubleBracket]", "2", 
+                    "\[RightDoubleBracket]"}], "\[Equal]", "1"}], "&&", 
+                    RowBox[{
+                    
+                    RowBox[{"e", "\[LeftDoubleBracket]", "3", 
+                    "\[RightDoubleBracket]"}], "\[NotEqual]", "0"}]}], ",", 
+                    RowBox[{"evMap", "=", 
+                    RowBox[{"Join", "[", 
+                    RowBox[{"evMap", ",", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    
+                    RowBox[{"e", "\[LeftDoubleBracket]", "1", 
+                    "\[RightDoubleBracket]"}], "\[Rule]", 
+                    RowBox[{
+                    
+                    RowBox[{"e", "\[LeftDoubleBracket]", "3", 
+                    "\[RightDoubleBracket]"}], " ", 
+                    RowBox[{"IndexName", "[", "0", "]"}]}]}], "}"}]}], 
+                    "]"}]}]}], "]"}], ";", 
+                    RowBox[{"Do", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"e", "=", 
+                    
+                    RowBox[{"tower", "\[LeftDoubleBracket]", "j", 
+                    "\[RightDoubleBracket]"}]}], ";", 
+                    RowBox[{"If", "[", 
+                    RowBox[{
+                    RowBox[{
+                    
+                    RowBox[{"e", "\[LeftDoubleBracket]", "3", 
+                    "\[RightDoubleBracket]"}], "\[Equal]", "0"}], ",", 
+                    RowBox[{"evMap", "=", 
+                    RowBox[{"Join", "[", 
+                    RowBox[{"evMap", ",", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    
+                    RowBox[{"e", "\[LeftDoubleBracket]", "1", 
+                    "\[RightDoubleBracket]"}], "\[Rule]", 
+                    SuperscriptBox[
+                    
+                    RowBox[{"e", "\[LeftDoubleBracket]", "2", 
+                    "\[RightDoubleBracket]"}], 
+                    RowBox[{"IndexName", "[", "0", "]"}]]}], "}"}]}], 
+                    "]"}]}]}], "]"}], ";"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"j", ",", "2", ",", "t"}], "}"}]}], "]"}], ";", 
+                    RowBox[{"Do", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"e", "=", 
+                    RowBox[{"tower", "\[LeftDoubleBracket]", 
+                    RowBox[{"j", "+", "t"}], "\[RightDoubleBracket]"}]}], ";", 
+                    RowBox[{"If", "[", 
+                    RowBox[{
+                    RowBox[{
+                    
+                    RowBox[{"e", "\[LeftDoubleBracket]", "3", 
+                    "\[RightDoubleBracket]"}], "\[Equal]", "0"}], ",", 
+                    RowBox[{"evMap", "=", 
+                    RowBox[{"Join", "[", 
+                    RowBox[{"evMap", ",", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    
+                    RowBox[{"e", "\[LeftDoubleBracket]", "1", 
+                    "\[RightDoubleBracket]"}], "\[Rule]", 
+                    RowBox[{"SigmaProduct", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"TSigma", "[", 
+                    RowBox[{
+                    
+                    RowBox[{"e", "\[LeftDoubleBracket]", "2", 
+                    "\[RightDoubleBracket]"}], ",", 
+                    RowBox[{"-", "1"}], ",", "tower"}], "]"}], "/.", 
+                    "\[VeryThinSpace]", 
+                    RowBox[{"(", 
+                    RowBox[{"evMap", "/.", "\[VeryThinSpace]", 
+                    RowBox[{
+                    RowBox[{"IndexName", "[", "0", "]"}], "\[Rule]", 
+                    RowBox[{"IndexName", "[", "j", "]"}]}]}], ")"}]}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"IndexName", "[", "j", "]"}], ",", 
+                    
+                    RowBox[{"lowBounds", "\[LeftDoubleBracket]", "j", 
+                    "\[RightDoubleBracket]"}], ",", 
+                    RowBox[{"IndexName", "[", "0", "]"}]}], "}"}]}], "]"}]}], 
+                    "}"}]}], "]"}]}], ",", 
+                    RowBox[{"Print", "[", 
+                    RowBox[{"\"Fail to build evaluation map with \"", ",", 
+                    RowBox[{"tower", "\[LeftDoubleBracket]", 
+                    RowBox[{"j", "+", "t"}], "\[RightDoubleBracket]"}]}], 
+                    "]"}]}], "]"}]}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"j", ",", "1", ",", "l"}], "}"}]}], "]"}], ";", 
+                    "evMap"}]}], "]"}]}]}, {" "}}, 
+                  GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                  DefaultBaseStyle -> "Column", 
+                  GridBoxItemSize -> {
+                   "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}]},
+                "RowDefault"]}
+             },
+             DefaultBaseStyle->"Column",
+             GridBoxAlignment->{"Columns" -> {{Left}}},
+             
+             GridBoxItemSize->{
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+            "Column"],
+           FrameMargins->{{6, 0}, {3, 6}}], "\<\"\"\>"},
+         {
+          PaneBox[GridBox[{
+             {
+              DynamicModuleBox[{System`InformationDump`open$$ = {
+               False, False, False, False, False, False}}, 
+               StyleBox[GridBox[{
+                  {
+                   TagBox[
+                    TooltipBox[
+                    StyleBox["\<\" Full Name\"\>", "InformationRowLabel",
+                    StripOnInput->False],
+                    "\"FullName\"",
+                    TooltipStyle->"TextStyling"],
+                    
+                    Annotation[#, "FullName", 
+                    "Tooltip"]& ], "\<\"Global`BuildEvMap\"\>"}
+                 },
+                 AutoDelete->False,
+                 GridBoxAlignment->{"Columns" -> {Right, Left}},
+                 GridBoxDividers->None,
+                 GridBoxItemSize->{"Columns" -> {Automatic, Automatic}},
+                 GridBoxSpacings->{"Columns" -> {
+                    Offset[0.27999999999999997`], {
+                    Offset[0.5599999999999999]}, 
+                    Offset[0.27999999999999997`]}, "Rows" -> {
+                    Offset[0.2], {
+                    Offset[0.8]}, 
+                    Offset[0.2]}}], "DialogStyle",
+                StripOnInput->False],
+               DynamicModuleValues:>{}]}
+            },
+            DefaultBaseStyle->"Column",
+            GridBoxAlignment->{"Columns" -> {{Left}}},
+            GridBoxDividers->{"Columns" -> {{False}}, "Rows" -> {{False}}},
+            
+            GridBoxItemSize->{
+             "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.5599999999999999]}, 
+                Offset[0.27999999999999997`]}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[3.6]}, 
+                Offset[0.2]}}],
+           FrameMargins->{{6, 6}, {6, 3}}], ""},
+         {
+          ItemBox[
+           TagBox[
+            ButtonBox[
+             PaneSelectorBox[{False->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "UpPointerOpener"]], True->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "UpPointerOpenerHot"]]}, Dynamic[
+              System`InformationDump`mouseOver$$]],
+             Alignment->Left,
+             Appearance->{"Default" -> None},
+             
+             ButtonFunction:>FEPrivate`Set[
+              System`InformationDump`open$$, False],
+             Evaluator->Automatic,
+             FrameMargins->{{9, 0}, {0, 0}},
+             ImageMargins->0,
+             ImageSize->Full,
+             Method->"Preemptive"],
+            
+            EventHandlerTag[{
+             "MouseEntered" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, True], 
+              "MouseExited" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, False], 
+              Method -> "Preemptive", PassEventsDown -> Automatic, 
+              PassEventsUp -> True}]],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], "\[SpanFromLeft]"}
+        },
+        AutoDelete->False,
+        FrameStyle->Directive[
+          GrayLevel[0.8], 
+          Thickness[Tiny]],
+        GridBoxAlignment->{"Columns" -> {Left, Right}, "Rows" -> {{Center}}},
+        GridBoxDividers->{
+         "Columns" -> {{None}}, "Rows" -> {False, {True}, False}},
+        GridBoxItemSize->{
+         "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+       "Grid"], False->
+      TagBox[GridBox[{
+         {
+          ItemBox[
+           PaneBox[
+            StyleBox["\<\" Symbol\"\>", "InformationTitleText",
+             StripOnInput->False],
+            FrameMargins->{{4, 0}, {-1, 1}}],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           PaneBox[
+            
+            StyleBox["\<\"Arguments:\\n* tower_: list of elements {t,a,b} \
+such that Tsigma[t]=at+b with p-monomials in the end,\\n* lowBounds_: \
+starting indices for evaluations of tower's p-monomials,\\nReturns: a mapping \
+of monomials towards elements of the field depending on IndexName[0] \
+(=unkmown evaluation value).\"\>", "InformationUsageText",
+             StripOnInput->False,
+             LineSpacing->{1.5, 1.5, 3.}],
+            FrameMargins->{{10, 10}, {8, 10}}],
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           TagBox[
+            ButtonBox[
+             PaneSelectorBox[{False->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "DownPointerOpener"],
+               ImageSizeCache->{10., {3., 7.}}], True->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "DownPointerOpenerHot"],
+               ImageSizeCache->{10., {3., 7.}}]}, Dynamic[
+              System`InformationDump`mouseOver$$]],
+             Alignment->Left,
+             Appearance->{"Default" -> None},
+             
+             ButtonFunction:>FEPrivate`Set[
+              System`InformationDump`open$$, True],
+             Evaluator->Automatic,
+             FrameMargins->{{9, 0}, {0, 0}},
+             ImageMargins->0,
+             ImageSize->Full,
+             Method->"Preemptive"],
+            
+            EventHandlerTag[{
+             "MouseEntered" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, True], 
+              "MouseExited" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, False], 
+              Method -> "Preemptive", PassEventsDown -> Automatic, 
+              PassEventsUp -> True}]],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], "\[SpanFromLeft]"}
+        },
+        AutoDelete->False,
+        FrameStyle->Directive[
+          GrayLevel[0.8], 
+          Thickness[Tiny]],
+        GridBoxAlignment->{"Columns" -> {Left, Right}, "Rows" -> {{Center}}},
+        GridBoxDividers->{
+         "Columns" -> {{None}}, "Rows" -> {False, {True}, False}},
+        GridBoxItemSize->{
+         "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+       "Grid"]}, Dynamic[System`InformationDump`open$$],
+      BaselinePosition->Baseline,
+      FrameMargins->0,
+      ImageSize->Automatic],
+     DynamicModuleValues:>{}],
+    BaseStyle->"InformationGridFrame",
+    StripOnInput->False], "InformationGridPlain",
+   StripOnInput->False],
+  InformationData[<|
+   "ObjectType" -> "Symbol", "Usage" -> 
+    "Arguments:\n* tower_: list of elements {t,a,b} such that Tsigma[t]=at+b \
+with p-monomials in the end,\n* lowBounds_: starting indices for evaluations \
+of tower's p-monomials,\nReturns: a mapping of monomials towards elements of \
+the field depending on IndexName[0] (=unkmown evaluation value).", 
+    "Documentation" -> None, "OwnValues" -> None, "UpValues" -> None, 
+    "DownValues" -> 
+    Information`InformationValueForm[
+     DownValues, $CellContext`BuildEvMap, {$CellContext`BuildEvMap[
+         Pattern[$CellContext`tower, 
+          Blank[]], 
+         Pattern[$CellContext`lowBounds, 
+          Blank[]]] :> 
+       Module[{$CellContext`l, $CellContext`t, $CellContext`evMap, \
+$CellContext`e}, $CellContext`l = 
+          Length[$CellContext`lowBounds]; $CellContext`t = 
+          Length[$CellContext`tower] - $CellContext`l; $CellContext`evMap = \
+{}; $CellContext`e = Part[$CellContext`tower, 1]; If[
+           And[
+           Part[$CellContext`e, 2] == 1, Part[$CellContext`e, 3] != 
+            0], $CellContext`evMap = 
+           Join[$CellContext`evMap, {
+             Part[$CellContext`e, 1] -> 
+              Part[$CellContext`e, 3] 
+               Sigma`Summation`SumProducts`IndexName[0]}]]; 
+         Do[$CellContext`e = Part[$CellContext`tower, $CellContext`j]; 
+           If[Part[$CellContext`e, 3] == 0, $CellContext`evMap = 
+             Join[$CellContext`evMap, {
+               Part[$CellContext`e, 1] -> 
+                Part[$CellContext`e, 2]^
+                 Sigma`Summation`SumProducts`IndexName[0]}]]; 
+           Null, {$CellContext`j, 2, $CellContext`t}]; 
+         Do[$CellContext`e = 
+            Part[$CellContext`tower, $CellContext`j + $CellContext`t]; 
+           If[Part[$CellContext`e, 3] == 0, $CellContext`evMap = 
+             Join[$CellContext`evMap, {
+               Part[$CellContext`e, 1] -> 
+                Sigma`Summation`SumProducts`SigmaProduct[
+                  ReplaceAll[
+                   Sigma`DifferenceFields`BasicTools`DFInterface`TSigma[
+                    Part[$CellContext`e, 2], -1, $CellContext`tower], 
+                   
+                   ReplaceAll[$CellContext`evMap, 
+                    Sigma`Summation`SumProducts`IndexName[0] -> 
+                    Sigma`Summation`SumProducts`IndexName[$CellContext`j]]], {
+                  
+                   Sigma`Summation`SumProducts`IndexName[$CellContext`j], 
+                   Part[$CellContext`lowBounds, $CellContext`j], 
+                   Sigma`Summation`SumProducts`IndexName[0]}]}], 
+             Print["Fail to build evaluation map with ", 
+              
+              Part[$CellContext`tower, $CellContext`j + $CellContext`t]]], \
+{$CellContext`j, 1, $CellContext`l}]; $CellContext`evMap]}], "SubValues" -> 
+    None, "DefaultValues" -> None, "NValues" -> None, "FormatValues" -> None, 
+    "Options" -> None, "Attributes" -> {}, "FullName" -> 
+    "Global`BuildEvMap"|>, False]]], "Output",
+ CellChangeTimes->{{3.863249658094842*^9, 3.8632496686396513`*^9}, 
+   3.863250909293827*^9},
+ CellLabel->
+  "Out[291]=",ExpressionUUID->"15f882c8-34c5-45ea-80c0-a58519a664aa"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Ev", "[", 
+   RowBox[{
+   "listelt_", ",", " ", "n_", ",", " ", "tower_", ",", " ", "bounds_", ",", 
+    RowBox[{"verbose_", ":", "False"}]}], "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"evMap", ",", "i", ",", "r", ",", "outputlist"}], "}"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"r", "=", 
+      RowBox[{"Length", "[", "listelt", "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"outputlist", "=", 
+      RowBox[{"ConstantArray", "[", 
+       RowBox[{"1", ",", "r"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"evMap", "=", 
+      RowBox[{"BuildEvMap", "[", 
+       RowBox[{"tower", ",", "bounds"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     
+     RowBox[{"If", "[", 
+      RowBox[{"verbose", ",", 
+       RowBox[{"Print", "[", "evMap", "]"}]}], "]"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Do", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{"outputlist", "[", 
+          RowBox[{"[", "i", "]"}], "]"}], "=", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"listelt", "[", 
+            RowBox[{"[", "i", "]"}], "]"}], "/.", "evMap"}], ")"}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"outputlist", "[", 
+          RowBox[{"[", "i", "]"}], "]"}], "=", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"outputlist", "[", 
+            RowBox[{"[", "i", "]"}], "]"}], "/.", 
+           RowBox[{
+            RowBox[{"IndexName", "[", "0", "]"}], "->", " ", "n"}]}], ")"}]}],
+         ";"}], "\[IndentingNewLine]", ",", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", "1", ",", "r"}], "}"}]}], "]"}], ";", 
+     "\[IndentingNewLine]", "outputlist"}]}], "\[IndentingNewLine]", 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.863174350072495*^9, 3.863174460818862*^9}, {
+   3.863246013349475*^9, 3.863246020133326*^9}, {3.8632461201058493`*^9, 
+   3.863246248948414*^9}, {3.863246396560913*^9, 3.8632464218354197`*^9}, {
+   3.863246525530857*^9, 3.863246527019086*^9}, {3.8632465616582317`*^9, 
+   3.8632465657063704`*^9}, {3.863246628500477*^9, 3.863246740521508*^9}, {
+   3.8632477992956333`*^9, 3.863247821481203*^9}, {3.863248869458435*^9, 
+   3.863248917387456*^9}, {3.863250886889374*^9, 3.863250887222753*^9}, {
+   3.8632518060019712`*^9, 3.8632518315932493`*^9}, {3.8632541323583393`*^9, 
+   3.863254132770483*^9}, 3.863254271865487*^9, 3.8632568662971907`*^9, {
+   3.8637692173584423`*^9, 3.86376922482408*^9}},
+ CellLabel->"In[39]:=",ExpressionUUID->"07178912-171d-4694-b133-c1e385bcafe2"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"SingleEv", "[", 
+   RowBox[{
+   "elt_", ",", " ", "n_", ",", " ", "tower_", ",", " ", "bounds_", ",", 
+    RowBox[{"verbose_", ":", "False"}]}], "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"evMap", ",", "output"}], "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"output", "=", "1"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"evMap", "=", 
+      RowBox[{"BuildEvMap", "[", 
+       RowBox[{"tower", ",", "bounds"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     
+     RowBox[{"If", "[", 
+      RowBox[{"verbose", ",", 
+       RowBox[{"Print", "[", "evMap", "]"}]}], "]"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"output", "=", 
+      RowBox[{"elt", "/.", "evMap"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"output", "=", 
+      RowBox[{"output", "/.", 
+       RowBox[{
+        RowBox[{"IndexName", "[", "0", "]"}], "->", " ", "n"}]}]}], ";", 
+     "\[IndentingNewLine]", "output"}]}], "\[IndentingNewLine]", 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.86377687588759*^9, 3.863776969302802*^9}, {
+  3.8637770613537283`*^9, 3.863777068117923*^9}},
+ CellLabel->"In[69]:=",ExpressionUUID->"bdd9b7cd-6068-40fd-98bb-c1958121e0f2"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Ev", "::", "usage"}], "=", 
+  "\"\<Arguments:\n* listelt_: list of elements in the tower-extension of a \
+field,\n* n_: positive integer, \n* tower_: list of elements {t,a,b} such \
+that Tsigma[t]=at+b with p-monomials in the end, \n* bounds_: starting \
+indices for evaluations of tower's p-monomials]\nOptional arguments:\n* \
+showMap_: boolean (default False) - if True, the mapping corresponding to the \
+evaluation before the specification of n_ is displayed \nReturns: the \
+evaluations in n_ of elements of listelt_ with respect to tower_.\>\""}]], \
+"Input",
+ CellChangeTimes->{{3.863248135879384*^9, 3.863248579852623*^9}, {
+   3.863248613796864*^9, 3.863248644004134*^9}, {3.863248677324294*^9, 
+   3.8632486996600323`*^9}, {3.863248730491568*^9, 3.863248732883593*^9}, {
+   3.863248925306953*^9, 3.8632490188664637`*^9}, {3.863249109435512*^9, 
+   3.863249124913783*^9}, {3.863249225049776*^9, 3.863249237393117*^9}, 
+   3.8632493451122913`*^9, {3.863249401273056*^9, 3.86324942283178*^9}, {
+   3.863249487152294*^9, 3.863249490343451*^9}, 3.863250205658945*^9, {
+   3.863250573762011*^9, 3.8632505742964697`*^9}, {3.863250883182764*^9, 
+   3.863250884133872*^9}},
+ CellLabel->
+  "In[293]:=",ExpressionUUID->"dfdfc7c2-9958-414b-8fc9-61fc9871d5c6"],
+
+Cell[BoxData["\<\"Arguments:\\n* listelt_: list of elements in the \
+tower-extension of a field,\\n* n_: positive integer, \\n* tower_: list of \
+elements {t,a,b} such that Tsigma[t]=at+b with p-monomials in the end, \\n* \
+bounds_: starting indices for evaluations of tower's p-monomials]\\nOptional \
+arguments:\\n* showMap_: boolean (default False) - if True, the mapping \
+corresponding to the evaluation before the specification of n_ is displayed \
+\\nReturns: the evaluations in n_ of elements of listelt_ with respect to \
+tower_.\"\>"], "Output",
+ CellChangeTimes->{{3.8632491104113626`*^9, 3.863249126264124*^9}, 
+   3.863249238490233*^9, 3.863249349393724*^9, {3.863249412798772*^9, 
+   3.863249423250442*^9}, 3.86324949085598*^9, 3.863250206255806*^9, 
+   3.8632505762540703`*^9, 3.863250918425715*^9},
+ CellLabel->
+  "Out[293]=",ExpressionUUID->"db7420bf-21a4-420e-92aa-58a945075aee"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"?", "Ev"}]], "Input",
+ CellChangeTimes->{{3.863248752098052*^9, 3.863248764338773*^9}, {
+  3.8632496909172688`*^9, 3.863249693845088*^9}, {3.863250879266509*^9, 
+  3.863250879677643*^9}},
+ CellLabel->
+  "In[294]:=",ExpressionUUID->"6abcdec7-b856-44eb-a816-5a0e1a7656c0"],
+
+Cell[BoxData[
+ InterpretationBox[
+  StyleBox[
+   FrameBox[
+    DynamicModuleBox[{System`InformationDump`open$$ = False, 
+     System`InformationDump`mouseOver$$ = False}, 
+     PaneSelectorBox[{True->
+      TagBox[GridBox[{
+         {
+          ItemBox[
+           PaneBox[
+            StyleBox["\<\" Symbol\"\>", "InformationTitleText",
+             StripOnInput->False,
+             BaseStyle -> None],
+            FrameMargins->{{4, 0}, {-1, 1}}],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           PaneBox[
+            
+            StyleBox["\<\"Arguments:\\n* listelt_: list of elements in the \
+tower-extension of a field,\\n* n_: positive integer, \\n* tower_: list of \
+elements {t,a,b} such that Tsigma[t]=at+b with p-monomials in the end, \\n* \
+bounds_: starting indices for evaluations of tower's p-monomials]\\nOptional \
+arguments:\\n* showMap_: boolean (default False) - if True, the mapping \
+corresponding to the evaluation before the specification of n_ is displayed \
+\\nReturns: the evaluations in n_ of elements of listelt_ with respect to \
+tower_.\"\>", "InformationUsageText",
+             StripOnInput->False,
+             LineSpacing->{1.5, 1.5, 3.}],
+            FrameMargins->{{10, 10}, {8, 10}}],
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False]},
+         {
+          PaneBox[
+           TagBox[GridBox[{
+              {
+               StyleBox[
+                TagBox[
+                 TooltipBox[
+                  StyleBox["\<\" Definitions\"\>", "InformationRowLabel",
+                   StripOnInput->False],
+                  "\"Definitions\"",
+                  TooltipStyle->"TextStyling"],
+                 Annotation[#, "Definitions", "Tooltip"]& ], "DialogStyle",
+                StripOnInput->False]},
+              {
+               TemplateBox[{"\"\[ThinSpace]\"", 
+                 GridBox[{{
+                    RowBox[{
+                    RowBox[{"Ev", "[", 
+                    
+                    RowBox[{
+                    "listelt_", ",", "n_", ",", "tower_", ",", "bounds_", ",", 
+                    RowBox[{"showMap_", ":", "False"}]}], "]"}], ":=", 
+                    RowBox[{"Module", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"evMap", ",", "i", ",", "r", ",", "outputlist"}], 
+                    "}"}], ",", 
+                    RowBox[{
+                    RowBox[{"r", "=", 
+                    RowBox[{"Length", "[", "listelt", "]"}]}], ";", 
+                    RowBox[{"outputlist", "=", 
+                    RowBox[{"ConstantArray", "[", 
+                    RowBox[{"1", ",", "r"}], "]"}]}], ";", 
+                    RowBox[{"evMap", "=", 
+                    RowBox[{"buildEvMap", "[", 
+                    RowBox[{"tower", ",", "bounds"}], "]"}]}], ";", 
+                    RowBox[{"If", "[", 
+                    RowBox[{"showMap", ",", 
+                    RowBox[{"Print", "[", "evMap", "]"}]}], "]"}], ";", 
+                    RowBox[{"Do", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{
+                    
+                    RowBox[{"outputlist", "\[LeftDoubleBracket]", "i", 
+                    "\[RightDoubleBracket]"}], "=", 
+                    RowBox[{
+                    
+                    RowBox[{"listelt", "\[LeftDoubleBracket]", "i", 
+                    "\[RightDoubleBracket]"}], "/.", "\[VeryThinSpace]", 
+                    "evMap"}]}], ";", 
+                    RowBox[{
+                    
+                    RowBox[{"outputlist", "\[LeftDoubleBracket]", "i", 
+                    "\[RightDoubleBracket]"}], "=", 
+                    RowBox[{
+                    
+                    RowBox[{"outputlist", "\[LeftDoubleBracket]", "i", 
+                    "\[RightDoubleBracket]"}], "/.", "\[VeryThinSpace]", 
+                    RowBox[{
+                    RowBox[{"IndexName", "[", "0", "]"}], "\[Rule]", 
+                    "n"}]}]}], ";"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"i", ",", "1", ",", "r"}], "}"}]}], "]"}], ";", 
+                    "outputlist"}]}], "]"}]}]}, {" "}}, 
+                  GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                  DefaultBaseStyle -> "Column", 
+                  GridBoxItemSize -> {
+                   "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}]},
+                "RowDefault"]}
+             },
+             DefaultBaseStyle->"Column",
+             GridBoxAlignment->{"Columns" -> {{Left}}},
+             
+             GridBoxItemSize->{
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+            "Column"],
+           FrameMargins->{{6, 0}, {3, 6}}], "\<\"\"\>"},
+         {
+          PaneBox[GridBox[{
+             {
+              
+              DynamicModuleBox[{System`InformationDump`open$$ = {
+               False, False, False, False, False, False}}, 
+               StyleBox[GridBox[{
+                  {
+                   TagBox[
+                    TooltipBox[
+                    StyleBox["\<\" Full Name\"\>", "InformationRowLabel",
+                    StripOnInput->False],
+                    "\"FullName\"",
+                    TooltipStyle->"TextStyling"],
+                    
+                    Annotation[#, "FullName", 
+                    "Tooltip"]& ], "\<\"Global`Ev\"\>"}
+                 },
+                 AutoDelete->False,
+                 GridBoxAlignment->{"Columns" -> {Right, Left}},
+                 GridBoxDividers->None,
+                 GridBoxItemSize->{"Columns" -> {Automatic, Automatic}},
+                 GridBoxSpacings->{"Columns" -> {
+                    Offset[0.27999999999999997`], {
+                    Offset[0.5599999999999999]}, 
+                    Offset[0.27999999999999997`]}, "Rows" -> {
+                    Offset[0.2], {
+                    Offset[0.8]}, 
+                    Offset[0.2]}}], "DialogStyle",
+                StripOnInput->False],
+               DynamicModuleValues:>{}]}
+            },
+            DefaultBaseStyle->"Column",
+            GridBoxAlignment->{"Columns" -> {{Left}}},
+            GridBoxDividers->{"Columns" -> {{False}}, "Rows" -> {{False}}},
+            
+            GridBoxItemSize->{
+             "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.5599999999999999]}, 
+                Offset[0.27999999999999997`]}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[3.6]}, 
+                Offset[0.2]}}],
+           FrameMargins->{{6, 6}, {6, 3}}], ""},
+         {
+          ItemBox[
+           TagBox[
+            ButtonBox[
+             PaneSelectorBox[{False->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "UpPointerOpener"]], True->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "UpPointerOpenerHot"]]}, Dynamic[
+              System`InformationDump`mouseOver$$]],
+             Alignment->Left,
+             Appearance->{"Default" -> None},
+             
+             ButtonFunction:>FEPrivate`Set[
+              System`InformationDump`open$$, False],
+             Evaluator->Automatic,
+             FrameMargins->{{9, 0}, {0, 0}},
+             ImageMargins->0,
+             ImageSize->Full,
+             Method->"Preemptive"],
+            
+            EventHandlerTag[{
+             "MouseEntered" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, True], 
+              "MouseExited" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, False], 
+              Method -> "Preemptive", PassEventsDown -> Automatic, 
+              PassEventsUp -> True}]],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], "\[SpanFromLeft]"}
+        },
+        AutoDelete->False,
+        FrameStyle->Directive[
+          GrayLevel[0.8], 
+          Thickness[Tiny]],
+        GridBoxAlignment->{"Columns" -> {Left, Right}, "Rows" -> {{Center}}},
+        GridBoxDividers->{
+         "Columns" -> {{None}}, "Rows" -> {False, {True}, False}},
+        GridBoxItemSize->{
+         "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+       "Grid"], False->
+      TagBox[GridBox[{
+         {
+          ItemBox[
+           PaneBox[
+            StyleBox["\<\" Symbol\"\>", "InformationTitleText",
+             StripOnInput->False],
+            FrameMargins->{{4, 0}, {-1, 1}}],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           PaneBox[
+            
+            StyleBox["\<\"Arguments:\\n* listelt_: list of elements in the \
+tower-extension of a field,\\n* n_: positive integer, \\n* tower_: list of \
+elements {t,a,b} such that Tsigma[t]=at+b with p-monomials in the end, \\n* \
+bounds_: starting indices for evaluations of tower's p-monomials]\\nOptional \
+arguments:\\n* showMap_: boolean (default False) - if True, the mapping \
+corresponding to the evaluation before the specification of n_ is displayed \
+\\nReturns: the evaluations in n_ of elements of listelt_ with respect to \
+tower_.\"\>", "InformationUsageText",
+             StripOnInput->False,
+             LineSpacing->{1.5, 1.5, 3.}],
+            FrameMargins->{{10, 10}, {8, 10}}],
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           TagBox[
+            ButtonBox[
+             PaneSelectorBox[{False->
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "DownPointerOpener"],
+               ImageSizeCache->{10., {3., 7.}}], True->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "DownPointerOpenerHot"],
+               ImageSizeCache->{10., {3., 7.}}]}, Dynamic[
+              System`InformationDump`mouseOver$$]],
+             Alignment->Left,
+             Appearance->{"Default" -> None},
+             
+             ButtonFunction:>FEPrivate`Set[
+              System`InformationDump`open$$, True],
+             Evaluator->Automatic,
+             FrameMargins->{{9, 0}, {0, 0}},
+             ImageMargins->0,
+             ImageSize->Full,
+             Method->"Preemptive"],
+            
+            EventHandlerTag[{
+             "MouseEntered" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, True], 
+              "MouseExited" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, False], 
+              Method -> "Preemptive", PassEventsDown -> Automatic, 
+              PassEventsUp -> True}]],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], "\[SpanFromLeft]"}
+        },
+        AutoDelete->False,
+        FrameStyle->Directive[
+          GrayLevel[0.8], 
+          Thickness[Tiny]],
+        GridBoxAlignment->{"Columns" -> {Left, Right}, "Rows" -> {{Center}}},
+        GridBoxDividers->{
+         "Columns" -> {{None}}, "Rows" -> {False, {True}, False}},
+        GridBoxItemSize->{
+         "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+       "Grid"]}, Dynamic[System`InformationDump`open$$],
+      BaselinePosition->Baseline,
+      FrameMargins->0,
+      ImageSize->Automatic],
+     DynamicModuleValues:>{}],
+    BaseStyle->"InformationGridFrame",
+    StripOnInput->False], "InformationGridPlain",
+   StripOnInput->False],
+  InformationData[<|
+   "ObjectType" -> "Symbol", "Usage" -> 
+    "Arguments:\n* listelt_: list of elements in the tower-extension of a \
+field,\n* n_: positive integer, \n* tower_: list of elements {t,a,b} such \
+that Tsigma[t]=at+b with p-monomials in the end, \n* bounds_: starting \
+indices for evaluations of tower's p-monomials]\nOptional arguments:\n* \
+showMap_: boolean (default False) - if True, the mapping corresponding to the \
+evaluation before the specification of n_ is displayed \nReturns: the \
+evaluations in n_ of elements of listelt_ with respect to tower_.", 
+    "Documentation" -> None, "OwnValues" -> None, "UpValues" -> None, 
+    "DownValues" -> 
+    Information`InformationValueForm[
+     DownValues, $CellContext`Ev, {$CellContext`Ev[
+         Pattern[$CellContext`listelt, 
+          Blank[]], 
+         Pattern[$CellContext`n, 
+          Blank[]], 
+         Pattern[$CellContext`tower, 
+          Blank[]], 
+         Pattern[$CellContext`bounds, 
+          Blank[]], 
+         Optional[
+          Pattern[$CellContext`showMap, 
+           Blank[]], False]] :> 
+       Module[{$CellContext`evMap, $CellContext`i, $CellContext`r, \
+$CellContext`outputlist}, $CellContext`r = 
+          Length[$CellContext`listelt]; $CellContext`outputlist = 
+          ConstantArray[
+           1, $CellContext`r]; $CellContext`evMap = \
+$CellContext`buildEvMap[$CellContext`tower, $CellContext`bounds]; 
+         If[$CellContext`showMap, 
+           Print[$CellContext`evMap]]; 
+         Do[Part[$CellContext`outputlist, $CellContext`i] = ReplaceAll[
+              Part[$CellContext`listelt, $CellContext`i], $CellContext`evMap]; 
+           Part[$CellContext`outputlist, $CellContext`i] = ReplaceAll[
+              Part[$CellContext`outputlist, $CellContext`i], 
+              Sigma`Summation`SumProducts`IndexName[0] -> $CellContext`n]; 
+           Null, {$CellContext`i, 
+            1, $CellContext`r}]; $CellContext`outputlist]}], "SubValues" -> 
+    None, "DefaultValues" -> None, "NValues" -> None, "FormatValues" -> None, 
+    "Options" -> None, "Attributes" -> {}, "FullName" -> "Global`Ev"|>, 
+   False]]], "Output",
+ CellChangeTimes->{3.863249694629208*^9, 3.863250921540883*^9},
+ CellLabel->
+  "Out[294]=",ExpressionUUID->"b57f9570-85ad-4912-a85f-913b391dc6f1"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{512.25, 764.25},
+WindowMargins->{{231.75, Automatic}, {3.75, Automatic}},
+FrontEndVersion->"13.0 for Linux x86 (64-bit) (December 2, 2021)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"9ba87189-37e2-42c3-aa6d-9486e5bb58a0"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 197, 3, 29, "Input",ExpressionUUID->"796ba272-e485-4ff4-a318-5436f51a0077"],
+Cell[780, 27, 240, 5, 44, "Print",ExpressionUUID->"9f4110de-5da7-4188-ad94-fa2d688c6973"],
+Cell[1023, 34, 157, 2, 33, "Output",ExpressionUUID->"ed7f258e-0687-4a75-8275-7ed174cdeb60"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1217, 41, 211, 3, 45, "Subsubsection",ExpressionUUID->"c073ee33-b830-4353-9a28-287876ae3828"],
+Cell[1431, 46, 7889, 175, 761, "Input",ExpressionUUID->"bf513861-4339-4ac6-86f2-3fd08ab4fbc9"],
+Cell[CellGroupData[{
+Cell[9345, 225, 747, 13, 174, "Input",ExpressionUUID->"5d505532-8672-4f40-b20e-b7448c204e02"],
+Cell[10095, 240, 531, 8, 178, "Output",ExpressionUUID->"a8da2b5d-2c40-452a-9219-2a49d1b66d61"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[10663, 253, 253, 5, 29, "Input",ExpressionUUID->"fee6f24e-14dd-46b2-ba9f-cf2d6a3127a2"],
+Cell[10919, 260, 18219, 421, 251, "Output",ExpressionUUID->"15f882c8-34c5-45ea-80c0-a58519a664aa"]
+}, Open  ]],
+Cell[29153, 684, 2617, 60, 278, "Input",ExpressionUUID->"07178912-171d-4694-b133-c1e385bcafe2"],
+Cell[31773, 746, 1224, 30, 225, "Input",ExpressionUUID->"bdd9b7cd-6068-40fd-98bb-c1958121e0f2"],
+Cell[CellGroupData[{
+Cell[33022, 780, 1293, 21, 339, "Input",ExpressionUUID->"dfdfc7c2-9958-414b-8fc9-61fc9871d5c6"],
+Cell[34318, 803, 897, 13, 302, "Output",ExpressionUUID->"db7420bf-21a4-420e-92aa-58a945075aee"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[35252, 821, 294, 6, 29, "Input",ExpressionUUID->"6abcdec7-b856-44eb-a816-5a0e1a7656c0"],
+Cell[35549, 829, 14320, 334, 365, "Output",ExpressionUUID->"b57f9570-85ad-4912-a85f-913b391dc6f1"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
