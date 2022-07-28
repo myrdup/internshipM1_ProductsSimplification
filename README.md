@@ -32,7 +32,9 @@ The code is split into 4 parts, to which a fifth part generating test cases is a
 
 All parts are dependant on package Sigma by C. Schneider. To access it, you should ask RISC here https://www3.risc.jku.at/research/combinat/software/Sigma/.
 Please note the following further dependancies (-> stands for "required for"): 
+
 1 -> 2,3,4
+
 2,3 -> 4
 
 # Contents
