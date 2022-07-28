@@ -1,5 +1,4 @@
-# README SetOfProductsReduce
-----------------------------
+Project: Efficient representation for a finite set of products
 
 Author: Myriam DUPRAZ, intern for 3 months (May-July 2022) at RISC (Linz, Austria), 
 
