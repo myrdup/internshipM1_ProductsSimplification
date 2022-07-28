@@ -1,8 +1,11 @@
-README SetOfProductsReduce
 ----------------------------
-Author: Myriam DUPRAZ, intern for 3 months (May-July 2022) at RISC (Linz, Austria)
+## README SetOfProductsReduce
+----------------------------
+Author: Myriam DUPRAZ, intern for 3 months (May-July 2022) at RISC (Linz, Austria), supervised by Carsten SCHNEIDER
 ----------------------------
 Date: July 2022
+----------------------------
+Language: Mathematica
 ----------------------------
 
 # Purpose
@@ -10,7 +13,13 @@ The code aims at helping the user representing products efficiently. Products ar
 such that alpha belongs to some rational field  Z(x,y_i...).
 and TSigma[p[i]]/p[i]= alpha.
 
-# Organisation and dependencies
+# Organisation of the project
+The project contains three directories:
+* code/ contains files.nb of Mathematica code,ready to use
+* text-of-the-code/ contains files.txt with the exact Mathematica code, ready to copy/paste, impossible to run rightaway, but possible to read without need of Mathematica software 
+* tests/ contains files.txt with texts inputs ready to copy/paste in a Mathematica sheet, and files.pdf with some examples of inputs and outputs
+
+# Organisation of the code and dependancies
 The code is split into 4 parts, to which a fifth part generating test cases is added.
 1. Evaluation
 2. SetReduce
@@ -18,7 +27,7 @@ The code is split into 4 parts, to which a fifth part generating test cases is a
 4. CombSetDegReduce
 5. genRandomTest
 
-All parts are dependant on package Sigma by C. Schneider. 
+All parts are dependant on package Sigma by C. Schneider. To access it, you should ask RISC here https://www3.risc.jku.at/research/combinat/software/Sigma/.
 Please note the following further dependancies (-> stands for "required for"): 
 1 -> 2,3,4
 2,3 -> 4
@@ -38,3 +47,14 @@ see the information associated to every function with ?NameOfFunction
 # Test design
 Test files .txt are available to get inputs for every function
 Test files .pdf contain some examples with their outputs
+
+# References
+The algorithm used for Evaluation is built from [1].
+The algorithm implemented in SetReduce comes from [2].
+The algorithms implemented in SynchroDegReduce rely on [3], with notions previously introduced by [4] and [5].
+
+[1] Term algebras, canonical representations and difference ring theory for symbolic summation,author={Schneider, Carsten},booktitle={Anti-Differentiation and the Calculation of Feynman Amplitudes},pages={423--485},year={2021},publisher={Springer}
+[2] Minimal representations and algebraic relations for single nested products,author={Schneider, Carsten},journal={Programming and Computer Software},volume={46},number={2},pages={133--161},year={2020},publisher={Springer}
+[3] Product representations in $\Pi\Sigma$-fields, author={Schneider, Carsten},journal={Annals of Combinatorics},volume={9}, number={1},pages={75--99},  year={2005}, publisher={Springer}
+[4] Summation in finite terms,author={Karr, Michael},journal={Journal of the ACM (JACM)},volume={28},number={2},pages={305--350},year={1981},publisher={ACM New York, NY, USA}
+[5] Rational normal forms and minimal decompositions of hypergeometric terms,author={Abramov, Sergei A and Petkov{\v{s}}ek, Marko},journal={Journal of Symbolic Computation},volume={33},number={5},pages={521--543},year={2002},publisher={Elsevier}
