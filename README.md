@@ -1,5 +1,5 @@
 ----------------------------
-## README SetOfProductsReduce
+# README SetOfProductsReduce
 ----------------------------
 
 Author: Myriam DUPRAZ, intern for 3 months (May-July 2022) at RISC (Linz, Austria), supervised by Carsten SCHNEIDER
@@ -44,10 +44,6 @@ it of the P-monomials of the input P-extension
 
 # Howto
 see the information associated to every function with ?NameOfFunction
-
-# Test design
-Test files .txt are available to get inputs for every function
-Test files .pdf contain some examples with their outputs
 
 # References
 The algorithm used for Evaluation is built from [1].
