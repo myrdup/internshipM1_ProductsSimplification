@@ -18,9 +18,9 @@ and TSigma[p[i]]/p[i]= alpha.
 
 # Organisation of the project
 The project contains three directories:
-* code/ contains files.nb of Mathematica code,ready to use
-* text-of-the-code/ contains files.txt with the exact Mathematica code, ready to copy/paste, impossible to run rightaway, but possible to read without need of Mathematica software 
-* tests/ contains files.txt with texts inputs ready to copy/paste in a Mathematica sheet, and files.pdf with some examples of inputs and outputs
+* **code/** contains files.nb of Mathematica code,ready to use
+* **text-of-the-code/** contains files.txt with the exact Mathematica code, ready to copy/paste, impossible to run rightaway, but possible to read without need of Mathematica software 
+* **tests/** contains files.txt with texts inputs ready to copy/paste in a Mathematica sheet, and files.pdf with some examples of inputs and outputs
 
 # Organisation of the code and dependancies
 The code is split into 4 parts, to which a fifth part generating test cases is added.
@@ -38,13 +38,13 @@ Please note the following further dependancies (-> stands for "required for"):
 2,3 -> 4
 
 # Contents
-1. Evaluation : contains encoding of evaluation function, which can evaluate any element in some difference ring Z(x,y_i...)[z][p_j,p_j^-1...] described by a tower of 
+1. **Evaluation** : contains encoding of evaluation function, which can evaluate any element in some difference ring Z(x,y_i...)[z][p_j,p_j^-1...] described by a tower of 
 shape {{x,1,1},{y_i,lamda_i,0}}...,{z,rho,0},{p_j,alpha_j,0}} given with fitrst indices necessary for the evaluation of the P-mononmials.
-2. SetReduce: implementation of set's size reduction, i.e. computation of a Pi-extension of minimal size, and representations in it of the P-monomials of the input P-extension
-3. SynchroDegReduce: implementation of 2 methods for degree reduction, simple and synchronized, i.e. computation of a P-extension with P-monomial with alphas of minimal degree, and representations in 
+2. **SetReduce**: implementation of set's size reduction, i.e. computation of a Pi-extension of minimal size, and representations in it of the P-monomials of the input P-extension
+3. **SynchroDegReduce**: implementation of 2 methods for degree reduction, simple and synchronized, i.e. computation of a P-extension with P-monomial with alphas of minimal degree, and representations in 
 it of the P-monomials of the input P-extension
-4. CombSetDegReduce: implementation of 3 scenarios to get a degree-reduced AND set-reduced Pi-extension, and representations in it of the P-monomials of the input P-extension
-5. genRandomTest: function to generate valid inputs, i.e. P-extensions and valid first indices for their evaluations, with alphas in the rational; field  rational field  Z(x).
+4. **CombSetDegReduce**: implementation of 3 scenarios to get a degree-reduced AND set-reduced Pi-extension, and representations in it of the P-monomials of the input P-extension
+5. **genRandomTest**: function to generate valid inputs, i.e. P-extensions and valid first indices for their evaluations, with alphas in the rational; field  rational field  Z(x).
 
 # Howto
 see the information associated to every function with ?NameOfFunction
