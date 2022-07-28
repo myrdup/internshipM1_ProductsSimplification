@@ -1,0 +1,73 @@
+
+(* **Functions to generate tests** *)
+
+GenRat[degreeN_, degreeD_, nbr_] := 
+ Module[{num, den, coefsN, coefsD, list, i, j},
+  list = ConstantArray[1, nbr];
+  Do[
+   num = 0;
+   den = 0;
+   coefsN = Table[Random[Integer, {-199, 199}], {i, 1, degreeN + 1}];
+   coefsD = Table[Random[Integer, {-199, 199}], {i, 1, degreeD + 1}];
+   Do[
+    num = num + coefsN[[j + 1]] x^j
+    , {j, 0, degreeN}];
+   Do[
+    den = den + coefsD[[j + 1]] x^j
+    , {j, 0, degreeD}];
+   list[[i]] = num/den;
+   , {i, 1, nbr}];
+  list
+  ]
+
+GenRat::usage = "returns nbr_ rational functions in x, with numerator of degree degreeN_, and denominator of degree degreeD_, and coefficients in [[-199, 199]]"
+
+
+CombinRat[maxPow_, maxSigma_, rat_, nbr_] := 
+ Module[{l, list, powers, i, j},
+  l = Length[rat];
+  list = ConstantArray[1, nbr];
+  Do[
+   powers = 
+    Table[Random[Integer, {-maxPow, maxPow}]*Random[Integer], {i, 1, 
+      l}];
+   Print[powers];
+   Do[
+    Do[list[[i]] = 
+      list[[i]]*
+       TSigma[rat[[j]], 
+         Random[Integer, {-maxSigma, maxSigma}], {{x, 1, 1}}]^
+        Sign[powers[[j]]]
+     , {k, 1, Abs[powers[[j]]]}]
+    , {j, 1, l}];
+   , {i, 1, nbr}];
+  list
+  ]
+
+CombinRat::usage = "when rat_ is a set of rational functions f_i in x, CombinRat returns nbr_ new rational functions g_j in x, such that each g_j has every f_i as a factor: at most maxPow times, each time shifted randomly between -maxSigma and +maxSigma times, at power randomly -1 or +1"
+
+
+ComputeLowBounds[rat_] := Module[{i},
+  Table[
+   Ceiling[Max[Join[
+       Map[#[[1, 2]] &, (Solve[Denominator[rat[[i]]] == 0, x, 
+          Assumptions -> x >= 0])],
+       {-1}
+       ]]] + 2, {i, 1, Length[rat]}
+   ]
+  ]
+
+ComputeLowBounds::usage = "when rat_ is a set of rational functions f_i in x, returns a set of positive integers l_i such that f_i is defined and nonzero for all n >= l_i"
+
+
+GenInput[innbr_, outnbr_, maxdeg_, maxpow_, maxsigma_] := 
+ Module[{rat1, rat2, ext, bo2},
+  rat1 = GenRat[maxdeg, maxdeg, innbr];
+  Print[rat1];
+  rat2 = CombinRat[maxpow, maxsigma, rat1, outnbr];
+  ext = Table[{p[i], rat2[[i]], 0}, {i, 1, outnbr}];
+  bo2 = ComputeLowBounds[rat2];
+  {ext, bo2}
+  ]
+
+GenInput::usage = "computes outputnbr_ rational functions f with CombinRat[maxpow,maxsigma,...], from inputnbr_ functions generated with GenRat[maxDeg,maxDeg...]. Consequently, applying SetReduction on P-monomials p characterized by TSigma(p)=fp, reduces the set of size outputnbr_ to a set of size at most inputnbr_. Returns an extension and a set of first indices ready to be used by Set-reduction or degree-reduction functions"

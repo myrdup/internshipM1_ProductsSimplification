@@ -1,0 +1,1646 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     73479,       1638]
+NotebookOptionsPosition[     71945,       1605]
+NotebookOutlinePosition[     72346,       1621]
+CellTagsIndexPosition[     72303,       1618]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{"<<", "Sigma.m"}]], "Input",
+ CellChangeTimes->{{3.863231865856235*^9, 3.863231872558818*^9}},
+ CellLabel->
+  "In[163]:=",ExpressionUUID->"7628161e-1109-4194-a802-3937ce6fc90e"],
+
+Cell[BoxData["\<\"Oups, the package is already loaded! You cannot reload \
+it.\"\>"], "Print",
+ CellFrame->0.5,
+ CellChangeTimes->{
+  3.863231875574696*^9, 3.863685356141474*^9, 3.864899281667994*^9, 
+   3.864899408586362*^9, 3.8648996784768143`*^9, 3.8653177921017227`*^9, {
+   3.865318080959668*^9, 3.8653181035021753`*^9}, 3.865326792207341*^9, 
+   3.865396760971015*^9, 3.865488258094338*^9, 3.865655392976289*^9, 
+   3.8656554623800087`*^9, 3.865655665576935*^9, 3.865666997259449*^9, 
+   3.8667947880383177`*^9, 3.8678347349009447`*^9, 3.867988643916503*^9},
+ FontColor->RGBColor[0, 0, 0],
+ Background->RGBColor[0.796887, 0.789075, 0.871107],
+ ButtonBoxOptions->{Active->True},
+ CellLabel->
+  "During evaluation of \
+In[163]:=",ExpressionUUID->"c933fb3b-3a86-4670-968a-f9f1303a66b4"],
+
+Cell[BoxData["$Aborted"], "Output",
+ CellChangeTimes->{
+  3.863685356143807*^9, 3.8648992816712093`*^9, 3.864899408588204*^9, 
+   3.864899678486376*^9, 3.865317792109375*^9, {3.865318080962893*^9, 
+   3.865318103503837*^9}, 3.865326792214654*^9, 3.8653967609764338`*^9, 
+   3.865488258097505*^9, 3.86565539297869*^9, 3.865655462382038*^9, 
+   3.865655665579103*^9, 3.8656669972655888`*^9, 3.866794788044229*^9, 
+   3.8678347349036903`*^9, 3.867988643924349*^9},
+ CellLabel->
+  "Out[163]=",ExpressionUUID->"cd1b0bc8-7cff-4648-b74a-62ec29d4d2d5"]
+}, Open  ]],
+
+Cell["needs: fun_Evaluation", "Text",
+ CellChangeTimes->{{3.8632514091062927`*^9, 
+  3.863251420194024*^9}},ExpressionUUID->"7f3caafc-a147-4e57-98c1-\
+8588818068a4"],
+
+Cell[CellGroupData[{
+
+Cell["ProductsSetReduce: tools and main function", "Subsubsection",
+ CellChangeTimes->{{3.861947090022572*^9, 3.8619470929502068`*^9}, {
+  3.863232421163384*^9, 
+  3.863232442322732*^9}},ExpressionUUID->"5598a566-e44b-4bb8-838c-\
+696ca531c2d7"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"BuildBetasQis", "[", 
+   RowBox[{"alphas_", ",", "invB_", ",", "r_"}], "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"betas", ",", "q", ",", " ", "mis"}], "}"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"betas", " ", "=", 
+      RowBox[{"Range", "[", "r", "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"q", "=", 
+      RowBox[{"Range", "[", "r", "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"Do", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{"betas", "[", 
+          RowBox[{"[", "j", "]"}], "]"}], "=", "1"}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"q", "[", 
+          RowBox[{"[", "j", "]"}], "]"}], "=", "1"}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"Do", "[", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{"betas", "[", 
+             RowBox[{"[", "j", "]"}], "]"}], "=", 
+            RowBox[{
+             RowBox[{"betas", "[", 
+              RowBox[{"[", "j", "]"}], "]"}], "*", 
+             RowBox[{
+              RowBox[{"alphas", "[", 
+               RowBox[{"[", "i", "]"}], "]"}], "^", 
+              RowBox[{"invB", "[", 
+               RowBox[{"[", 
+                RowBox[{"j", ",", "i"}], "]"}], "]"}]}]}]}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{
+            RowBox[{"q", "[", 
+             RowBox[{"[", "j", "]"}], "]"}], "=", 
+            RowBox[{
+             RowBox[{"q", "[", 
+              RowBox[{"[", "j", "]"}], "]"}], "*", 
+             RowBox[{
+              RowBox[{"p", "[", "i", "]"}], "^", 
+              RowBox[{"invB", "[", 
+               RowBox[{"[", 
+                RowBox[{"j", ",", "i"}], "]"}], "]"}]}]}]}], ";"}], 
+          "\[IndentingNewLine]", 
+          RowBox[{"(*", " ", 
+           RowBox[{
+            RowBox[{"Print", "[", 
+             RowBox[{"j", ",", "\"\<---\>\"", ",", " ", "i", ",", " ", 
+              RowBox[{"q", "[", 
+               RowBox[{"[", "j", "]"}], "]"}], ",", " ", 
+              RowBox[{"invB", "[", 
+               RowBox[{"[", 
+                RowBox[{"j", ",", "i"}], "]"}], "]"}]}], "]"}], ";"}], " ", 
+           "*)"}], "\[IndentingNewLine]", ",", 
+          RowBox[{"{", 
+           RowBox[{"i", ",", "1", ",", "r"}], "}"}]}], "]"}], ";"}], 
+       "\[IndentingNewLine]", ",", 
+       RowBox[{"{", 
+        RowBox[{"j", ",", "1", ",", "r"}], "}"}]}], "]"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{"betas", ",", " ", "q"}], "}"}]}]}], "\[IndentingNewLine]", 
+   "]"}], " ", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"k", "+", "1"}], ")"}], "th", " ", "multiplicands", " ", "of", 
+    " ", "yis", " ", 
+    RowBox[{"(", 
+     RowBox[{"yis", "=", 
+      RowBox[{"new", " ", "xis"}]}], ")"}]}], " ", "*)"}]}]], "Input",
+ CellChangeTimes->{{3.861958639586226*^9, 3.861958640992402*^9}, {
+   3.861963131953562*^9, 3.861963151520632*^9}, 3.861963233344605*^9, {
+   3.862900763325663*^9, 3.8629007674127817`*^9}, 3.8629915055005703`*^9, {
+   3.863249812719598*^9, 3.8632498131106033`*^9}},
+ CellLabel->
+  "In[164]:=",ExpressionUUID->"8aec84bb-2eb3-47d6-852b-7d059d6c3c86"],
+
+Cell[BoxData[
+ RowBox[{"Unset", "[", "ProductsSetReduce", "]"}]], "Input",
+ CellChangeTimes->{{3.863256577618265*^9, 3.863256609081479*^9}},
+ CellLabel->
+  "In[165]:=",ExpressionUUID->"38a3fb18-ee3e-45b6-8f3d-0632f9942cd9"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"ProductsSetReduce", "[", 
+    RowBox[{"tower_", ",", " ", "products_", ",", " ", "lowBounds_", ",", 
+     RowBox[{"verbose_", ":", "False"}]}], "]"}], ":=", " ", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "r", ",", "alphas", ",", "M", ",", "u", ",", "A", ",", "DD", ",", "B", 
+       ",", "invB", ",", "d", ",", "betas", ",", "qis", ",", "his", ",", " ", 
+       "lmax", ",", "rho", ",", "RPitower", ",", "gis", ",", "cjs", ",", 
+       "cis", ",", "bricks", ",", "representations"}], "}"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"If", "[", 
+       RowBox[{"verbose", ",", 
+        RowBox[{"Print", "[", 
+         RowBox[{"\"\<tower=\>\"", ",", "tower"}], "]"}]}], "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"r", "=", " ", 
+       RowBox[{"Length", "[", "products", "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"If", "[", 
+       RowBox[{"verbose", ",", 
+        RowBox[{"Print", "[", 
+         RowBox[{"\"\<r=\>\"", ",", "r"}], "]"}]}], "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"alphas", "=", " ", 
+       RowBox[{"Table", "[", 
+        RowBox[{
+         RowBox[{"products", "[", 
+          RowBox[{"[", 
+           RowBox[{"i", ",", "2"}], "]"}], "]"}], ",", " ", 
+         RowBox[{"{", 
+          RowBox[{"i", ",", "1", ",", "r"}], "}"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"If", "[", 
+       RowBox[{"verbose", ",", 
+        RowBox[{"Print", "[", 
+         RowBox[{"\"\<alphas=\>\"", ",", "alphas"}], "]"}]}], "]"}], ";", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"1", ":", " ", 
+          RowBox[{"Computation", " ", "of", " ", "yi"}]}], "=", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"q", "[", "i", "]"}], ",", 
+           RowBox[{"betas", "[", 
+            RowBox[{"[", "i", "]"}], "]"}], ",", "0"}], "}"}]}], ",", " ", 
+        RowBox[{
+         RowBox[{"valid", " ", "from", " ", "x"}], "=", 
+         RowBox[{"zis", "[", 
+          RowBox[{"[", "i", "]"}], "]"}]}], ",", " ", 
+        RowBox[{
+         RowBox[{"for", " ", "0"}], "<=", "i", "<=", "r"}]}], " ", "*)"}], 
+      "\[IndentingNewLine]", 
+      RowBox[{"M", "=", 
+       RowBox[{
+        RowBox[{"GetBasisOfHomogeneousGroup", "[", 
+         RowBox[{"alphas", ",", "tower"}], "]"}], "//", " ", "Transpose"}]}], 
+      " ", ";", " ", "\[IndentingNewLine]", 
+      RowBox[{"If", "[", 
+       RowBox[{"verbose", ",", 
+        RowBox[{"Print", "[", 
+         RowBox[{"\"\<M=\>\"", ",", "M"}], "]"}]}], "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{"M", "==", 
+         RowBox[{"{", "}"}]}], ",", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"RPitower", "=", " ", 
+          RowBox[{"Join", "[", 
+           RowBox[{"tower", ",", " ", "products"}], "]"}]}], ";", " ", 
+         "\[IndentingNewLine]", 
+         RowBox[{"Print", "[", "\"\<The tower cannot be reduced\>\"", "]"}], 
+         ";", "\[IndentingNewLine]", 
+         RowBox[{"Return", " ", "[", 
+          RowBox[{"{", 
+           RowBox[{"products", ",", "RPitower", ",", "lowBounds"}], "}"}], 
+          "]"}]}]}], "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{
+        RowBox[{"Print", "[", "\"\<reduction!\>\"", "]"}], ";"}], "*)"}], 
+      "\[IndentingNewLine]", 
+      RowBox[{"u", "=", 
+       RowBox[{"Length", "[", "M", "]"}]}], ";", 
+      RowBox[{"If", "[", 
+       RowBox[{"verbose", ",", 
+        RowBox[{"Print", "[", 
+         RowBox[{"\"\<u=\>\"", ",", "u"}], "]"}]}], "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"A", ",", "DD", ",", "B"}], "}"}], "=", 
+       RowBox[{"SmithDecomposition", "[", "M", "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"invB", "=", 
+       RowBox[{"Inverse", "[", "B", "]"}]}], ";", "\[IndentingNewLine]", "\t", 
+      RowBox[{"If", "[", 
+       RowBox[{"verbose", ",", 
+        RowBox[{"Print", "[", 
+         RowBox[{"\"\<A=\>\"", ",", 
+          RowBox[{"A", "//", "MatrixForm"}], ",", "\"\<D=\>\"", ",", 
+          RowBox[{"DD", "//", "MatrixForm"}], ",", "\"\<B=\>\"", ",", 
+          RowBox[{"B", "//", "MatrixForm"}], ",", "\"\<invB=\>\"", ",", 
+          RowBox[{"invB", "//", "MatrixForm"}]}], "]"}]}], "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"betas", ",", " ", "qis"}], "}"}], "=", 
+       RowBox[{"BuildBetasQis", "[", 
+        RowBox[{"alphas", ",", "invB", ",", "r"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"If", "[", 
+       RowBox[{"verbose", ",", 
+        RowBox[{"Print", "[", 
+         RowBox[{"\"\<betas=\>\"", ",", "betas"}], "]"}]}], "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"If", "[", 
+       RowBox[{"verbose", ",", 
+        RowBox[{"Print", "[", 
+         RowBox[{"\"\<qis=\>\"", ",", "qis"}], "]"}]}], "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"his", " ", "=", 
+       RowBox[{"Table", "[", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"Ceiling", "[", 
+           RowBox[{"Max", "[", 
+            RowBox[{"Join", "[", "\[IndentingNewLine]", 
+             RowBox[{
+              RowBox[{"Map", "[", 
+               RowBox[{
+                RowBox[{
+                 RowBox[{"#", "[", 
+                  RowBox[{"[", 
+                   RowBox[{"1", ",", "2"}], "]"}], "]"}], "&"}], ",", 
+                RowBox[{"(", 
+                 RowBox[{"Solve", "[", 
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"Denominator", "[", 
+                    RowBox[{"betas", "[", 
+                    RowBox[{"[", "i", "]"}], "]"}], "]"}], "==", "0"}], ",", 
+                   "x", ",", " ", 
+                   RowBox[{"Assumptions", " ", "->", " ", 
+                    RowBox[{"x", ">=", "0"}]}]}], "]"}], ")"}]}], "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"Map", "[", 
+               RowBox[{
+                RowBox[{
+                 RowBox[{"#", "[", 
+                  RowBox[{"[", 
+                   RowBox[{"1", ",", "2"}], "]"}], "]"}], "&"}], ",", 
+                RowBox[{"(", 
+                 RowBox[{"Solve", "[", 
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"Numerator", "[", 
+                    RowBox[{"betas", "[", 
+                    RowBox[{"[", "i", "]"}], "]"}], "]"}], "==", "0"}], ",", 
+                   "x", ",", " ", 
+                   RowBox[{"Assumptions", " ", "->", " ", 
+                    RowBox[{"x", ">=", "0"}]}]}], "]"}], ")"}]}], "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"{", 
+               RowBox[{"-", "1"}], "}"}]}], "\[IndentingNewLine]", "]"}], 
+            "]"}], "]"}], "+", "2"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"i", ",", "1", ",", "r"}], "}"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"If", "[", 
+       RowBox[{"verbose", ",", 
+        RowBox[{"Print", "[", 
+         RowBox[{"\"\<his=\>\"", ",", "his"}], "]"}]}], "]"}], ";", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"2", ":", " ", 
+          RowBox[{
+          "Computation", " ", "of", " ", "gi", " ", "and", " ", "ci", " ", 
+           "such", " ", "that", " ", "yi"}]}], "=", 
+         RowBox[{"gi", "*", "ci"}]}], ",", " ", 
+        RowBox[{
+         RowBox[{"for", " ", "1"}], "<=", "i", "<=", "u"}]}], " ", "*)"}], 
+      "\[IndentingNewLine]", 
+      RowBox[{"lmax", "=", 
+       RowBox[{"Max", "[", "lowBounds", "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"If", "[", 
+       RowBox[{"verbose", ",", 
+        RowBox[{"Print", "[", 
+         RowBox[{"\"\<lmax=\>\"", ",", "lmax"}], "]"}]}], "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"d", "=", " ", 
+       RowBox[{"DD", "[", 
+        RowBox[{"[", 
+         RowBox[{"u", ",", "u"}], "]"}], "]"}]}], "  ", ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"rho", "=", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"-", "1"}], ")"}], "^", 
+        RowBox[{"(", 
+         RowBox[{"2", "/", "d"}], ")"}]}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"RPitower", "=", " ", 
+       RowBox[{"Join", "[", 
+        RowBox[{"tower", ",", 
+         RowBox[{"{", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"IndexName", "[", 
+             RowBox[{"-", "1"}], "]"}], ",", "rho", ",", "0"}], "}"}], 
+          "}"}]}], "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"gis", " ", "=", " ", 
+       RowBox[{"(*", " ", 
+        RowBox[{
+         RowBox[{"for", " ", "1"}], " ", "<=", " ", "i", " ", "<=", " ", 
+         "u"}], " ", "*)"}], 
+       RowBox[{"Table", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"SolveDifferenceVectorSpace", "[", 
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{
+                 RowBox[{"-", 
+                  RowBox[{"betas", "[", 
+                   RowBox[{"[", "i", "]"}], "]"}]}], "*", 
+                 RowBox[{"rho", "^", 
+                  RowBox[{"(", 
+                   RowBox[{"d", "/", 
+                    RowBox[{"DD", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"i", ",", "i"}], "]"}], "]"}]}], ")"}]}]}], ",", 
+                "1"}], "}"}], ",", 
+              RowBox[{"{", "0", "}"}], ",", "tower"}], "]"}], "[", 
+            RowBox[{"[", 
+             RowBox[{"2", ",", "2"}], "]"}], "]"}], ")"}], "*", 
+          RowBox[{
+           RowBox[{"IndexName", "[", 
+            RowBox[{"-", "1"}], "]"}], "^", 
+           RowBox[{"(", 
+            RowBox[{"d", "-", 
+             RowBox[{"d", "/", 
+              RowBox[{"DD", "[", 
+               RowBox[{"[", 
+                RowBox[{"i", ",", "i"}], "]"}], "]"}]}]}], ")"}]}]}], ",", 
+         RowBox[{"{", 
+          RowBox[{"i", ",", "1", ",", "u"}], "}"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"If", "[", 
+       RowBox[{"verbose", ",", 
+        RowBox[{"Print", "[", 
+         RowBox[{"\"\<gis=\>\"", ",", "gis"}], "]"}]}], "]"}], ";", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{"3", ":", " ", 
+        RowBox[{
+        "Computation", " ", "of", " ", "corrective", " ", "factors", " ", 
+         "cj"}]}], " ", "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"cjs", " ", "=", " ", 
+       RowBox[{"ConstantArray", "[", 
+        RowBox[{"1", ",", "r"}], "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"Do", "[", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"Do", "[", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{
+            RowBox[{
+             RowBox[{"cjs", "[", 
+              RowBox[{"[", "j", "]"}], "]"}], "=", 
+             RowBox[{"(", 
+              RowBox[{"1", "/", 
+               RowBox[{
+                RowBox[{"Ev", "[", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{"gis", "[", 
+                    RowBox[{"[", "j", "]"}], "]"}], "}"}], ",", "lmax", ",", 
+                  " ", "RPitower", ",", 
+                  RowBox[{"{", "}"}]}], "]"}], "[", 
+                RowBox[{"[", "1", "]"}], "]"}]}], ")"}]}], ";"}], 
+           "\[IndentingNewLine]", ",", 
+           RowBox[{"{", 
+            RowBox[{"j", ",", "1", ",", "u"}], "}"}]}], "]"}], ";", " ", 
+         RowBox[{"(*", 
+          RowBox[{
+           RowBox[{"the", " ", "power"}], " ", "-", 
+           RowBox[{
+           "1", " ", "is", " ", "taken", " ", "into", " ", "account", " ", 
+            "in", " ", "the", " ", "inversion", " ", "between", " ", 
+            "numerator", " ", "and", " ", "denominator", " ", "compared", " ",
+             "to", " ", "next", " ", "case"}]}], "*)"}], 
+         "\[IndentingNewLine]", 
+         RowBox[{"Do", "[", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{
+            RowBox[{
+             RowBox[{"cjs", "[", 
+              RowBox[{"[", "j", "]"}], "]"}], "=", 
+             RowBox[{"(", 
+              RowBox[{"1", "/", 
+               RowBox[{"(", 
+                RowBox[{"Product", "[", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"Ev", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"betas", "[", 
+                    RowBox[{"[", "j", "]"}], "]"}], "}"}], ",", 
+                    RowBox[{
+                    RowBox[{"IndexName", "[", 
+                    RowBox[{"-", "2"}], "]"}], "-", "1"}], ",", "RPitower", 
+                    ",", 
+                    RowBox[{"{", "}"}]}], "]"}], "[", 
+                   RowBox[{"[", "1", "]"}], "]"}], ",", " ", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"IndexName", "[", 
+                    RowBox[{"-", "2"}], "]"}], ",", " ", 
+                    RowBox[{"his", "[", 
+                    RowBox[{"[", "j", "]"}], "]"}], ",", "lmax"}], "}"}]}], 
+                 "]"}], ")"}]}], ")"}]}], ";"}], "\[IndentingNewLine]", ",", 
+           RowBox[{"{", 
+            RowBox[{"j", ",", 
+             RowBox[{"u", "+", "1"}], ",", "r"}], "}"}]}], "]"}], ";"}], 
+        "\[IndentingNewLine]", ",", 
+        RowBox[{"{", 
+         RowBox[{"i", ",", "1", ",", "r"}], "}"}]}], "\[IndentingNewLine]", 
+       "]"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"If", "[", 
+       RowBox[{"verbose", ",", 
+        RowBox[{"Print", "[", 
+         RowBox[{"\"\<cjs=\>\"", ",", "cjs"}], "]"}]}], "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{
+        RowBox[{"4", ":", " ", 
+         RowBox[{
+         "Computation", " ", "of", " ", "representations", " ", "repis", " ", 
+          "of", " ", "pis"}]}], ",", " ", 
+        RowBox[{
+         RowBox[{"for", " ", "1"}], "<=", "i", "<=", "r"}]}], " ", "*)"}], 
+      "\[IndentingNewLine]", 
+      RowBox[{"cis", "=", 
+       RowBox[{"Table", "[", 
+        RowBox[{
+         RowBox[{"Product", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"Ev", "[", 
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{"alphas", "[", 
+                RowBox[{"[", "i", "]"}], "]"}], "}"}], ",", 
+              RowBox[{
+               RowBox[{"IndexName", "[", 
+                RowBox[{"-", "2"}], "]"}], "-", "1"}], ",", "RPitower", ",", 
+              RowBox[{"{", "}"}]}], "]"}], "[", 
+            RowBox[{"[", "1", "]"}], "]"}], ",", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"IndexName", "[", 
+              RowBox[{"-", "2"}], "]"}], ",", 
+             RowBox[{"lowBounds", "[", 
+              RowBox[{"[", "i", "]"}], "]"}], ",", "lmax"}], "}"}]}], "]"}], 
+         ",", " ", 
+         RowBox[{"{", 
+          RowBox[{"i", ",", "1", ",", "r"}], "}"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"If", "[", 
+       RowBox[{"verbose", ",", 
+        RowBox[{"Print", "[", 
+         RowBox[{"\"\<ffis=\>\"", ",", "cis"}], "]"}]}], "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Do", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{"IndexName", "[", "j", "]"}], "=", "1"}], ";", 
+         RowBox[{"Unset", "[", 
+          RowBox[{"IndexName", "[", "j", "]"}], "]"}]}], ",", 
+        RowBox[{"{", 
+         RowBox[{"j", ",", 
+          RowBox[{"u", "+", "1"}], ",", "r"}], "}"}]}], "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"representations", "=", " ", 
+       RowBox[{"Table", "[", " ", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"cis", "[", 
+           RowBox[{"[", "i", "]"}], "]"}], "*", 
+          RowBox[{"Product", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{"gis", "[", 
+                RowBox[{"[", "j", "]"}], "]"}], "*", " ", 
+               RowBox[{"cjs", "[", 
+                RowBox[{"[", "j", "]"}], "]"}]}], ")"}], "^", " ", 
+             RowBox[{"B", "[", 
+              RowBox[{"[", 
+               RowBox[{"i", ",", "j"}], "]"}], "]"}]}], ",", 
+            RowBox[{"{", 
+             RowBox[{"j", ",", "1", ",", "u"}], "}"}]}], "]"}], "*", 
+          RowBox[{"Product", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{"q", "[", 
+                RowBox[{"IndexName", "[", "j", "]"}], "]"}], "*", 
+               RowBox[{"cjs", "[", 
+                RowBox[{"[", "j", "]"}], "]"}]}], ")"}], "^", " ", 
+             RowBox[{"B", "[", 
+              RowBox[{"[", 
+               RowBox[{"i", ",", "j"}], "]"}], "]"}]}], ",", 
+            RowBox[{"{", 
+             RowBox[{"j", ",", 
+              RowBox[{"u", "+", "1"}], ",", "r"}], "}"}]}], "]"}]}], ",", 
+         RowBox[{"{", 
+          RowBox[{"i", ",", "1", ",", "r"}], "}"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"RPitower", "=", " ", 
+       RowBox[{"Join", "[", 
+        RowBox[{"RPitower", ",", 
+         RowBox[{"Table", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"q", "[", 
+              RowBox[{"IndexName", "[", "j", "]"}], "]"}], ",", 
+             RowBox[{"betas", "[", 
+              RowBox[{"[", "j", "]"}], "]"}], ",", "0"}], "}"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"j", ",", 
+             RowBox[{"u", "+", "1"}], ",", "r"}], "}"}]}], "]"}]}], "]"}]}], 
+      ";", " ", 
+      RowBox[{"(*", 
+       RowBox[{
+        RowBox[{"IndexName", "[", "j", "]"}], " ", "standfs", " ", "for", " ", 
+        RowBox[{"q", "[", "j", "]"}]}], "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"If", "[", 
+       RowBox[{"verbose", ",", 
+        RowBox[{"Print", "[", 
+         RowBox[{"\"\<RPitower=\>\"", ",", "RPitower"}], "]"}]}], "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"If", "[", 
+       RowBox[{"verbose", ",", 
+        RowBox[{"Print", "[", 
+         RowBox[{"\"\<Representations=\>\"", ",", "representations"}], 
+         "]"}]}], "]"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"If", "[", 
+       RowBox[{"verbose", ",", 
+        RowBox[{
+        "Print", "[", 
+         "\"\<returns : {representations,RPitower,newBounds for \
+RPi-monomials}\>\"", "]"}]}], "]"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{"representations", ",", " ", "RPitower", ",", " ", 
+        RowBox[{"Take", "[", 
+         RowBox[{"his", ",", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"u", "+", "1"}], ",", "r"}], "}"}]}], "]"}]}], "}"}]}]}], 
+    "\[IndentingNewLine]", 
+    RowBox[{"(*", 
+     RowBox[{
+      RowBox[{
+      "the", " ", "last", " ", "list", " ", "corresponds", " ", "to", " ", 
+       "lower", " ", "bounds", " ", "for", " ", "R"}], "-", 
+      RowBox[{"monomial", " ", "r", " ", "and", " ", "Pi"}], "-", 
+      RowBox[{"monomials", " ", 
+       RowBox[{"q", "[", 
+        RowBox[{"j", ">", 
+         RowBox[{"u", "+", "1"}]}], "]"}]}]}], "*)"}], "\[IndentingNewLine]", 
+    "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.861947395156735*^9, 3.861947486355959*^9}, {
+   3.8619482803983583`*^9, 3.861948318485993*^9}, {3.8619507039893913`*^9, 
+   3.861950727204973*^9}, {3.861950844860216*^9, 3.861951139723781*^9}, {
+   3.861958653732799*^9, 3.861958742463236*^9}, {3.861958864999404*^9, 
+   3.8619588985823*^9}, {3.861958976477837*^9, 3.861958995805669*^9}, {
+   3.86195902883768*^9, 3.861959031021864*^9}, {3.8619590672057257`*^9, 
+   3.8619591243163643`*^9}, 3.86195916010996*^9, {3.861959201085093*^9, 
+   3.8619592058208647`*^9}, {3.861959242108205*^9, 3.8619592923091173`*^9}, {
+   3.861959329310256*^9, 3.861959337388945*^9}, {3.861959371819628*^9, 
+   3.861959383100718*^9}, {3.861960528361101*^9, 3.8619606177161818`*^9}, 
+   3.861960651299917*^9, {3.8619612046475067`*^9, 3.861961252544202*^9}, {
+   3.861961285463752*^9, 3.8619614540065823`*^9}, {3.861961494887834*^9, 
+   3.861961541127289*^9}, {3.861961575958385*^9, 3.861961580460683*^9}, {
+   3.861961611829266*^9, 3.861961612285386*^9}, {3.8619617630134783`*^9, 
+   3.861961946379911*^9}, {3.8619619889041224`*^9, 3.861962016099814*^9}, {
+   3.86196207206721*^9, 3.861962134019104*^9}, {3.861962168090877*^9, 
+   3.8619623143460417`*^9}, {3.86196244397655*^9, 3.861962445328652*^9}, {
+   3.861962754950211*^9, 3.861962783023361*^9}, {3.861963119676426*^9, 
+   3.8619631197019787`*^9}, {3.861963164331129*^9, 3.861963169426846*^9}, 
+   3.861963202635235*^9, {3.861963262842688*^9, 3.861963421280654*^9}, {
+   3.861963534017852*^9, 3.861963628944724*^9}, {3.86196365946494*^9, 
+   3.861963727265335*^9}, 3.8619642552137957`*^9, {3.8619643000694437`*^9, 
+   3.861964364092475*^9}, {3.861964491916348*^9, 3.861964502796279*^9}, {
+   3.861964541861042*^9, 3.861964963354085*^9}, {3.8620270534738493`*^9, 
+   3.86202718243441*^9}, {3.862027228482006*^9, 3.8620272393308353`*^9}, {
+   3.862027293667119*^9, 3.862027293832267*^9}, {3.862027347891918*^9, 
+   3.862027391240382*^9}, {3.862027426881796*^9, 3.8620274650888042`*^9}, {
+   3.862037513587373*^9, 3.862037526192869*^9}, {3.862037607618342*^9, 
+   3.862037611132577*^9}, {3.862039277719839*^9, 3.862039362759547*^9}, {
+   3.862039520869218*^9, 3.862039548181233*^9}, {3.862041891358143*^9, 
+   3.862041996436936*^9}, {3.862042752999181*^9, 3.862042811046104*^9}, {
+   3.862043240067479*^9, 3.862043240523676*^9}, {3.862044587617917*^9, 
+   3.862044602994739*^9}, {3.86204464455412*^9, 3.8620447322655163`*^9}, {
+   3.8620447714252777`*^9, 3.862044781393364*^9}, {3.862044811898284*^9, 
+   3.862044812684821*^9}, {3.8620448712721024`*^9, 3.862044888145183*^9}, {
+   3.8620449430245333`*^9, 3.8620449443520184`*^9}, {3.862886818248904*^9, 
+   3.862886832041996*^9}, {3.862886907828981*^9, 3.862886991744996*^9}, {
+   3.862887022572637*^9, 3.862887065983893*^9}, {3.8628871015038033`*^9, 
+   3.862887113874037*^9}, {3.8628872588383827`*^9, 3.862887430325588*^9}, {
+   3.8628875688841352`*^9, 3.8628876860592527`*^9}, {3.8628877306038313`*^9, 
+   3.862887746251894*^9}, {3.862887840399713*^9, 3.8628878837525663`*^9}, {
+   3.86288798478334*^9, 3.862888291165547*^9}, {3.862888334702878*^9, 
+   3.86288851740592*^9}, {3.862888762472765*^9, 3.862888829411701*^9}, {
+   3.862888869680057*^9, 3.8628889157893257`*^9}, {3.862890220644717*^9, 
+   3.862890221366274*^9}, {3.8628912879038763`*^9, 3.862891313434946*^9}, {
+   3.862892317202709*^9, 3.8628923176994*^9}, {3.8628923973719254`*^9, 
+   3.862892398730178*^9}, {3.862892493658177*^9, 3.8628924942890797`*^9}, {
+   3.8628926229363413`*^9, 3.862892674181444*^9}, {3.862892751624578*^9, 
+   3.862892751806926*^9}, {3.862892964863598*^9, 3.8628929823426723`*^9}, {
+   3.8629008706818*^9, 3.862900921587164*^9}, {3.862900969899212*^9, 
+   3.862901062563653*^9}, {3.862901110555189*^9, 3.862901114027389*^9}, {
+   3.8629011690411873`*^9, 3.862901191587336*^9}, {3.862901256416519*^9, 
+   3.862901261671158*^9}, {3.862901301945105*^9, 3.862901370473174*^9}, {
+   3.862901411774179*^9, 3.862901420784799*^9}, {3.86290397117387*^9, 
+   3.862903980498562*^9}, {3.862904011091448*^9, 3.862904189709347*^9}, {
+   3.862904242981382*^9, 3.862904282292992*^9}, {3.862904353144969*^9, 
+   3.862904473531974*^9}, {3.8629045268837957`*^9, 3.8629045741390743`*^9}, {
+   3.862904731810445*^9, 3.8629048451934977`*^9}, {3.862905793714427*^9, 
+   3.8629059805624723`*^9}, {3.862906025177722*^9, 3.862906043599696*^9}, {
+   3.862906084024782*^9, 3.86290623744594*^9}, {3.862906509925415*^9, 
+   3.862906540852395*^9}, {3.862906582004243*^9, 3.862906794762232*^9}, {
+   3.8629068259108067`*^9, 3.862906882536777*^9}, {3.862906913606608*^9, 
+   3.862906921312368*^9}, {3.862906991479726*^9, 3.862907095040401*^9}, {
+   3.862907136670965*^9, 3.8629071382079687`*^9}, {3.862907193392383*^9, 
+   3.862907196408388*^9}, {3.862907249055092*^9, 3.86290728958249*^9}, {
+   3.86290737047558*^9, 3.862907380063239*^9}, {3.862907423854282*^9, 
+   3.862907432609366*^9}, {3.862907504740355*^9, 3.862907505324554*^9}, {
+   3.862907701924426*^9, 3.862907721629081*^9}, {3.862907898090404*^9, 
+   3.862907914779612*^9}, {3.86290794937677*^9, 3.862907952762382*^9}, {
+   3.862908212433423*^9, 3.862908214374913*^9}, {3.862908249191354*^9, 
+   3.862908254751646*^9}, {3.8629083058803587`*^9, 3.862908310896097*^9}, {
+   3.862908349511753*^9, 3.862908353058049*^9}, 3.862910946296813*^9, {
+   3.862911025979067*^9, 3.862911053963922*^9}, {3.8629111003047657`*^9, 
+   3.8629111171477623`*^9}, {3.862911923816119*^9, 3.862911929525456*^9}, {
+   3.862912478226047*^9, 3.862912562545575*^9}, {3.8629136667136297`*^9, 
+   3.8629136732091084`*^9}, {3.862914931040058*^9, 3.862914973721093*^9}, {
+   3.862990918591392*^9, 3.862990947824504*^9}, 3.862990980898213*^9, {
+   3.8629910175534363`*^9, 3.8629911144899807`*^9}, {3.862991150137744*^9, 
+   3.8629911545129757`*^9}, {3.862991215692819*^9, 3.862991230101355*^9}, {
+   3.862991282734048*^9, 3.862991327622987*^9}, {3.86299137188708*^9, 
+   3.862991481533152*^9}, {3.8630834701133842`*^9, 3.863083478631909*^9}, {
+   3.863145630694475*^9, 3.863145675255303*^9}, {3.86314573810769*^9, 
+   3.8631458901219788`*^9}, {3.863146577069062*^9, 3.863146634204999*^9}, {
+   3.8632497513330307`*^9, 3.863249767439845*^9}, {3.863249828463587*^9, 
+   3.8632498288378353`*^9}, {3.8632502223487263`*^9, 3.863250224003891*^9}, {
+   3.8632513623822803`*^9, 3.8632513849241753`*^9}, {3.8632514603238497`*^9, 
+   3.8632516351380568`*^9}, 3.863251706547387*^9, {3.863251851256363*^9, 
+   3.8632519769928226`*^9}, {3.863252029201001*^9, 3.863252030479624*^9}, {
+   3.86325207152835*^9, 3.8632521522940807`*^9}, {3.863252324783321*^9, 
+   3.8632524302129173`*^9}, {3.86325279356812*^9, 3.8632527967670307`*^9}, {
+   3.863253030531527*^9, 3.8632530621132517`*^9}, {3.863253317748625*^9, 
+   3.863253319695546*^9}, {3.86325600350288*^9, 3.863256055366274*^9}, 
+   3.863256437107604*^9, {3.863684665061585*^9, 3.8636846960800056`*^9}, {
+   3.863685089373581*^9, 3.8636850984135427`*^9}, {3.865327252698369*^9, 
+   3.8653272618736963`*^9}, {3.865332133396702*^9, 3.865332140735202*^9}, {
+   3.8654091099633007`*^9, 3.865409130790053*^9}, {3.86540973065307*^9, 
+   3.86540973831635*^9}, {3.866796142895935*^9, 3.8667961446553698`*^9}},
+ CellLabel->
+  "In[166]:=",ExpressionUUID->"c66a34bf-74f9-4475-8c8a-7348c7ec5f95"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ProductsSetReduce", "::", "usage"}], "=", 
+  "\"\<Arguments:\n* tower_: list of elements {t,a,b} such that \
+Tsigma[t]=at+b,\n* products_: list of p-monomials defined by {t,a,0}\n* \
+lowBounds_: starting index for evaluations of products's p-monomials,\n* \
+verbose_: boolean (default False) - if True, all intermediate values are \
+displayed\nReturns: \n** representations_: list equivalent to products_, with \
+respect to RPitower\n** RPitower_: an RPi-tower,\n** bounds_: starting \
+indices for evaluations of RPitower's pi-monomials,\n\>\""}]], "Input",
+ CellChangeTimes->{{3.863249773614409*^9, 3.863249799364526*^9}, {
+   3.863249835724498*^9, 3.863249891348093*^9}, 3.8632499503620453`*^9, {
+   3.863249987603876*^9, 3.863250197106941*^9}, {3.863250233457876*^9, 
+   3.863250525408841*^9}},
+ CellLabel->
+  "In[167]:=",ExpressionUUID->"6072a125-5676-4db3-8046-f56118c7c7a5"],
+
+Cell[BoxData["\<\"Arguments:\\n* tower_: list of elements {t,a,b} such that \
+Tsigma[t]=at+b,\\n* products_: list of p-monomials defined by {t,a,0}\\n* \
+lowBounds_: starting index for evaluations of products's p-monomials,\\n* \
+verbose_: boolean (default False) - if True, all intermediate values are \
+displayed\\nReturns: \\n** representations_: list equivalent to products_, \
+with respect to RPitower\\n** RPitower_: an RPi-tower,\\n** bounds_: starting \
+indices for evaluations of RPitower's pi-monomials,\\n\"\>"], "Output",
+ CellChangeTimes->{
+  3.8632506055054617`*^9, 3.864899281896051*^9, 3.864899408709312*^9, 
+   3.864899678578903*^9, 3.865317792336231*^9, {3.8653180811067257`*^9, 
+   3.865318103578772*^9}, 3.86532679242365*^9, 3.865396761046124*^9, 
+   3.865488258324765*^9, 3.865655393083178*^9, 3.8656554625787153`*^9, 
+   3.865655665666695*^9, 3.8656669973721743`*^9, 3.866794788245207*^9, 
+   3.867834735150934*^9, 3.867988644014283*^9},
+ CellLabel->
+  "Out[167]=",ExpressionUUID->"7ff3f3b3-2279-414f-9687-de5af22ce330"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"?", "ProductsSetReduce"}]], "Input",
+ CellChangeTimes->{{3.863250609792905*^9, 3.863250617703013*^9}},
+ CellLabel->
+  "In[168]:=",ExpressionUUID->"911daa45-68e3-42ba-9ef4-1fccbc26f529"],
+
+Cell[BoxData[
+ InterpretationBox[
+  StyleBox[
+   FrameBox[
+    DynamicModuleBox[{System`InformationDump`open$$ = False, 
+     System`InformationDump`mouseOver$$ = False}, 
+     PaneSelectorBox[{True->
+      TagBox[GridBox[{
+         {
+          ItemBox[
+           PaneBox[
+            StyleBox["\<\" Symbol\"\>", "InformationTitleText",
+             StripOnInput->False,
+             BaseStyle -> None],
+            FrameMargins->{{4, 0}, {-1, 1}}],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           PaneBox[
+            
+            StyleBox["\<\"Arguments:\\n* tower_: list of elements {t,a,b} \
+such that Tsigma[t]=at+b,\\n* products_: list of p-monomials defined by \
+{t,a,0}\\n* lowBounds_: starting index for evaluations of products's \
+p-monomials,\\n* verbose_: boolean (default False) - if True, all \
+intermediate values are displayed\\nReturns: \\n** representations_: list \
+equivalent to products_, with respect to RPitower\\n** RPitower_: an \
+RPi-tower,\\n** bounds_: starting indices for evaluations of RPitower's \
+pi-monomials,\\n\"\>", "InformationUsageText",
+             StripOnInput->False,
+             LineSpacing->{1.5, 1.5, 3.}],
+            FrameMargins->{{10, 10}, {8, 10}}],
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False]},
+         {
+          PaneBox[
+           TagBox[GridBox[{
+              {
+               StyleBox[
+                TagBox[
+                 TooltipBox[
+                  StyleBox["\<\" Definitions\"\>", "InformationRowLabel",
+                   StripOnInput->False],
+                  "\"Definitions\"",
+                  TooltipStyle->"TextStyling"],
+                 Annotation[#, "Definitions", "Tooltip"]& ], "DialogStyle",
+                StripOnInput->False]},
+              {
+               TemplateBox[{"\"\[ThinSpace]\"", 
+                 GridBox[{{
+                    RowBox[{
+                    RowBox[{"ProductsSetReduce", "[", 
+                    
+                    RowBox[{
+                    "tower_", ",", "products_", ",", "lowBounds_", ",", 
+                    RowBox[{"verbose_", ":", "False"}]}], "]"}], ":=", 
+                    RowBox[{"Module", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    
+                    RowBox[{"r", ",", "alphas", ",", "M", ",", "u", ",", "A", 
+                    ",", "DD", ",", "B", ",", "invB", ",", "d", ",", "betas", 
+                    ",", "qis", ",", "his", ",", "lmax", ",", "rho", ",", 
+                    "RPitower", ",", "gis", ",", "cjs", ",", "cis", ",", 
+                    "bricks", ",", "representations"}], "}"}], ",", 
+                    RowBox[{
+                    RowBox[{"If", "[", 
+                    RowBox[{"verbose", ",", 
+                    RowBox[{"Print", "[", 
+                    RowBox[{"\"tower=\"", ",", "tower"}], "]"}]}], "]"}], ";", 
+                    RowBox[{"r", "=", 
+                    RowBox[{"Length", "[", "products", "]"}]}], ";", 
+                    RowBox[{"If", "[", 
+                    RowBox[{"verbose", ",", 
+                    RowBox[{"Print", "[", 
+                    RowBox[{"\"r=\"", ",", "r"}], "]"}]}], "]"}], ";", 
+                    RowBox[{"alphas", "=", 
+                    RowBox[{"Table", "[", 
+                    RowBox[{
+                    RowBox[{"products", "\[LeftDoubleBracket]", 
+                    RowBox[{"i", ",", "2"}], "\[RightDoubleBracket]"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"i", ",", "1", ",", "r"}], "}"}]}], "]"}]}], ";", 
+                    
+                    RowBox[{"If", "[", 
+                    RowBox[{"verbose", ",", 
+                    RowBox[{"Print", "[", 
+                    RowBox[{"\"alphas=\"", ",", "alphas"}], "]"}]}], "]"}], 
+                    ";", 
+                    RowBox[{"M", "=", 
+                    RowBox[{"Transpose", "[", 
+                    RowBox[{"GetBasisOfHomogeneousGroup", "[", 
+                    RowBox[{"alphas", ",", "tower"}], "]"}], "]"}]}], ";", 
+                    RowBox[{"If", "[", 
+                    RowBox[{"verbose", ",", 
+                    RowBox[{"Print", "[", 
+                    RowBox[{"\"M=\"", ",", "M"}], "]"}]}], "]"}], ";", 
+                    RowBox[{"If", "[", 
+                    RowBox[{
+                    RowBox[{"M", "\[Equal]", 
+                    RowBox[{"{", "}"}]}], ",", 
+                    RowBox[{
+                    RowBox[{"RPitower", "=", 
+                    RowBox[{"Join", "[", 
+                    RowBox[{"tower", ",", "products"}], "]"}]}], ";", 
+                    
+                    RowBox[{"Print", "[", "\"The tower cannot be reduced\"", 
+                    "]"}], ";", 
+                    RowBox[{"Return", "[", 
+                    RowBox[{"{", 
+                    RowBox[{"products", ",", "RPitower", ",", "lowBounds"}], 
+                    "}"}], "]"}]}]}], "]"}], ";", 
+                    RowBox[{"u", "=", 
+                    RowBox[{"Length", "[", "M", "]"}]}], ";", 
+                    RowBox[{"If", "[", 
+                    RowBox[{"verbose", ",", 
+                    RowBox[{"Print", "[", 
+                    RowBox[{"\"u=\"", ",", "u"}], "]"}]}], "]"}], ";", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"A", ",", "DD", ",", "B"}], "}"}], "=", 
+                    RowBox[{"SmithDecomposition", "[", "M", "]"}]}], ";", 
+                    RowBox[{"invB", "=", 
+                    RowBox[{"Inverse", "[", "B", "]"}]}], ";", 
+                    RowBox[{"If", "[", 
+                    RowBox[{"verbose", ",", 
+                    RowBox[{"Print", "[", 
+                    RowBox[{"\"A=\"", ",", 
+                    RowBox[{"MatrixForm", "[", "A", "]"}], ",", "\"D=\"", ",", 
+                    RowBox[{"MatrixForm", "[", "DD", "]"}], ",", "\"B=\"", 
+                    ",", 
+                    RowBox[{"MatrixForm", "[", "B", "]"}], ",", "\"invB=\"", 
+                    ",", 
+                    RowBox[{"MatrixForm", "[", "invB", "]"}]}], "]"}]}], 
+                    "]"}], ";", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"betas", ",", "qis"}], "}"}], "=", 
+                    RowBox[{"BuildBetasQis", "[", 
+                    RowBox[{"alphas", ",", "invB", ",", "r"}], "]"}]}], ";", 
+                    RowBox[{"If", "[", 
+                    RowBox[{"verbose", ",", 
+                    RowBox[{"Print", "[", 
+                    RowBox[{"\"betas=\"", ",", "betas"}], "]"}]}], "]"}], ";", 
+                    RowBox[{"If", "[", 
+                    RowBox[{"verbose", ",", 
+                    RowBox[{"Print", "[", 
+                    RowBox[{"\"qis=\"", ",", "qis"}], "]"}]}], "]"}], ";", 
+                    RowBox[{"his", "=", 
+                    RowBox[{"Table", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"Ceiling", "[", 
+                    RowBox[{"Max", "[", 
+                    RowBox[{"Join", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"#1", "\[LeftDoubleBracket]", 
+                    RowBox[{"1", ",", "2"}], "\[RightDoubleBracket]"}], "&"}],
+                     ")"}], "/@", 
+                    RowBox[{"Solve", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"Denominator", "[", 
+                    
+                    RowBox[{"betas", "\[LeftDoubleBracket]", "i", 
+                    "\[RightDoubleBracket]"}], "]"}], "\[Equal]", "0"}], ",", 
+                    "x", ",", 
+                    RowBox[{"Assumptions", "\[Rule]", 
+                    RowBox[{"x", "\[GreaterEqual]", "0"}]}]}], "]"}]}], ",", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"#1", "\[LeftDoubleBracket]", 
+                    RowBox[{"1", ",", "2"}], "\[RightDoubleBracket]"}], "&"}],
+                     ")"}], "/@", 
+                    RowBox[{"Solve", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"Numerator", "[", 
+                    
+                    RowBox[{"betas", "\[LeftDoubleBracket]", "i", 
+                    "\[RightDoubleBracket]"}], "]"}], "\[Equal]", "0"}], ",", 
+                    "x", ",", 
+                    RowBox[{"Assumptions", "\[Rule]", 
+                    RowBox[{"x", "\[GreaterEqual]", "0"}]}]}], "]"}]}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"-", "1"}], "}"}]}], "]"}], "]"}], "]"}], "+", 
+                    "2"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"i", ",", "1", ",", "r"}], "}"}]}], "]"}]}], ";", 
+                    
+                    RowBox[{"If", "[", 
+                    RowBox[{"verbose", ",", 
+                    RowBox[{"Print", "[", 
+                    RowBox[{"\"his=\"", ",", "his"}], "]"}]}], "]"}], ";", 
+                    RowBox[{"lmax", "=", 
+                    RowBox[{"Max", "[", "lowBounds", "]"}]}], ";", 
+                    RowBox[{"If", "[", 
+                    RowBox[{"verbose", ",", 
+                    RowBox[{"Print", "[", 
+                    RowBox[{"\"lmax=\"", ",", "lmax"}], "]"}]}], "]"}], ";", 
+                    RowBox[{"d", "=", 
+                    RowBox[{"DD", "\[LeftDoubleBracket]", 
+                    RowBox[{"u", ",", "u"}], "\[RightDoubleBracket]"}]}], ";", 
+                    RowBox[{"rho", "=", 
+                    SuperscriptBox[
+                    RowBox[{"(", 
+                    RowBox[{"-", "1"}], ")"}], 
+                    RowBox[{"2", "/", "d"}]]}], ";", 
+                    RowBox[{"RPitower", "=", 
+                    RowBox[{"Join", "[", 
+                    RowBox[{"tower", ",", 
+                    RowBox[{"{", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"IndexName", "[", 
+                    RowBox[{"-", "1"}], "]"}], ",", "rho", ",", "0"}], "}"}], 
+                    "}"}]}], "]"}]}], ";", 
+                    RowBox[{"gis", "=", 
+                    RowBox[{"Table", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"SolveDifferenceVectorSpace", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"-", 
+                    
+                    RowBox[{"betas", "\[LeftDoubleBracket]", "i", 
+                    "\[RightDoubleBracket]"}]}], " ", 
+                    SuperscriptBox["rho", 
+                    FractionBox["d", 
+                    RowBox[{"DD", "\[LeftDoubleBracket]", 
+                    RowBox[{"i", ",", "i"}], "\[RightDoubleBracket]"}]]]}], 
+                    ",", "1"}], "}"}], ",", 
+                    RowBox[{"{", "0", "}"}], ",", "tower"}], "]"}], 
+                    "\[LeftDoubleBracket]", 
+                    RowBox[{"2", ",", "2"}], "\[RightDoubleBracket]"}], " ", 
+                    SuperscriptBox[
+                    RowBox[{"IndexName", "[", 
+                    RowBox[{"-", "1"}], "]"}], 
+                    RowBox[{"d", "-", 
+                    FractionBox["d", 
+                    RowBox[{"DD", "\[LeftDoubleBracket]", 
+                    RowBox[{"i", ",", "i"}], "\[RightDoubleBracket]"}]]}]]}], 
+                    ",", 
+                    RowBox[{"{", 
+                    RowBox[{"i", ",", "1", ",", "u"}], "}"}]}], "]"}]}], ";", 
+                    
+                    RowBox[{"If", "[", 
+                    RowBox[{"verbose", ",", 
+                    RowBox[{"Print", "[", 
+                    RowBox[{"\"gis=\"", ",", "gis"}], "]"}]}], "]"}], ";", 
+                    RowBox[{"cjs", "=", 
+                    RowBox[{"ConstantArray", "[", 
+                    RowBox[{"1", ",", "r"}], "]"}]}], ";", 
+                    RowBox[{"Do", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"Do", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{
+                    
+                    RowBox[{"cjs", "\[LeftDoubleBracket]", "j", 
+                    "\[RightDoubleBracket]"}], "=", 
+                    FractionBox["1", 
+                    RowBox[{
+                    RowBox[{"Ev", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    
+                    RowBox[{"gis", "\[LeftDoubleBracket]", "j", 
+                    "\[RightDoubleBracket]"}], "}"}], ",", "lmax", ",", 
+                    "RPitower", ",", 
+                    RowBox[{"{", "}"}]}], "]"}], "\[LeftDoubleBracket]", "1", 
+                    "\[RightDoubleBracket]"}]]}], ";"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"j", ",", "1", ",", "u"}], "}"}]}], "]"}], ";", 
+                    RowBox[{"Do", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{
+                    
+                    RowBox[{"cjs", "\[LeftDoubleBracket]", "j", 
+                    "\[RightDoubleBracket]"}], "=", 
+                    FractionBox["1", 
+                    RowBox[{
+                    UnderoverscriptBox["\[Product]", 
+                    RowBox[{
+                    RowBox[{"IndexName", "[", 
+                    RowBox[{"-", "2"}], "]"}], "=", 
+                    
+                    RowBox[{"his", "\[LeftDoubleBracket]", "j", 
+                    "\[RightDoubleBracket]"}]}], "lmax"], 
+                    RowBox[{
+                    RowBox[{"Ev", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    "betas", "\[LeftDoubleBracket]", "j", 
+                    "\[RightDoubleBracket]"}], "}"}], ",", 
+                    RowBox[{
+                    RowBox[{"IndexName", "[", 
+                    RowBox[{"-", "2"}], "]"}], "-", "1"}], ",", "RPitower", 
+                    ",", 
+                    RowBox[{"{", "}"}]}], "]"}], "\[LeftDoubleBracket]", "1", 
+                    "\[RightDoubleBracket]"}]}]]}], ";"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"j", ",", 
+                    RowBox[{"u", "+", "1"}], ",", "r"}], "}"}]}], "]"}], 
+                    ";"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"i", ",", "1", ",", "r"}], "}"}]}], "]"}], ";", 
+                    RowBox[{"If", "[", 
+                    RowBox[{"verbose", ",", 
+                    RowBox[{"Print", "[", 
+                    RowBox[{"\"cjs=\"", ",", "cjs"}], "]"}]}], "]"}], ";", 
+                    RowBox[{"cis", "=", 
+                    RowBox[{"Table", "[", 
+                    RowBox[{
+                    RowBox[{
+                    UnderoverscriptBox["\[Product]", 
+                    RowBox[{
+                    RowBox[{"IndexName", "[", 
+                    RowBox[{"-", "2"}], "]"}], "=", 
+                    
+                    RowBox[{"lowBounds", "\[LeftDoubleBracket]", "i", 
+                    "\[RightDoubleBracket]"}]}], "lmax"], 
+                    RowBox[{
+                    RowBox[{"Ev", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    
+                    RowBox[{"alphas", "\[LeftDoubleBracket]", "i", 
+                    "\[RightDoubleBracket]"}], "}"}], ",", 
+                    RowBox[{
+                    RowBox[{"IndexName", "[", 
+                    RowBox[{"-", "2"}], "]"}], "-", "1"}], ",", "RPitower", 
+                    ",", 
+                    RowBox[{"{", "}"}]}], "]"}], "\[LeftDoubleBracket]", "1", 
+                    "\[RightDoubleBracket]"}]}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"i", ",", "1", ",", "r"}], "}"}]}], "]"}]}], ";", 
+                    
+                    RowBox[{"If", "[", 
+                    RowBox[{"verbose", ",", 
+                    RowBox[{"Print", "[", 
+                    RowBox[{"\"ffis=\"", ",", "cis"}], "]"}]}], "]"}], ";", 
+                    RowBox[{"Do", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"IndexName", "[", "j", "]"}], "=", "1"}], ";", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"IndexName", "[", "j", "]"}], ")"}], "=."}]}], 
+                    ",", 
+                    RowBox[{"{", 
+                    RowBox[{"j", ",", 
+                    RowBox[{"u", "+", "1"}], ",", "r"}], "}"}]}], "]"}], ";", 
+                    
+                    RowBox[{"representations", "=", 
+                    RowBox[{"Table", "[", 
+                    RowBox[{
+                    RowBox[{
+                    
+                    RowBox[{"cis", "\[LeftDoubleBracket]", "i", 
+                    "\[RightDoubleBracket]"}], " ", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    UnderoverscriptBox["\[Product]", 
+                    RowBox[{"j", "=", "1"}], "u"], 
+                    SuperscriptBox[
+                    RowBox[{"(", 
+                    RowBox[{
+                    
+                    RowBox[{"gis", "\[LeftDoubleBracket]", "j", 
+                    "\[RightDoubleBracket]"}], " ", 
+                    
+                    RowBox[{"cjs", "\[LeftDoubleBracket]", "j", 
+                    "\[RightDoubleBracket]"}]}], ")"}], 
+                    RowBox[{"B", "\[LeftDoubleBracket]", 
+                    RowBox[{"i", ",", "j"}], "\[RightDoubleBracket]"}]]}], 
+                    ")"}], " ", 
+                    RowBox[{
+                    UnderoverscriptBox["\[Product]", 
+                    RowBox[{"j", "=", 
+                    RowBox[{"u", "+", "1"}]}], "r"], 
+                    SuperscriptBox[
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"q", "[", 
+                    RowBox[{"IndexName", "[", "j", "]"}], "]"}], " ", 
+                    
+                    RowBox[{"cjs", "\[LeftDoubleBracket]", "j", 
+                    "\[RightDoubleBracket]"}]}], ")"}], 
+                    RowBox[{"B", "\[LeftDoubleBracket]", 
+                    RowBox[{"i", ",", "j"}], "\[RightDoubleBracket]"}]]}]}], 
+                    ",", 
+                    RowBox[{"{", 
+                    RowBox[{"i", ",", "1", ",", "r"}], "}"}]}], "]"}]}], ";", 
+                    
+                    RowBox[{"RPitower", "=", 
+                    RowBox[{"Join", "[", 
+                    RowBox[{"RPitower", ",", 
+                    RowBox[{"Table", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"q", "[", 
+                    RowBox[{"IndexName", "[", "j", "]"}], "]"}], ",", 
+                    
+                    RowBox[{"betas", "\[LeftDoubleBracket]", "j", 
+                    "\[RightDoubleBracket]"}], ",", "0"}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"j", ",", 
+                    RowBox[{"u", "+", "1"}], ",", "r"}], "}"}]}], "]"}]}], 
+                    "]"}]}], ";", 
+                    RowBox[{"If", "[", 
+                    RowBox[{"verbose", ",", 
+                    RowBox[{"Print", "[", 
+                    RowBox[{"\"RPitower=\"", ",", "RPitower"}], "]"}]}], 
+                    "]"}], ";", 
+                    RowBox[{"If", "[", 
+                    RowBox[{"verbose", ",", 
+                    RowBox[{"Print", "[", 
+                    RowBox[{"\"Representations=\"", ",", "representations"}], 
+                    "]"}]}], "]"}], ";", 
+                    RowBox[{"If", "[", 
+                    RowBox[{"verbose", ",", 
+                    
+                    RowBox[{"Print", "[", 
+                    "\"returns : {representations,RPitower,newBounds for \
+RPi-monomials}\"", "]"}]}], "]"}], ";", 
+                    RowBox[{"{", 
+                    RowBox[{"representations", ",", "RPitower", ",", 
+                    RowBox[{"Take", "[", 
+                    RowBox[{"his", ",", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"u", "+", "1"}], ",", "r"}], "}"}]}], "]"}]}], 
+                    "}"}]}]}], "]"}]}]}, {" "}}, 
+                  GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                  DefaultBaseStyle -> "Column", 
+                  GridBoxItemSize -> {
+                   "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}]},
+                "RowDefault"]}
+             },
+             DefaultBaseStyle->"Column",
+             GridBoxAlignment->{"Columns" -> {{Left}}},
+             
+             GridBoxItemSize->{
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+            "Column"],
+           FrameMargins->{{6, 0}, {3, 6}}], "\<\"\"\>"},
+         {
+          PaneBox[GridBox[{
+             {
+              
+              DynamicModuleBox[{System`InformationDump`open$$ = {
+               False, False, False, False, False, False}}, 
+               StyleBox[GridBox[{
+                  {
+                   TagBox[
+                    TooltipBox[
+                    StyleBox["\<\" Full Name\"\>", "InformationRowLabel",
+                    StripOnInput->False],
+                    "\"FullName\"",
+                    TooltipStyle->"TextStyling"],
+                    
+                    Annotation[#, "FullName", 
+                    "Tooltip"]& ], "\<\"Global`ProductsSetReduce\"\>"}
+                 },
+                 AutoDelete->False,
+                 GridBoxAlignment->{"Columns" -> {Right, Left}},
+                 GridBoxDividers->None,
+                 GridBoxItemSize->{"Columns" -> {Automatic, Automatic}},
+                 GridBoxSpacings->{"Columns" -> {
+                    Offset[0.27999999999999997`], {
+                    Offset[0.5599999999999999]}, 
+                    Offset[0.27999999999999997`]}, "Rows" -> {
+                    Offset[0.2], {
+                    Offset[0.8]}, 
+                    Offset[0.2]}}], "DialogStyle",
+                StripOnInput->False],
+               DynamicModuleValues:>{}]}
+            },
+            DefaultBaseStyle->"Column",
+            GridBoxAlignment->{"Columns" -> {{Left}}},
+            GridBoxDividers->{"Columns" -> {{False}}, "Rows" -> {{False}}},
+            
+            GridBoxItemSize->{
+             "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.5599999999999999]}, 
+                Offset[0.27999999999999997`]}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[3.6]}, 
+                Offset[0.2]}}],
+           FrameMargins->{{6, 6}, {6, 3}}], ""},
+         {
+          ItemBox[
+           TagBox[
+            ButtonBox[
+             PaneSelectorBox[{False->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "UpPointerOpener"]], True->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "UpPointerOpenerHot"]]}, Dynamic[
+              System`InformationDump`mouseOver$$]],
+             Alignment->Left,
+             Appearance->{"Default" -> None},
+             
+             ButtonFunction:>FEPrivate`Set[
+              System`InformationDump`open$$, False],
+             Evaluator->Automatic,
+             FrameMargins->{{9, 0}, {0, 0}},
+             ImageMargins->0,
+             ImageSize->Full,
+             Method->"Preemptive"],
+            
+            EventHandlerTag[{
+             "MouseEntered" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, True], 
+              "MouseExited" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, False], 
+              Method -> "Preemptive", PassEventsDown -> Automatic, 
+              PassEventsUp -> True}]],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], "\[SpanFromLeft]"}
+        },
+        AutoDelete->False,
+        FrameStyle->Directive[
+          GrayLevel[0.8], 
+          Thickness[Tiny]],
+        GridBoxAlignment->{"Columns" -> {Left, Right}, "Rows" -> {{Center}}},
+        GridBoxDividers->{
+         "Columns" -> {{None}}, "Rows" -> {False, {True}, False}},
+        GridBoxItemSize->{
+         "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+       "Grid"], False->
+      TagBox[GridBox[{
+         {
+          ItemBox[
+           PaneBox[
+            StyleBox["\<\" Symbol\"\>", "InformationTitleText",
+             StripOnInput->False],
+            FrameMargins->{{4, 0}, {-1, 1}}],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           PaneBox[
+            
+            StyleBox["\<\"Arguments:\\n* tower_: list of elements {t,a,b} \
+such that Tsigma[t]=at+b,\\n* products_: list of p-monomials defined by \
+{t,a,0}\\n* lowBounds_: starting index for evaluations of products's \
+p-monomials,\\n* verbose_: boolean (default False) - if True, all \
+intermediate values are displayed\\nReturns: \\n** representations_: list \
+equivalent to products_, with respect to RPitower\\n** RPitower_: an \
+RPi-tower,\\n** bounds_: starting indices for evaluations of RPitower's \
+pi-monomials,\\n\"\>", "InformationUsageText",
+             StripOnInput->False,
+             LineSpacing->{1.5, 1.5, 3.}],
+            FrameMargins->{{10, 10}, {8, 10}}],
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           TagBox[
+            ButtonBox[
+             PaneSelectorBox[{False->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "DownPointerOpener"],
+               ImageSizeCache->{10., {3., 7.}}], True->
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "DownPointerOpenerHot"],
+               ImageSizeCache->{10., {3., 7.}}]}, Dynamic[
+              System`InformationDump`mouseOver$$]],
+             Alignment->Left,
+             Appearance->{"Default" -> None},
+             
+             ButtonFunction:>FEPrivate`Set[
+              System`InformationDump`open$$, True],
+             Evaluator->Automatic,
+             FrameMargins->{{9, 0}, {0, 0}},
+             ImageMargins->0,
+             ImageSize->Full,
+             Method->"Preemptive"],
+            
+            EventHandlerTag[{
+             "MouseEntered" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, True], 
+              "MouseExited" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, False], 
+              Method -> "Preemptive", PassEventsDown -> Automatic, 
+              PassEventsUp -> True}]],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], "\[SpanFromLeft]"}
+        },
+        AutoDelete->False,
+        FrameStyle->Directive[
+          GrayLevel[0.8], 
+          Thickness[Tiny]],
+        GridBoxAlignment->{"Columns" -> {Left, Right}, "Rows" -> {{Center}}},
+        GridBoxDividers->{
+         "Columns" -> {{None}}, "Rows" -> {False, {True}, False}},
+        GridBoxItemSize->{
+         "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+       "Grid"]}, Dynamic[System`InformationDump`open$$],
+      BaselinePosition->Baseline,
+      FrameMargins->0,
+      ImageSize->Automatic],
+     DynamicModuleValues:>{}],
+    BaseStyle->"InformationGridFrame",
+    StripOnInput->False], "InformationGridPlain",
+   StripOnInput->False],
+  InformationData[<|
+   "ObjectType" -> "Symbol", "Usage" -> 
+    "Arguments:\n* tower_: list of elements {t,a,b} such that Tsigma[t]=at+b,\
+\n* products_: list of p-monomials defined by {t,a,0}\n* lowBounds_: starting \
+index for evaluations of products's p-monomials,\n* verbose_: boolean \
+(default False) - if True, all intermediate values are displayed\nReturns: \n\
+** representations_: list equivalent to products_, with respect to RPitower\n\
+** RPitower_: an RPi-tower,\n** bounds_: starting indices for evaluations of \
+RPitower's pi-monomials,\n", "Documentation" -> None, "OwnValues" -> None, 
+    "UpValues" -> None, "DownValues" -> 
+    Information`InformationValueForm[
+     DownValues, $CellContext`ProductsSetReduce, \
+{$CellContext`ProductsSetReduce[
+         Pattern[$CellContext`tower, 
+          Blank[]], 
+         Pattern[$CellContext`products, 
+          Blank[]], 
+         Pattern[$CellContext`lowBounds, 
+          Blank[]], 
+         Optional[
+          Pattern[$CellContext`verbose, 
+           Blank[]], False]] :> 
+       Module[{$CellContext`r, $CellContext`alphas, $CellContext`M, \
+$CellContext`u, $CellContext`A, $CellContext`DD, $CellContext`B, \
+$CellContext`invB, $CellContext`d, $CellContext`betas, $CellContext`qis, \
+$CellContext`his, $CellContext`lmax, $CellContext`rho, $CellContext`RPitower, \
+$CellContext`gis, $CellContext`cjs, $CellContext`cis, $CellContext`bricks, \
+$CellContext`representations}, If[$CellContext`verbose, 
+           Print["tower=", $CellContext`tower]]; $CellContext`r = 
+          Length[$CellContext`products]; If[$CellContext`verbose, 
+           Print["r=", $CellContext`r]]; $CellContext`alphas = Table[
+            
+            Part[$CellContext`products, $CellContext`i, 2], {$CellContext`i, 
+             1, $CellContext`r}]; If[$CellContext`verbose, 
+           Print["alphas=", $CellContext`alphas]]; $CellContext`M = 
+          Transpose[
+            
+            Sigma`DifferenceFields`BasicTools`DFInterface`\
+GetBasisOfHomogeneousGroup[$CellContext`alphas, $CellContext`tower]]; 
+         If[$CellContext`verbose, 
+           Print["M=", $CellContext`M]]; 
+         If[$CellContext`M == {}, $CellContext`RPitower = 
+            Join[$CellContext`tower, $CellContext`products]; 
+           Print["The tower cannot be reduced"]; 
+           Return[{$CellContext`products, $CellContext`RPitower, \
+$CellContext`lowBounds}]]; $CellContext`u = Length[$CellContext`M]; 
+         If[$CellContext`verbose, 
+           Print[
+           "u=", $CellContext`u]]; {$CellContext`A, $CellContext`DD, \
+$CellContext`B} = SmithDecomposition[$CellContext`M]; $CellContext`invB = 
+          Inverse[$CellContext`B]; If[$CellContext`verbose, 
+           Print["A=", 
+            MatrixForm[$CellContext`A], "D=", 
+            MatrixForm[$CellContext`DD], "B=", 
+            MatrixForm[$CellContext`B], "invB=", 
+            
+            MatrixForm[$CellContext`invB]]]; {$CellContext`betas, \
+$CellContext`qis} = $CellContext`BuildBetasQis[$CellContext`alphas, \
+$CellContext`invB, $CellContext`r]; If[$CellContext`verbose, 
+           Print["betas=", $CellContext`betas]]; If[$CellContext`verbose, 
+           Print["qis=", $CellContext`qis]]; $CellContext`his = 
+          Table[Ceiling[
+              Max[
+               Join[
+                Map[Part[#, 1, 2]& , 
+                 Solve[Denominator[
+                    Part[$CellContext`betas, $CellContext`i]] == 
+                  0, $CellContext`x, Assumptions -> $CellContext`x >= 0]], 
+                Map[Part[#, 1, 2]& , 
+                 Solve[Numerator[
+                    Part[$CellContext`betas, $CellContext`i]] == 
+                  0, $CellContext`x, 
+                  Assumptions -> $CellContext`x >= 0]], {-1}]]] + 
+            2, {$CellContext`i, 1, $CellContext`r}]; 
+         If[$CellContext`verbose, 
+           Print["his=", $CellContext`his]]; $CellContext`lmax = 
+          Max[$CellContext`lowBounds]; If[$CellContext`verbose, 
+           Print["lmax=", $CellContext`lmax]]; $CellContext`d = 
+          Part[$CellContext`DD, $CellContext`u, $CellContext`u]; \
+$CellContext`rho = (-1)^(2/$CellContext`d); $CellContext`RPitower = 
+          Join[$CellContext`tower, {{
+              Sigma`Summation`SumProducts`IndexName[-1], $CellContext`rho, 
+              0}}]; $CellContext`gis = Table[Part[
+              
+              Sigma`DifferenceFields`BasicTools`DFInterface`\
+SolveDifferenceVectorSpace[{(-
+                 Part[$CellContext`betas, $CellContext`i]) \
+$CellContext`rho^($CellContext`d/
+                  Part[$CellContext`DD, $CellContext`i, $CellContext`i]), 
+                1}, {0}, $CellContext`tower], 2, 2] 
+            Sigma`Summation`SumProducts`IndexName[-1]^($CellContext`d - \
+$CellContext`d/
+              Part[$CellContext`DD, $CellContext`i, $CellContext`i]), \
+{$CellContext`i, 1, $CellContext`u}]; If[$CellContext`verbose, 
+           Print["gis=", $CellContext`gis]]; $CellContext`cjs = 
+          ConstantArray[1, $CellContext`r]; 
+         Do[Do[Part[$CellContext`cjs, $CellContext`j] = 1/Part[
+                $CellContext`Ev[{
+                  
+                  Part[$CellContext`gis, $CellContext`j]}, $CellContext`lmax, \
+$CellContext`RPitower, {}], 1]; Null, {$CellContext`j, 1, $CellContext`u}]; 
+           Do[Part[$CellContext`cjs, $CellContext`j] = 1/Product[
+                Part[
+                 $CellContext`Ev[{
+                   Part[$CellContext`betas, $CellContext`j]}, 
+                  Sigma`Summation`SumProducts`IndexName[-2] - 
+                  1, $CellContext`RPitower, {}], 1], {
+                 Sigma`Summation`SumProducts`IndexName[-2], 
+                 Part[$CellContext`his, $CellContext`j], $CellContext`lmax}]; 
+             Null, {$CellContext`j, $CellContext`u + 1, $CellContext`r}]; 
+           Null, {$CellContext`i, 1, $CellContext`r}]; 
+         If[$CellContext`verbose, 
+           Print["cjs=", $CellContext`cjs]]; $CellContext`cis = Table[
+            Product[
+             Part[
+              $CellContext`Ev[{
+                Part[$CellContext`alphas, $CellContext`i]}, 
+               Sigma`Summation`SumProducts`IndexName[-2] - 
+               1, $CellContext`RPitower, {}], 1], {
+              Sigma`Summation`SumProducts`IndexName[-2], 
+              
+              Part[$CellContext`lowBounds, $CellContext`i], \
+$CellContext`lmax}], {$CellContext`i, 1, $CellContext`r}]; 
+         If[$CellContext`verbose, 
+           Print["ffis=", $CellContext`cis]]; 
+         Do[Sigma`Summation`SumProducts`IndexName[$CellContext`j] = 1; Unset[
+             
+             Sigma`Summation`SumProducts`IndexName[$CellContext`j]], \
+{$CellContext`j, $CellContext`u + 
+            1, $CellContext`r}]; $CellContext`representations = 
+          Table[Part[$CellContext`cis, $CellContext`i] 
+            Product[(Part[$CellContext`gis, $CellContext`j] 
+               Part[$CellContext`cjs, $CellContext`j])^
+              Part[$CellContext`B, $CellContext`i, $CellContext`j], \
+{$CellContext`j, 1, $CellContext`u}] Product[(RISC`RISCComb`q[
+                 Sigma`Summation`SumProducts`IndexName[$CellContext`j]] 
+               Part[$CellContext`cjs, $CellContext`j])^
+              Part[$CellContext`B, $CellContext`i, $CellContext`j], \
+{$CellContext`j, $CellContext`u + 1, $CellContext`r}], {$CellContext`i, 
+             1, $CellContext`r}]; $CellContext`RPitower = 
+          Join[$CellContext`RPitower, 
+            Table[{
+              RISC`RISCComb`q[
+               Sigma`Summation`SumProducts`IndexName[$CellContext`j]], 
+              Part[$CellContext`betas, $CellContext`j], 
+              0}, {$CellContext`j, $CellContext`u + 1, $CellContext`r}]]; 
+         If[$CellContext`verbose, 
+           Print["RPitower=", $CellContext`RPitower]]; 
+         If[$CellContext`verbose, 
+           Print["Representations=", $CellContext`representations]]; 
+         If[$CellContext`verbose, 
+           Print[
+           "returns : {representations,RPitower,newBounds for \
+RPi-monomials}"]]; {$CellContext`representations, $CellContext`RPitower, 
+           Take[$CellContext`his, {$CellContext`u + 1, $CellContext`r}]}]}], 
+    "SubValues" -> None, "DefaultValues" -> None, "NValues" -> None, 
+    "FormatValues" -> None, "Options" -> None, "Attributes" -> {}, "FullName" -> 
+    "Global`ProductsSetReduce"|>, False]]], "Output",
+ CellChangeTimes->{
+  3.8632506193939257`*^9, 3.8648992820251007`*^9, 3.864899408827715*^9, 
+   3.864899678692811*^9, 3.865317792457975*^9, {3.865318081211046*^9, 
+   3.865318103683676*^9}, 3.8653267925366507`*^9, 3.8653967611545887`*^9, 
+   3.8654882584556704`*^9, 3.865655393216814*^9, 3.8656554626875277`*^9, 
+   3.865655665776675*^9, 3.865666997500677*^9, 3.8667947883826637`*^9, 
+   3.867834735277463*^9, 3.867988644120926*^9},
+ CellLabel->
+  "Out[168]=",ExpressionUUID->"28e7a9f4-5d17-4be6-bfcf-f274e1386e05"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{543., 601.5},
+WindowMargins->{{Automatic, 3.75}, {-37.5, Automatic}},
+FrontEndVersion->"13.0 for Linux x86 (64-bit) (December 2, 2021)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"c02952d5-4b22-4450-8957-1cb4fa5d1d33"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 200, 4, 29, "Input",ExpressionUUID->"7628161e-1109-4194-a802-3937ce6fc90e"],
+Cell[783, 28, 789, 15, 40, "Print",ExpressionUUID->"c933fb3b-3a86-4670-968a-f9f1303a66b4"],
+Cell[1575, 45, 544, 9, 33, "Output",ExpressionUUID->"cd1b0bc8-7cff-4648-b74a-62ec29d4d2d5"]
+}, Open  ]],
+Cell[2134, 57, 165, 3, 35, "Text",ExpressionUUID->"7f3caafc-a147-4e57-98c1-8588818068a4"],
+Cell[CellGroupData[{
+Cell[2324, 64, 244, 4, 45, "Subsubsection",ExpressionUUID->"5598a566-e44b-4bb8-838c-696ca531c2d7"],
+Cell[2571, 70, 3269, 85, 319, "Input",ExpressionUUID->"8aec84bb-2eb3-47d6-852b-7d059d6c3c86"],
+Cell[5843, 157, 223, 4, 29, "Input",ExpressionUUID->"38a3fb18-ee3e-45b6-8f3d-0632f9942cd9"],
+Cell[6069, 163, 26520, 586, 2247, "Input",ExpressionUUID->"c66a34bf-74f9-4475-8c8a-7348c7ec5f95"],
+Cell[CellGroupData[{
+Cell[32614, 753, 915, 15, 319, "Input",ExpressionUUID->"6072a125-5676-4db3-8046-f56118c7c7a5"],
+Cell[33532, 770, 1042, 15, 323, "Output",ExpressionUUID->"7ff3f3b3-2279-414f-9687-de5af22ce330"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[34611, 790, 209, 4, 29, "Input",ExpressionUUID->"911daa45-68e3-42ba-9ef4-1fccbc26f529"],
+Cell[34823, 796, 37094, 805, 411, "Output",ExpressionUUID->"28e7a9f4-5d17-4be6-bfcf-f274e1386e05"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+

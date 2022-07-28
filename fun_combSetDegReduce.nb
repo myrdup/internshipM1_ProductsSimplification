@@ -1,0 +1,454 @@
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[         0,          0]
+NotebookDataLength[     19708,        453]
+NotebookOptionsPosition[     18239,        417]
+NotebookOutlinePosition[     18640,        433]
+CellTagsIndexPosition[     18597,        430]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{"<<", "Sigma.m"}]], "Input",
+ CellChangeTimes->{{3.8653060379043293`*^9, 3.865306044481748*^9}},
+ CellLabel->"In[33]:=",ExpressionUUID->"15cd5687-1c37-48e2-85c4-0b7f414af7fd"],
+
+Cell[BoxData["\<\"Oups, the package is already loaded! You cannot reload \
+it.\"\>"], "Print",
+ CellFrame->0.5,
+ CellChangeTimes->{
+  3.865306080081003*^9, 3.865308145698884*^9, 3.865318111048938*^9, 
+   3.865396768358841*^9, 3.865488265811118*^9, 3.865655399912552*^9, 
+   3.865655466682979*^9, 3.865655671003354*^9, 3.8656670031511803`*^9, 
+   3.866799282193383*^9, {3.867834741618598*^9, 3.867834748198461*^9}},
+ FontColor->RGBColor[0, 0, 0],
+ Background->RGBColor[0.796887, 0.789075, 0.871107],
+ ButtonBoxOptions->{Active->True},
+ CellLabel->
+  "During evaluation of \
+In[33]:=",ExpressionUUID->"97690629-207d-407e-b029-c364fa2f41c1"],
+
+Cell[BoxData["$Aborted"], "Output",
+ CellChangeTimes->{
+  3.8653081457058764`*^9, 3.865318111050905*^9, 3.86539676836342*^9, 
+   3.865488265815549*^9, 3.865655399919215*^9, 3.865655466684708*^9, 
+   3.865655671005515*^9, 3.86566700315836*^9, 3.866799282203444*^9, {
+   3.867834741621337*^9, 3.867834748200197*^9}},
+ CellLabel->"Out[33]=",ExpressionUUID->"e75fdf55-c6d8-4335-b7fb-0bbfc9203d9e"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"SynchroDegreeSetReduce", "[", 
+   RowBox[{"tower1_", ",", "ext1_", ",", "bounds1_", ",", 
+    RowBox[{"verbose_", ":", "False"}]}], "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+     "r", ",", "cons2", ",", "products2", ",", "bounds2", ",", 
+      "representations", ",", "tower3", ",", "bounds3", ",", "ext2"}], "}"}], 
+    ",", "\[IndentingNewLine]", 
+    RowBox[{"(*", 
+     RowBox[{"degree", " ", "reduction"}], "*)"}], "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"tdeg", ",", 
+        RowBox[{"{", 
+         RowBox[{"cons2", ",", "ext2", ",", "bounds2"}], "}"}]}], "}"}], "=", 
+      
+      RowBox[{"RepeatedTiming", "[", 
+       RowBox[{"SynchroDegreeReduce", "[", 
+        RowBox[{"ext1", ",", "tower1", ",", "bounds1", ",", "verbose"}], 
+        "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"(*", 
+      RowBox[{"set", " ", "reduction"}], "*)"}], "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"tset", ",", 
+        RowBox[{"{", 
+         RowBox[{"representations", ",", "tower3", ",", "bounds3"}], "}"}]}], 
+       "}"}], "=", 
+      RowBox[{"RepeatedTiming", "[", 
+       RowBox[{"ProductsSetReduce", "[", 
+        RowBox[{"tower1", ",", "ext2", ",", "bounds2", ",", "verbose"}], 
+        "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"(*", "combination", "*)"}], "\[IndentingNewLine]", 
+     RowBox[{"r", "=", 
+      RowBox[{"Length", "[", "representations", "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Do", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{"representations", "[", 
+          RowBox[{"[", "k", "]"}], "]"}], "=", 
+         RowBox[{
+          RowBox[{"representations", "[", 
+           RowBox[{"[", "k", "]"}], "]"}], "*", 
+          RowBox[{"cons2", "[", 
+           RowBox[{"[", "k", "]"}], "]"}]}]}], ";"}], "\[IndentingNewLine]", 
+       ",", 
+       RowBox[{"{", 
+        RowBox[{"k", ",", "1", ",", "r"}], "}"}]}], "]"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{
+      "tdeg", ",", "tset", ",", "representations", ",", "tower3", ",", 
+       "bounds3"}], "}"}]}]}], "\[IndentingNewLine]", "]"}]}]], "Input",
+ CellChangeTimes->{{3.865306057091201*^9, 3.865306098489936*^9}, {
+  3.865306138337537*^9, 3.8653061521454763`*^9}, {3.8653062276887302`*^9, 
+  3.865306695805935*^9}, {3.865306821753121*^9, 3.865306867371608*^9}, {
+  3.865317810452547*^9, 3.865317842844215*^9}, {3.865317908611866*^9, 
+  3.8653179367321377`*^9}, {3.865317981723637*^9, 3.86531799157922*^9}, {
+  3.865318149610962*^9, 3.8653181548423443`*^9}, {3.865331284784479*^9, 
+  3.865331301618581*^9}, {3.865331360842222*^9, 3.865331361954103*^9}, {
+  3.86533139755157*^9, 3.8653313992338657`*^9}, {3.865331472172256*^9, 
+  3.865331472681037*^9}, {3.865331506843956*^9, 3.86533151777244*^9}, {
+  3.8653336257608757`*^9, 3.86533363950633*^9}, {3.8654124285100718`*^9, 
+  3.865412477381604*^9}, {3.865412508301525*^9, 3.865412512716774*^9}},
+ CellLabel->"In[34]:=",ExpressionUUID->"25b7afdf-3fb3-4551-bbd2-4c28927594a3"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"SynchroDegreeSetReduce", "::", "usage"}], "=", 
+  "\"\<Arguments:\n* tower1_: list of elements {t,a,b} such that \
+Tsigma[t]=at+b, the first element must have a=b=1\n* ext1_: list of \
+p-monomials defined by {t,a,0}\n* bounds1_: starting index for evaluations of \
+products's p-monomials\nOptional arguments:\n* verbose_: boolean (default \
+False) - if True, major intermediate values are displayed\nReturns:\n** \
+representations: list equivalent to ext1_, with respect to RPitower\n** \
+tower3: an RPi-tower\n** bounds3: starting indices for evaluations of \
+RPitower's pi-monomials\nComputation: \nApplies (1rst) SynchroDegreeReduce on \
+the input extension\nand (2nd) ProductsSetReduce on the degree-reduced \
+extension\n\>\""}]], "Input",
+ CellChangeTimes->{{3.865396095343536*^9, 3.8653965274426622`*^9}},
+ CellLabel->"In[35]:=",ExpressionUUID->"8c0e8b5f-2c42-45e4-84b6-ec1935be86e6"],
+
+Cell[BoxData["\<\"Arguments:\\n* tower1_: list of elements {t,a,b} such that \
+Tsigma[t]=at+b, the first element must have a=b=1\\n* ext1_: list of \
+p-monomials defined by {t,a,0}\\n* bounds1_: starting index for evaluations \
+of products's p-monomials\\nOptional arguments:\\n* verbose_: boolean \
+(default False) - if True, major intermediate values are displayed\\nReturns:\
+\\n** representations: list equivalent to ext1_, with respect to \
+RPitower\\n** tower3: an RPi-tower\\n** bounds3: starting indices for \
+evaluations of RPitower's pi-monomials\\nComputation: \\nApplies (1rst) \
+SynchroDegreeReduce on the input extension\\nand (2nd) ProductsSetReduce on \
+the degree-reduced extension\\n\"\>"], "Output",
+ CellChangeTimes->{
+  3.865396544102372*^9, 3.865396768407234*^9, 3.865488265868058*^9, 
+   3.865655399974227*^9, 3.8656554667376757`*^9, 3.865655671049725*^9, 
+   3.865667003207549*^9, 3.866799282269896*^9, {3.867834741716086*^9, 
+   3.8678347482513647`*^9}},
+ CellLabel->"Out[35]=",ExpressionUUID->"0878c4f2-68ab-46f5-8d30-a3844f9044f0"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"SetSynchroDegreeReduce", "[", 
+   RowBox[{"tower1_", ",", "ext1_", ",", "bounds1_", ",", 
+    RowBox[{"verbose_", ":", "False"}]}], "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+     "representations", ",", "tower2", ",", "bounds2", ",", "l", ",", "s", 
+      ",", "r", ",", "ext2", ",", "cons3", ",", "ext3", ",", "bounds3"}], 
+     "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{"(*", 
+     RowBox[{"set", " ", "reduction"}], "*)"}], "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"tset", ",", 
+        RowBox[{"{", 
+         RowBox[{"representations", ",", "tower2", ",", "bounds2"}], "}"}]}], 
+       "}"}], "=", 
+      RowBox[{"RepeatedTiming", "[", 
+       RowBox[{"ProductsSetReduce", "[", 
+        RowBox[{"tower1", ",", "ext1", ",", "bounds1", ",", "verbose"}], 
+        "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"(*", 
+      RowBox[{"degree", " ", "reduction"}], "*)"}], "\[IndentingNewLine]", 
+     RowBox[{"l", "=", 
+      RowBox[{"Length", "[", "bounds2", "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"s", "=", 
+      RowBox[{"Length", "[", "tower2", "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"ext2", "=", 
+      RowBox[{"Table", "[", 
+       RowBox[{
+        RowBox[{"tower2", "[", 
+         RowBox[{"[", 
+          RowBox[{"s", "-", "l", "+", "k"}], "]"}], "]"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"k", ",", "1", ",", "l"}], "}"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"tdeg", ",", 
+        RowBox[{"{", 
+         RowBox[{"cons3", ",", "ext3", ",", "bounds3"}], "}"}]}], "}"}], "=", 
+      
+      RowBox[{"RepeatedTiming", "[", 
+       RowBox[{"SynchroDegreeReduce", "[", 
+        RowBox[{"ext2", ",", "tower1", ",", "bounds2", ",", "verbose"}], 
+        "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"(*", "combination", "*)"}], "\[IndentingNewLine]", 
+     RowBox[{"r", "=", 
+      RowBox[{"Length", "[", "representations", "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Do", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Do", "[", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{"representations", "[", 
+             RowBox[{"[", "k", "]"}], "]"}], "=", 
+            RowBox[{
+             RowBox[{"representations", "[", 
+              RowBox[{"[", "k", "]"}], "]"}], "/.", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"tower2", "[", 
+                RowBox[{"[", 
+                 RowBox[{
+                  RowBox[{"s", "-", "l", "+", "i"}], ",", "1"}], "]"}], "]"}],
+                "->", " ", 
+               RowBox[{"(", 
+                RowBox[{
+                 RowBox[{"cons3", "[", 
+                  RowBox[{"[", "i", "]"}], "]"}], "*", 
+                 RowBox[{"tower2", "[", 
+                  RowBox[{"[", 
+                   RowBox[{
+                    RowBox[{"s", "-", "l", "+", "i"}], ",", "1"}], "]"}], 
+                  "]"}]}], ")"}]}], "}"}]}]}], ";"}], "\[IndentingNewLine]", 
+          ",", 
+          RowBox[{"{", 
+           RowBox[{"k", ",", "1", ",", "r"}], "}"}]}], "]"}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"tower2", "[", 
+          RowBox[{"[", 
+           RowBox[{
+            RowBox[{"s", "-", "l", "+", "i"}], ",", "2"}], "]"}], "]"}], "=", 
+         
+         RowBox[{"ext3", "[", 
+          RowBox[{"[", 
+           RowBox[{"i", ",", "2"}], "]"}], "]"}]}], ";"}], 
+       "\[IndentingNewLine]", ",", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", "1", ",", "l"}], "}"}]}], "]"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{
+      "tdeg", ",", " ", "tset", ",", "representations", ",", "tower2", ",", 
+       "bounds3"}], "}"}]}]}], "\[IndentingNewLine]", "]"}]}]], "Input",
+ CellChangeTimes->{{3.865306702534238*^9, 3.865306759840637*^9}, {
+   3.86530680167738*^9, 3.865306813740994*^9}, {3.8653068914206953`*^9, 
+   3.8653071033477087`*^9}, {3.8653071799631357`*^9, 3.865307197650758*^9}, {
+   3.865307392168962*^9, 3.865307473176598*^9}, {3.865307516281054*^9, 
+   3.865307554680621*^9}, {3.865307592320425*^9, 3.8653077981387577`*^9}, {
+   3.865308281565361*^9, 3.8653083249000273`*^9}, {3.8653178220161037`*^9, 
+   3.865317896221568*^9}, {3.8653179406932917`*^9, 3.865318045692465*^9}, {
+   3.865318226124394*^9, 3.865318231379456*^9}, 3.865321479532114*^9, {
+   3.8653215301081343`*^9, 3.865321539683194*^9}, {3.865321814521799*^9, 
+   3.8653218205772552`*^9}, {3.865321941961564*^9, 3.865321979591861*^9}, {
+   3.865329778001657*^9, 3.86532977853154*^9}, {3.865329869195632*^9, 
+   3.865329869767131*^9}, {3.8653299808064957`*^9, 3.865330012981676*^9}, {
+   3.865330115485629*^9, 3.865330121860765*^9}, {3.865330817791916*^9, 
+   3.865330820712875*^9}, {3.865330858273785*^9, 3.865330875007162*^9}, {
+   3.865330905391094*^9, 3.865330919327585*^9}, {3.865412543807333*^9, 
+   3.865412613150752*^9}},
+ CellLabel->"In[36]:=",ExpressionUUID->"3dbc2f02-42c1-47d0-b445-9638365f81ae"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"SetSynchroDegreeReduce", "::", "usage"}], "=", " ", 
+  "\"\<Arguments:\n* tower1_: list of elements {t,a,b} such that \
+Tsigma[t]=at+b, the first element must have a=b=1\n* ext1_: list of \
+p-monomials defined by {t,a,0}\n* bounds1_: starting index for evaluations of \
+products's p-monomials\nOptional arguments:\n* verbose_: boolean (default \
+False) - if True, major intermediate values are displayed\nReturns:\n** \
+representations: list equivalent to ext1_, with respect to RPitower\n** \
+tower2: an RPi-tower\n** bounds3: starting indices for evaluations of \
+RPitower's pi-monomials\nComputation: \nApplies (1rst) ProductsSetReduce on \
+the input extension\nand (2nd) SynchroDegreeReduce on the set-reduced \
+extension\>\""}]], "Input",
+ CellChangeTimes->{{3.8653965510632*^9, 3.865396675818074*^9}},
+ CellLabel->"In[37]:=",ExpressionUUID->"b84a9eee-2d11-44a6-b1e8-def5b3513bc1"],
+
+Cell[BoxData["\<\"Arguments:\\n* tower1_: list of elements {t,a,b} such that \
+Tsigma[t]=at+b, the first element must have a=b=1\\n* ext1_: list of \
+p-monomials defined by {t,a,0}\\n* bounds1_: starting index for evaluations \
+of products's p-monomials\\nOptional arguments:\\n* verbose_: boolean \
+(default False) - if True, major intermediate values are displayed\\nReturns:\
+\\n** representations: list equivalent to ext1_, with respect to \
+RPitower\\n** tower2: an RPi-tower\\n** bounds3: starting indices for \
+evaluations of RPitower's pi-monomials\\nComputation: \\nApplies (1rst) \
+ProductsSetReduce on the input extension\\nand (2nd) SynchroDegreeReduce on \
+the set-reduced extension\"\>"], "Output",
+ CellChangeTimes->{{3.865396624474792*^9, 3.8653966800162783`*^9}, 
+   3.865396768430148*^9, 3.865488265904964*^9, 3.865655400009348*^9, 
+   3.865655466767859*^9, 3.865655671072557*^9, 3.865667003248266*^9, 
+   3.866799282321117*^9, {3.86783474175482*^9, 3.867834748279969*^9}},
+ CellLabel->"Out[37]=",ExpressionUUID->"fcc460a7-335f-4f06-9b8f-25cce1a89d1e"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"SetSimpleDegreeReduce", "[", 
+   RowBox[{"tower1_", ",", "ext1_", ",", "bounds1_", ",", 
+    RowBox[{"verbose_", ":", "False"}]}], "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+     "representations", ",", "tower2", ",", "bounds2", ",", "l", ",", "s", 
+      ",", "r", ",", "ext2", ",", "cons3", ",", "ext3", ",", "bounds3"}], 
+     "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{"(*", 
+     RowBox[{"set", " ", "reduction"}], "*)"}], "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"tset", ",", 
+        RowBox[{"{", 
+         RowBox[{"representations", ",", "tower2", ",", "bounds2"}], "}"}]}], 
+       "}"}], "=", 
+      RowBox[{"RepeatedTiming", "[", 
+       RowBox[{"ProductsSetReduce", "[", 
+        RowBox[{"tower1", ",", "ext1", ",", "bounds1", ",", "verbose"}], 
+        "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"(*", 
+      RowBox[{"degree", " ", "reduction"}], "*)"}], "\[IndentingNewLine]", 
+     RowBox[{"l", "=", 
+      RowBox[{"Length", "[", "bounds2", "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"s", "=", 
+      RowBox[{"Length", "[", "tower2", "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"ext2", "=", 
+      RowBox[{"Table", "[", 
+       RowBox[{
+        RowBox[{"tower2", "[", 
+         RowBox[{"[", 
+          RowBox[{"s", "-", "l", "+", "k"}], "]"}], "]"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"k", ",", "1", ",", "l"}], "}"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"tdeg", ",", 
+        RowBox[{"{", 
+         RowBox[{"cons3", ",", "ext3", ",", "bounds3"}], "}"}]}], "}"}], "=", 
+      
+      RowBox[{"RepeatedTiming", "[", 
+       RowBox[{"SimpleDegreeReduce", "[", 
+        RowBox[{"ext2", ",", "tower1", ",", "bounds2", ",", "verbose"}], 
+        "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"(*", "combination", "*)"}], "\[IndentingNewLine]", 
+     RowBox[{"r", "=", 
+      RowBox[{"Length", "[", "representations", "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Do", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Do", "[", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{"representations", "[", 
+             RowBox[{"[", "k", "]"}], "]"}], "=", 
+            RowBox[{
+             RowBox[{"representations", "[", 
+              RowBox[{"[", "k", "]"}], "]"}], "/.", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"tower2", "[", 
+                RowBox[{"[", 
+                 RowBox[{
+                  RowBox[{"s", "-", "l", "+", "i"}], ",", "1"}], "]"}], "]"}],
+                "->", " ", 
+               RowBox[{"(", 
+                RowBox[{
+                 RowBox[{"cons3", "[", 
+                  RowBox[{"[", "i", "]"}], "]"}], "*", 
+                 RowBox[{"tower2", "[", 
+                  RowBox[{"[", 
+                   RowBox[{
+                    RowBox[{"s", "-", "l", "+", "i"}], ",", "1"}], "]"}], 
+                  "]"}]}], ")"}]}], "}"}]}]}], ";"}], "\[IndentingNewLine]", 
+          ",", 
+          RowBox[{"{", 
+           RowBox[{"k", ",", "1", ",", "r"}], "}"}]}], "]"}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"tower2", "[", 
+          RowBox[{"[", 
+           RowBox[{
+            RowBox[{"s", "-", "l", "+", "i"}], ",", "2"}], "]"}], "]"}], "=", 
+         
+         RowBox[{"ext3", "[", 
+          RowBox[{"[", 
+           RowBox[{"i", ",", "2"}], "]"}], "]"}]}], ";"}], 
+       "\[IndentingNewLine]", ",", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", "1", ",", "l"}], "}"}]}], "]"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{
+      "tdeg", ",", " ", "tset", ",", "representations", ",", "tower2", ",", 
+       "bounds3"}], "}"}]}]}], "\[IndentingNewLine]", "]"}]}]], "Input",
+ CellChangeTimes->{{3.8656574315088*^9, 3.865657432301059*^9}, {
+  3.86565746878109*^9, 3.8656574697648373`*^9}, {3.865657566804693*^9, 
+  3.8656575701638737`*^9}},
+ CellLabel->"In[38]:=",ExpressionUUID->"13720a14-8ff2-4351-a3cc-12e64d2db6b3"]
+},
+WindowSize->{562.5, 704.25},
+WindowMargins->{{Automatic, 29.25}, {Automatic, 39}},
+FrontEndVersion->"13.0 for Linux x86 (64-bit) (December 2, 2021)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"8ee93240-5ae5-4ff7-8058-3c0ce3c30f57"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[422, 15, 198, 3, 29, "Input",ExpressionUUID->"15cd5687-1c37-48e2-85c4-0b7f414af7fd"],
+Cell[623, 20, 638, 13, 40, "Print",ExpressionUUID->"97690629-207d-407e-b029-c364fa2f41c1"],
+Cell[1264, 35, 393, 6, 33, "Output",ExpressionUUID->"e75fdf55-c6d8-4335-b7fb-0bbfc9203d9e"]
+}, Open  ]],
+Cell[1672, 44, 3168, 71, 401, "Input",ExpressionUUID->"25b7afdf-3fb3-4551-bbd2-4c28927594a3"],
+Cell[CellGroupData[{
+Cell[4865, 119, 925, 14, 443, "Input",ExpressionUUID->"8c0e8b5f-2c42-45e4-84b6-ec1935be86e6"],
+Cell[5793, 135, 1058, 15, 447, "Output",ExpressionUUID->"0878c4f2-68ab-46f5-8d30-a3844f9044f0"]
+}, Open  ]],
+Cell[6866, 153, 5152, 119, 546, "Input",ExpressionUUID->"3dbc2f02-42c1-47d0-b445-9638365f81ae"],
+Cell[CellGroupData[{
+Cell[12043, 276, 921, 14, 422, "Input",ExpressionUUID->"b84a9eee-2d11-44a6-b1e8-def5b3513bc1"],
+Cell[12967, 292, 1070, 14, 385, "Output",ExpressionUUID->"fcc460a7-335f-4f06-9b8f-25cce1a89d1e"]
+}, Open  ]],
+Cell[14052, 309, 4183, 106, 546, "Input",ExpressionUUID->"13720a14-8ff2-4351-a3cc-12e64d2db6b3"]
+}
+]
+*)
+

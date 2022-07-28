@@ -1,0 +1,377 @@
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[         0,          0]
+NotebookDataLength[     15007,        376]
+NotebookOptionsPosition[     13320,        336]
+NotebookOutlinePosition[     13720,        352]
+CellTagsIndexPosition[     13677,        349]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"GenRat", "[", 
+   RowBox[{"degreeN_", ",", "degreeD_", ",", "nbr_"}], "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+     "num", ",", "den", ",", "coefsN", ",", "coefsD", ",", "list", ",", "i", 
+      ",", "j"}], "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"list", "=", 
+      RowBox[{"ConstantArray", "[", 
+       RowBox[{"1", ",", "nbr"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"Do", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"num", "=", "0"}], ";", "\[IndentingNewLine]", 
+        RowBox[{"den", "=", "0"}], ";", "\[IndentingNewLine]", 
+        RowBox[{"coefsN", "=", 
+         RowBox[{"Table", "[", 
+          RowBox[{
+           RowBox[{"Random", "[", 
+            RowBox[{"Integer", ",", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"-", "199"}], ",", "199"}], "}"}]}], "]"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"i", ",", "1", ",", 
+             RowBox[{"degreeN", "+", "1"}]}], "}"}]}], "]"}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"coefsD", "=", 
+         RowBox[{"Table", "[", 
+          RowBox[{
+           RowBox[{"Random", "[", 
+            RowBox[{"Integer", ",", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"-", "199"}], ",", "199"}], "}"}]}], "]"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"i", ",", "1", ",", 
+             RowBox[{"degreeD", "+", "1"}]}], "}"}]}], "]"}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"Do", "[", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"num", "=", 
+           RowBox[{"num", "+", 
+            RowBox[{
+             RowBox[{"coefsN", "[", 
+              RowBox[{"[", 
+               RowBox[{"j", "+", "1"}], "]"}], "]"}], 
+             RowBox[{"x", "^", "j"}]}]}]}], "\[IndentingNewLine]", ",", 
+          RowBox[{"{", 
+           RowBox[{"j", ",", "0", ",", "degreeN"}], "}"}]}], "]"}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"Do", "[", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"den", "=", 
+           RowBox[{"den", "+", 
+            RowBox[{
+             RowBox[{"coefsD", "[", 
+              RowBox[{"[", 
+               RowBox[{"j", "+", "1"}], "]"}], "]"}], 
+             RowBox[{"x", "^", "j"}]}]}]}], "\[IndentingNewLine]", ",", 
+          RowBox[{"{", 
+           RowBox[{"j", ",", "0", ",", "degreeD"}], "}"}]}], "]"}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"list", "[", 
+          RowBox[{"[", "i", "]"}], "]"}], "=", " ", 
+         RowBox[{"num", "/", "den"}]}], ";"}], "\[IndentingNewLine]", ",", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", "1", ",", "nbr"}], "}"}]}], "]"}], ";", 
+     "\[IndentingNewLine]", "list"}]}], "\[IndentingNewLine]", 
+   "]"}]}]], "Input",
+ CellLabel->"In[38]:=",ExpressionUUID->"4f4f462f-4c33-42af-a5a8-597d6fd9315d"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"GenRat", "::", "usage"}], "=", 
+  "\"\<returns nbr_ rational functions in x, with numerator of degree \
+degreeN_, and denominator of degree degreeD_, and coefficients in [[-199, \
+199]]\>\""}]], "Input",
+ CellChangeTimes->{{3.867985287990198*^9, 3.86798528799144*^9}, 
+   3.867985866055093*^9},
+ CellLabel->"In[4]:=",ExpressionUUID->"85aa7fab-394d-4247-a8e8-9d0dbbcedc7e"],
+
+Cell[BoxData["\<\"returns nbr_ rational functions in x, with numerator of \
+degree degreeN_, and denominator of degree degreeD_, and coefficients in \
+[[-199, 199]]\"\>"], "Output",
+ CellChangeTimes->{3.867985290104568*^9, 3.867985866387724*^9},
+ CellLabel->"Out[4]=",ExpressionUUID->"0dd0b39a-53da-4d12-9583-cea72ec8598b"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"CombinRat", "[", 
+   RowBox[{"maxPow_", ",", "maxSigma_", ",", "rat_", ",", "nbr_"}], "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"l", ",", "list", ",", "powers", ",", "i", ",", "j"}], "}"}], 
+    ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"l", "=", 
+      RowBox[{"Length", "[", "rat", "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"list", "=", 
+      RowBox[{"ConstantArray", "[", 
+       RowBox[{"1", ",", " ", "nbr"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"Do", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"powers", "=", " ", 
+         RowBox[{"Table", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"Random", "[", 
+             RowBox[{"Integer", ",", 
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{"-", "maxPow"}], ",", "maxPow"}], "}"}]}], "]"}], "*", 
+            RowBox[{"Random", "[", "Integer", "]"}]}], ",", 
+           RowBox[{"{", 
+            RowBox[{"i", ",", "1", ",", "l"}], "}"}]}], "]"}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"Print", "[", "powers", "]"}], ";", "\[IndentingNewLine]", 
+        RowBox[{"Do", "[", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"Do", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"list", "[", 
+              RowBox[{"[", "i", "]"}], "]"}], "=", 
+             RowBox[{
+              RowBox[{"list", "[", 
+               RowBox[{"[", "i", "]"}], "]"}], "*", 
+              RowBox[{
+               RowBox[{"TSigma", "[", 
+                RowBox[{
+                 RowBox[{"rat", "[", 
+                  RowBox[{"[", "j", "]"}], "]"}], ",", 
+                 RowBox[{"Random", "[", 
+                  RowBox[{"Integer", ",", 
+                   RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"-", "maxSigma"}], ",", "maxSigma"}], "}"}]}], 
+                  "]"}], ",", 
+                 RowBox[{"{", 
+                  RowBox[{"{", 
+                   RowBox[{"x", ",", "1", ",", "1"}], "}"}], "}"}]}], "]"}], 
+               "^", 
+               RowBox[{"Sign", "[", 
+                RowBox[{"powers", "[", 
+                 RowBox[{"[", "j", "]"}], "]"}], "]"}]}]}]}], 
+            "\[IndentingNewLine]", ",", 
+            RowBox[{"{", 
+             RowBox[{"k", ",", "1", ",", " ", 
+              RowBox[{"Abs", "[", 
+               RowBox[{"powers", "[", 
+                RowBox[{"[", "j", "]"}], "]"}], "]"}]}], "}"}]}], "]"}], 
+          "\[IndentingNewLine]", ",", 
+          RowBox[{"{", 
+           RowBox[{"j", ",", "1", ",", "l"}], "}"}]}], "]"}], ";"}], 
+       "\[IndentingNewLine]", ",", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", "1", ",", "nbr"}], "}"}]}], "]"}], ";", 
+     "\[IndentingNewLine]", "list"}]}], "\[IndentingNewLine]", 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.867811455977497*^9, 
+  3.8678114616015997`*^9}},ExpressionUUID->"0f386d05-cd8f-4443-ae89-\
+7f8132cf624e"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"CombinRat", "::", "usage"}], "=", 
+  "\"\<when rat_ is a set of rational functions f_i in x, CombinRat returns \
+nbr_ new rational functions g_j in x, such that each g_j has every f_i as a \
+factor: at most maxPow times, each time shifted randomly between -maxSigma \
+and +maxSigma times, at power randomly -1 or +1\>\""}]], "Input",
+ CellChangeTimes->{{3.8679856520116873`*^9, 3.867985652012912*^9}},
+ CellLabel->"In[2]:=",ExpressionUUID->"d321a597-b71f-4a51-901a-db758022b479"],
+
+Cell[BoxData["\<\"when rat_ is a set of rational functions f_i in x, \
+CombinRat returns nbr_ new rational functions g_j in x, such that each g_j \
+has every f_i as a factor: at most maxPow times, each time shifted randomly \
+between -maxSigma and +maxSigma times, at power randomly -1 or +1\"\>"], \
+"Output",
+ CellChangeTimes->{3.8679856532402163`*^9},
+ CellLabel->"Out[2]=",ExpressionUUID->"48077880-0b93-4e36-b9c5-e5d9dde7ade1"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ComputeLowBounds", "[", "rat_", "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", "i", "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{"Table", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Ceiling", "[", 
+        RowBox[{"Max", "[", 
+         RowBox[{"Join", "[", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"Map", "[", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"#", "[", 
+               RowBox[{"[", 
+                RowBox[{"1", ",", "2"}], "]"}], "]"}], "&"}], ",", 
+             RowBox[{"(", 
+              RowBox[{"Solve", "[", 
+               RowBox[{
+                RowBox[{
+                 RowBox[{"Denominator", "[", 
+                  RowBox[{"rat", "[", 
+                   RowBox[{"[", "i", "]"}], "]"}], "]"}], "==", "0"}], ",", 
+                "x", ",", " ", 
+                RowBox[{"Assumptions", " ", "->", " ", 
+                 RowBox[{"x", ">=", "0"}]}]}], "]"}], ")"}]}], "]"}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"{", 
+            RowBox[{"-", "1"}], "}"}]}], "\[IndentingNewLine]", "]"}], "]"}], 
+        "]"}], "+", "2"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"i", ",", "1", ",", 
+        RowBox[{"Length", "[", "rat", "]"}]}], "}"}]}], "\[IndentingNewLine]",
+      "]"}]}], "\[IndentingNewLine]", "]"}]}]], "Input",
+ CellLabel->"In[40]:=",ExpressionUUID->"0c44dcbe-40e2-4caa-be4a-d33320cf083c"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ComputeLowBounds", "::", "usage"}], "=", 
+  "\"\<when rat_ is a set of rational functions f_i in x, returns a set of \
+positive integers l_i such that f_i is defined and nonzero for all n >= l_i\>\
+\""}]], "Input",
+ CellChangeTimes->{{3.867985749018766*^9, 3.867985749019988*^9}},
+ CellLabel->"In[3]:=",ExpressionUUID->"b6aa27d6-15c6-4300-9675-5df78a6eb3ee"],
+
+Cell[BoxData["\<\"when rat_ is a set of rational functions f_i in x, returns \
+a set of positive integers l_i such that f_i is defined and nonzero for all n \
+>= l_i\"\>"], "Output",
+ CellChangeTimes->{3.867985750769966*^9},
+ CellLabel->"Out[3]=",ExpressionUUID->"cc96a7aa-e97e-47cc-9e2e-66a20e2de6d9"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"GenInput", "[", 
+   RowBox[{
+   "innbr_", ",", "outnbr_", ",", "maxdeg_", ",", "maxpow_", ",", " ", 
+    "maxsigma_"}], "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"rat1", ",", "rat2", ",", "ext", ",", "bo2"}], "}"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"rat1", "=", 
+      RowBox[{"GenRat", "[", 
+       RowBox[{"maxdeg", ",", "maxdeg", ",", "innbr"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Print", "[", "rat1", "]"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"rat2", "=", 
+      RowBox[{"CombinRat", "[", 
+       RowBox[{"maxpow", ",", "maxsigma", ",", "rat1", ",", "outnbr"}], 
+       "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"ext", "=", 
+      RowBox[{"Table", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"p", "[", "i", "]"}], ",", 
+          RowBox[{"rat2", "[", 
+           RowBox[{"[", "i", "]"}], "]"}], ",", "0"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"i", ",", "1", ",", "outnbr"}], "}"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"bo2", "=", 
+      RowBox[{"ComputeLowBounds", "[", "rat2", "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{"ext", ",", "bo2"}], "}"}]}]}], "\[IndentingNewLine]", 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.867748478469935*^9, 3.867748497100453*^9}, {
+  3.867748831933237*^9, 3.867748841138711*^9}, {3.8678083080627937`*^9, 
+  3.86780831148619*^9}, {3.867811430135684*^9, 
+  3.867811439623911*^9}},ExpressionUUID->"f2098f76-ad57-41dc-a77d-\
+d73248680463"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"GenInput", "::", "usage"}], "=", 
+  "\"\<computes outputnbr_ rational functions f with \
+CombinRat[maxpow,maxsigma,...], from inputnbr_ functions generated with \
+GenRat[maxDeg,maxDeg...]. Consequently, applying SetReduction on P-monomials \
+p characterized by TSigma(p)=fp, reduces the set of size outputnbr_ to a set \
+of size at most inputnbr_. Returns an extension and a set of first indices \
+ready to be used by Set-reduction or degree-reduction functions\>\""}]], \
+"Input",
+ CellChangeTimes->{{3.867986063988041*^9, 3.8679860680986032`*^9}, {
+  3.867986181045163*^9, 3.8679861817992*^9}},
+ CellLabel->"In[6]:=",ExpressionUUID->"e8c2708c-1398-45d4-a0f7-809d5b28d1dd"],
+
+Cell[BoxData["\<\"computes outputnbr_ rational functions f with \
+CombinRat[maxpow,maxsigma,...], from inputnbr_ functions generated with \
+GenRat[maxDeg,maxDeg...]. Consequently, applying SetReduction on P-monomials \
+p characterized by TSigma(p)=fp, reduces the set of size outputnbr_ to a set \
+of size at most inputnbr_. Returns an extension and a set of first indices \
+ready to be used by Set-reduction or degree-reduction functions\"\>"], \
+"Output",
+ CellChangeTimes->{3.8679860688227043`*^9, 3.867986183447002*^9},
+ CellLabel->"Out[6]=",ExpressionUUID->"c582bea7-6442-4bce-afee-7db498b29ae3"]
+}, Open  ]]
+},
+WindowSize->{561, 708},
+WindowMargins->{{216.75, Automatic}, {Automatic, 21.75}},
+FrontEndVersion->"13.0 for Linux x86 (64-bit) (December 2, 2021)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"194519b7-e73a-4aa7-9788-1fec2c53021d"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[400, 13, 2950, 75, 422, "Input",ExpressionUUID->"4f4f462f-4c33-42af-a5a8-597d6fd9315d"],
+Cell[CellGroupData[{
+Cell[3375, 92, 407, 8, 92, "Input",ExpressionUUID->"85aa7fab-394d-4247-a8e8-9d0dbbcedc7e"],
+Cell[3785, 102, 323, 4, 75, "Output",ExpressionUUID->"0dd0b39a-53da-4d12-9583-cea72ec8598b"]
+}, Open  ]],
+Cell[4123, 109, 3016, 76, 443, "Input",ExpressionUUID->"0f386d05-cd8f-4443-ae89-7f8132cf624e"],
+Cell[CellGroupData[{
+Cell[7164, 189, 514, 8, 154, "Input",ExpressionUUID->"d321a597-b71f-4a51-901a-db758022b479"],
+Cell[7681, 199, 432, 6, 137, "Output",ExpressionUUID->"48077880-0b93-4e36-b9c5-e5d9dde7ade1"]
+}, Open  ]],
+Cell[8128, 208, 1476, 37, 216, "Input",ExpressionUUID->"0c44dcbe-40e2-4caa-be4a-d33320cf083c"],
+Cell[CellGroupData[{
+Cell[9629, 249, 393, 7, 92, "Input",ExpressionUUID->"b6aa27d6-15c6-4300-9675-5df78a6eb3ee"],
+Cell[10025, 258, 302, 4, 75, "Output",ExpressionUUID->"cc96a7aa-e97e-47cc-9e2e-66a20e2de6d9"]
+}, Open  ]],
+Cell[10342, 265, 1624, 42, 195, "Input",ExpressionUUID->"f2098f76-ad57-41dc-a77d-d73248680463"],
+Cell[CellGroupData[{
+Cell[11991, 311, 709, 12, 216, "Input",ExpressionUUID->"e8c2708c-1398-45d4-a0f7-809d5b28d1dd"],
+Cell[12703, 325, 601, 8, 178, "Output",ExpressionUUID->"c582bea7-6442-4bce-afee-7db498b29ae3"]
+}, Open  ]]
+}
+]
+*)
+

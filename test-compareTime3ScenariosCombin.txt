@@ -1,0 +1,33 @@
+(* **Test to compare the time performaces of 3 scenarios solving the Combined Reduction problem : synchro degree then set (D), set then synchro degree (S), set then simple degree (SS)** *)
+
+(* innbr_=3,outnbr_=5,maxdeg_=2,maxpow_=3, maxsigma=2, 10 points *)
+n = 10;
+sizeTowS = ConstantArray[1, n];
+sizeTowD = ConstantArray[1, n];
+TdegS = ConstantArray[1, n];
+TdegD = ConstantArray[1, n];
+TdegSimS = ConstantArray[1, n];
+TsetS = ConstantArray[1, n];
+TsetD = ConstantArray[1, n];
+TsetSynS = ConstantArray[1, n];
+tow = {{x, 1, 1}};
+Do[
+ {ext, bounds} = GenInput[3, 5, 2, 3, 2];
+ {tdegS, tsetS, representationsS, towerS, boundsS} = 
+  SetSynchroDegreeReduce[tow, ext, bounds];
+ {tdegD, tsetD, representationsD, towerD, boundsD} = 
+  SynchroDegreeSetReduce[tow, ext, bounds];
+ {tdegSimS, tsetSynS, representationsSimS, towerSimS, boundsSimS} = 
+  SetSimpleDegreeReduce[tow, ext, bounds];
+ sizeTowS[[i]] = 
+  Length[towerS] - 
+   2;(*output tower without x and without root of unity*)
+ 
+ sizeTowD[[i]] = Length[towerS] - 2;
+ TdegS[[i]] = tdegS;
+ TdegD[[i]] = tdegD;
+ TdegSimS[[i]] = tdegSimS;
+ TsetS[[i]] = tsetS;
+ TsetD[[i]] = tsetD;
+ TsetSimS[[i]] = tsetSimS;
+ , {i, 1, n}]

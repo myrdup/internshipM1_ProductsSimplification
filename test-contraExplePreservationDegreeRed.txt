@@ -1,0 +1,22 @@
+(* **Test-contra example to preservation of simple degree-reduction through set reduction** *)
+
+
+ext = {{p[1], x (1 + x^2), 0}, {p[2], x/(2 + x^3), 0}, {p[3], 
+   x (2 + 2 x + x^2)^2 (2 + x^3), 0}}
+firstIndices = {2, 2, 2}
+tower = {{x, 1, 1}}
+
+{constants0, ext0, firstIndices0} = 
+ SimpleDegreeReduce[ext, tower, firstIndices] (*the output multiplicands are unchanged since already reduced*)
+ 
+{reps3, ext3, firstIndices3} = 
+ ProductsSetReduce[tower, ext0, firstIndices0] (*the output multiplicands are NOT degree-reduced*)
+
+{constants1, ext1, firstIndices1} = 
+ SynchroDegreeReduce[ext, tower, firstIndices]
+
+{reps, ext2, firstIndices2} = 
+ ProductsSetReduce[tower, ext1, firstIndices1] (*the output multiplicands ARE degree-reduced*)
+
+Ev[reps, 4, Join[tower, ext2], firstIndices2] == 
+ Ev[{p[1], p[2], p[3]}, 4, Join[tower, ext], firstIndices] (*check correctnnness of the representation*)

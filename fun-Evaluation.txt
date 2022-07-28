@@ -1,0 +1,85 @@
+(* **Evaluation function: building and use** *)
+
+<< Sigma.m
+
+BuildEvMap[tower_, lowBounds_] := Module[{l, t, evMap, e},
+  IndexName[0] = 1; Unset[IndexName[0]];
+  IndexName[-2] = 1; Unset[IndexName[-2]];
+  l = Length[lowBounds];
+  t = Length[tower] - l;
+  evMap = {};
+  (*case of x*)
+  e = tower[[1]];
+  If[e[[2]] == 1 && e[[3]] != 0,
+   evMap = Join[evMap, {e[[1]] -> e[[3]]*IndexName[0]}]
+   ];
+  (*case of q and r-monomial*)
+  If[t > 1,
+   Do[
+     e = tower[[j]];
+     If [e[[3]] == 0,
+      evMap = Join[evMap, {e[[1]] -> e[[2]]^IndexName[0]}]
+      ];
+     , {j, 2, t}];
+   ];
+  (*case of p-monomials*)
+  If[l > 0,
+   Do[
+     e = tower[[j + t]];
+     If[e[[3]] == 0,
+      evMap = 
+       Join[evMap, {e[[1]] -> 
+          SigmaProduct[(TSigma[e[[2]], -1, tower] /. evMap) /. 
+            IndexName[0] -> IndexName[-2], {IndexName[-2], 
+            lowBounds[[j]], IndexName[0]}]}],
+      Print["Fail to build evaluation map with ", tower[[j + t]]]
+      ],
+     {j, 1, l}];
+   ];
+  evMap
+  ]
+
+BuildEvMap::usage = "Arguments:
+* tower_: list of elements {t,a,b} such that Tsigma[t]=at+b with \
+p-monomials in the end,
+* lowBounds_: starting indices for evaluations of tower's \
+p-monomials,
+Returns: a mapping of monomials towards elements of the field \
+depending on IndexName[0] (=unkmown evaluation value)."
+
+Ev[listelt_, n_, tower_, bounds_, verbose_ : False] := 
+ Module[{evMap, i, r, outputlist},
+  r = Length[listelt];
+  outputlist = ConstantArray[1, r];
+  evMap = BuildEvMap[tower, bounds];
+  If[verbose, Print[evMap]];
+  Do[
+   outputlist[[i]] = (listelt[[i]] /. evMap);
+   outputlist[[i]] = (outputlist[[i]] /. IndexName[0] -> n);
+   , {i, 1, r}];
+  outputlist
+  ]
+
+SingleEv[elt_, n_, tower_, bounds_, verbose_ : False] := 
+ Module[{evMap, output},
+  output = 1;
+  evMap = BuildEvMap[tower, bounds];
+  If[verbose, Print[evMap]];
+  output = elt /. evMap;
+  output = output /. IndexName[0] -> n;
+  output
+  ]
+
+Ev::usage = "Arguments:
+* listelt_: list of elements in the tower-extension of a field,
+* n_: positive integer, 
+* tower_: list of elements {t,a,b} such that Tsigma[t]=at+b with \
+p-monomials in the end, 
+* bounds_: starting indices for evaluations of tower's p-monomials]
+Optional arguments:
+* showMap_: boolean (default False) - if True, the mapping \
+corresponding to the evaluation before the specification of n_ is \
+displayed 
+Returns: the evaluations in n_ of elements of listelt_ with respect \
+to tower_."
+

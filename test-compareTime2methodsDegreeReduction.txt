@@ -1,0 +1,63 @@
+(* **Test to compare time performances of 'simple' degree reduction versus synchronized degree reduction** *)
+
+n = 40;
+SimpleDeg = ConstantArray[0, n];
+SynchroDeg = ConstantArray[0, n];
+Do[
+ SimpleDeg[[k]] = 
+  RepeatedTiming[{ext, bo2} = GenInput[3, k, 2, 3, 2]; 
+    SimpleDegreeReduce[ext, {{x, 1, 1}}, bo2]][[1]]; 
+ SynchroDeg[[k]] = 
+  RepeatedTiming[{ext, bo2} = GenInput[3, k, 2, 3, 2]; 
+    SynchroDegreeReduce[ext, {{x, 1, 1}}, bo2]][[1]];
+ , {k, 3, n}]
+
+ 
+ 
+ 
+(*the results used in Myriam Dupraz's report*)
+
+SimpleDeg={0, 0, 0.454669, 0.406165, 0.535798, 0.662553, 0.609312, 1.01602, \
+0.631612, 1.1668, 1.06879, 1.07849, 1.06126, 1.01046, 1.30977, \
+1.31024, 1.61854, 1.21584, 1.49619, 2.66531, 1.47646, 1.77747, \
+2.18023, 2.08792, 1.62931, 2.26423, 2.27566, 3.01519, 2.90343, \
+2.88917, 3.40259, 2.21072, 3.1241, 7.82191, 3.32433, 4.36235, \
+3.60029, 5.03877, 5.17837, 3.76951}
+
+simplePerProd = Table[SimpleDeg[[k]]/k, {k, 1, n}]
+
+SynchroDeg={0, 0, 0.394061, 0.660156, 0.514132, 0.770663, 1.02921, 0.826992, \
+1.44202, 1.47525, 1.3319, 1.67037, 1.44801, 1.49234, 1.71315, \
+1.46476, 2.22367, 1.60425, 2.17052, 2.41528, 2.1077, 2.81998, \
+1.82523, 3.22921, 2.51846, 2.36947, 3.02834, 2.83628, 3.00913, \
+3.34756, 3.69119, 3.22984, 3.49957, 3.78255, 4.4803, 5.09834, 4.0021, \
+4.14999, 4.80922, 4.15234}
+
+synchroPerProd = Table[SynchroDeg[[k]]/k, {k, 1, n}]
+
+(*print result of time for methods according to growing size of the set*)
+
+fsyn = Fit[Take[SynchroDeg, {3, 40}], {1, x}, x];
+fsim = Fit[Take[SimpleDeg, {3, 40}], {1, x}, x];
+Show[
+ ListPlot[SimpleDeg, PlotStyle -> ColorData[97, 5]], 
+ ListPlot[SynchroDeg, PlotStyle -> ColorData[97, 2]], 
+ Plot[fsyn, {x, 3, 40}, PlotStyle -> ColorData[97, 2]], 
+ Plot[fsim, {x, 3, 40}, PlotStyle -> ColorData[97, 5]], 
+ PlotRange -> Automatic]
+legend1 = 
+ PointLegend[{ColorData[97, 5], 
+   ColorData[97, 2]}, {"simple deg. red.", "synchro. deg. red."}]
+
+(*print result of time per product for methods according to growing size of the set*)
+   
+fsyn = Fit[Take[synchroPerProd, {3, 40}], {1, x, x^2}, x];
+fsim = Fit[Take[simplePerProd, {3, 40}], {1, x, x^2}, x];
+Show[
+ ListPlot[simplePerProd, PlotStyle -> ColorData[97, 5]], 
+ ListPlot[synchroPerProd, PlotStyle -> ColorData[97, 2]], 
+ Plot[fsyn, {x, 3, 40}, PlotStyle -> ColorData[97, 2]], 
+ Plot[fsim, {x, 3, 40}, PlotStyle -> ColorData[97, 5]]]
+legend1 = 
+ PointLegend[{ColorData[97, 5], 
+   ColorData[97, 2]}, {"simple deg. red.", "synchro. deg. red."}]

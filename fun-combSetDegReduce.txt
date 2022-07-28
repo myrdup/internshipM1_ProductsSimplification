@@ -1,0 +1,113 @@
+(* **Combination of reductions functions** *)
+
+(* Synchro Degree Reduction THEN Set Reduction *)
+
+SynchroDegreeSetReduce[tower1_, ext1_, bounds1_, verbose_ : False] := 
+ Module[{r, cons2, products2, bounds2, representations, tower3, 
+   bounds3, ext2},
+  (*degree reduction*)
+  {tdeg, {cons2, ext2, bounds2}} = 
+   RepeatedTiming[SynchroDegreeReduce[ext1, tower1, bounds1, verbose]];
+  (*set reduction*)
+  {tset, {representations, tower3, bounds3}} = 
+   RepeatedTiming[ProductsSetReduce[tower1, ext2, bounds2, verbose]];
+  (*combination*)
+  r = Length[representations];
+  Do[
+   representations[[k]] = representations[[k]]*cons2[[k]];
+   , {k, 1, r}];
+  {tdeg, tset, representations, tower3, bounds3}
+  ]
+
+SynchroDegreeSetReduce::usage = "Arguments:
+* tower1_: list of elements {t,a,b} such that Tsigma[t]=at+b, the \
+first element must have a=b=1
+* ext1_: list of p-monomials defined by {t,a,0}
+* bounds1_: starting index for evaluations of products's p-monomials
+Optional arguments:
+* verbose_: boolean (default False) - if True, major intermediate \
+values are displayed
+Returns:
+** representations: list equivalent to ext1_, with respect to \
+RPitower
+** tower3: an RPi-tower
+** bounds3: starting indices for evaluations of RPitower's pi-monomials
+Computation: 
+Applies (1rst) SynchroDegreeReduce on the input extension
+and (2nd) ProductsSetReduce on the degree-reduced extension
+"
+
+(* Set Reduction THEN Synchro Degree Reduction *)
+
+SetSynchroDegreeReduce[tower1_, ext1_, bounds1_, verbose_ : False] := 
+ Module[{representations, tower2, bounds2, l, s, r, ext2, cons3, ext3,
+    bounds3},
+  (*set reduction*)
+  {tset, {representations, tower2, bounds2}} = 
+   RepeatedTiming[ProductsSetReduce[tower1, ext1, bounds1, verbose]];
+  (*degree reduction*)
+  l = Length[bounds2];
+  s = Length[tower2];
+  ext2 = Table[tower2[[s - l + k]], {k, 1, l}];
+  {tdeg, {cons3, ext3, bounds3}} = 
+   RepeatedTiming[SynchroDegreeReduce[ext2, tower1, bounds2, verbose]];
+  (*combination*)
+  r = Length[representations];
+  Do[
+   Do[
+    representations[[k]] = 
+      representations[[
+        k]] /. {tower2[[s - l + i, 
+          1]] -> (cons3[[i]]*tower2[[s - l + i, 1]])};
+    , {k, 1, r}];
+   tower2[[s - l + i, 2]] = ext3[[i, 2]];
+   , {i, 1, l}];
+  {tdeg, tset, representations, tower2, bounds3}
+  ]
+
+SetSynchroDegreeReduce::usage = "Arguments:
+* tower1_: list of elements {t,a,b} such that Tsigma[t]=at+b, the \
+first element must have a=b=1
+* ext1_: list of p-monomials defined by {t,a,0}
+* bounds1_: starting index for evaluations of products's p-monomials
+Optional arguments:
+* verbose_: boolean (default False) - if True, major intermediate \
+values are displayed
+Returns:
+** representations: list equivalent to ext1_, with respect to \
+RPitower
+** tower2: an RPi-tower
+** bounds3: starting indices for evaluations of RPitower's pi-monomials
+Computation: 
+Applies (1rst) ProductsSetReduce on the input extension
+and (2nd) SynchroDegreeReduce on the set-reduced extension"
+
+
+(* Set Reduction THEN ['Simple' or 'Parallel'] Degree Reduction *)
+
+SetSimpleDegreeReduce[tower1_, ext1_, bounds1_, verbose_ : False] := 
+ Module[{representations, tower2, bounds2, l, s, r, ext2, cons3, ext3,
+    bounds3},
+  (*set reduction*)
+  {tset, {representations, tower2, bounds2}} = 
+   RepeatedTiming[ProductsSetReduce[tower1, ext1, bounds1, verbose]];
+  (*degree reduction*)
+  l = Length[bounds2];
+  s = Length[tower2];
+  ext2 = Table[tower2[[s - l + k]], {k, 1, l}];
+  {tdeg, {cons3, ext3, bounds3}} = 
+   RepeatedTiming[
+    SimpleDegreeReduce[ext2, tower1, bounds2, verbose]];
+  (*combination*)
+  r = Length[representations];
+  Do[
+   Do[
+    representations[[k]] = 
+      representations[[
+        k]] /. {tower2[[s - l + i, 
+          1]] -> (cons3[[i]]*tower2[[s - l + i, 1]])};
+    , {k, 1, r}];
+   tower2[[s - l + i, 2]] = ext3[[i, 2]];
+   , {i, 1, l}];
+  {tdeg, tset, representations, tower2, bounds3}
+  ]

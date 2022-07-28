@@ -1,0 +1,1206 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     53980,       1198]
+NotebookOptionsPosition[     51564,       1151]
+NotebookOutlinePosition[     51964,       1167]
+CellTagsIndexPosition[     51921,       1164]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{"<<", " ", "Sigma.m"}]], "Input",
+ CellChangeTimes->{{3.863752090828421*^9, 3.8637520979548693`*^9}},
+ CellLabel->"In[22]:=",ExpressionUUID->"9c007287-db51-4e6f-b732-0c3f3905d84c"],
+
+Cell[BoxData["\<\"Oups, the package is already loaded! You cannot reload \
+it.\"\>"], "Print",
+ CellFrame->0.5,
+ CellChangeTimes->{3.863769580002734*^9, 3.864901034784348*^9, 
+  3.86531779479996*^9, 3.865318106705902*^9, 3.8653267950177097`*^9, 
+  3.865396763619103*^9, 3.86548826350005*^9, 3.8656553948930817`*^9, 
+  3.865655464323967*^9, 3.865655667338111*^9, 3.865667000051981*^9, 
+  3.865676291464402*^9, 3.865676416601079*^9, 3.866799279867724*^9, 
+  3.867834746463018*^9},
+ FontColor->RGBColor[0, 0, 0],
+ Background->RGBColor[0.796887, 0.789075, 0.871107],
+ ButtonBoxOptions->{Active->True},
+ CellLabel->
+  "During evaluation of \
+In[22]:=",ExpressionUUID->"7c1df951-a95d-455d-a383-a3f5a9b592c7"],
+
+Cell[BoxData["$Aborted"], "Output",
+ CellChangeTimes->{3.865317794804043*^9, 3.865318106707694*^9, 
+  3.865326795037693*^9, 3.865396763621464*^9, 3.8654882635059*^9, 
+  3.865655394899414*^9, 3.865655464325884*^9, 3.865655667348343*^9, 
+  3.865667000054901*^9, 3.865676291473426*^9, 3.865676416604513*^9, 
+  3.866799279909074*^9, 3.867834746466282*^9},
+ CellLabel->"Out[22]=",ExpressionUUID->"b3e11486-fc8f-4dba-961c-bf595a7c5c58"]
+}, Open  ]],
+
+Cell["needs: Evaluation", "Text",
+ CellChangeTimes->{{3.8637685642029247`*^9, 
+  3.8637685704828176`*^9}},ExpressionUUID->"fd56dd1d-c19e-4c0f-8262-\
+f9963e78921c"],
+
+Cell[CellGroupData[{
+
+Cell["SynchronizedDegreeReduce", "Subsubsection",
+ CellChangeTimes->{{3.863751584246364*^9, 
+  3.86375159541438*^9}},ExpressionUUID->"3187b775-4b33-4e23-a295-\
+50fd58cffd24"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"MultiTSigma", "[", 
+   RowBox[{"loops_", ",", "g_", ",", "tower_"}], "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"i", ",", "rep", ",", " ", "prod"}], "}"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"rep", "=", "g"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"prod", "=", "rep"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"Do", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"rep", "=", 
+         RowBox[{"TSigma", "[", 
+          RowBox[{"rep", ",", "tower"}], "]"}]}], ";", "\[IndentingNewLine]", 
+        
+        RowBox[{"prod", "=", 
+         RowBox[{"prod", "*", "rep"}]}]}], ",", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", "1", ",", "loops"}], "}"}]}], "]"}], ";", 
+     "\[IndentingNewLine]", "prod"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.863755349548389*^9, 3.863755350607449*^9}, {
+  3.8637614665120773`*^9, 3.863761489816463*^9}, {3.863761628340777*^9, 
+  3.863761677639284*^9}, {3.8637619337736692`*^9, 3.863761980725806*^9}, {
+  3.863762224625387*^9, 3.863762225355863*^9}, {3.863762259617188*^9, 
+  3.863762263987699*^9}, {3.863762393780019*^9, 3.8637623975866203`*^9}},
+ CellLabel->"In[23]:=",ExpressionUUID->"49587f04-6444-417b-a050-98e9e7f05b30"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"MultiTSigma", "::", "usage"}], "=", 
+  "\"\<Arguments:\n* loops_: int>=0,\n* g_: element to shift, \n* tower_: \
+list of elements {t,a,b} such that Tsigma[t]=at+b with {x,1,1} at first and \
+p-monomials in the end\nReturns: Product_{i,0,loops}[(g shifted i times \
+forward w.r.t. tower)]\>\""}]], "Input",
+ CellChangeTimes->{{3.863769945491205*^9, 3.863770044146492*^9}, {
+  3.8637700797942944`*^9, 3.863770221856996*^9}, {3.863770266831709*^9, 
+  3.8637702818566647`*^9}, {3.863772080182493*^9, 3.8637720862824783`*^9}},
+ CellLabel->"In[24]:=",ExpressionUUID->"47869bb0-53ca-4ddf-83a1-43bd620b4d79"],
+
+Cell[BoxData["\<\"Arguments:\\n* loops_: int>=0,\\n* g_: element to shift, \
+\\n* tower_: list of elements {t,a,b} such that Tsigma[t]=at+b with {x,1,1} \
+at first and p-monomials in the end\\nReturns: Product_{i,0,loops}[(g shifted \
+i times forward w.r.t. tower)]\"\>"], "Output",
+ CellChangeTimes->{3.863770289372632*^9, 3.863772776353693*^9, 
+  3.865317794861637*^9, 3.8653181067475643`*^9, 3.865326795095983*^9, 
+  3.8653967636683397`*^9, 3.86548826355721*^9, 3.8656553949503403`*^9, 
+  3.865655464373664*^9, 3.8656556673966846`*^9, 3.865667000102017*^9, 
+  3.865676291522435*^9, 3.8656764166559973`*^9, 3.866799279991593*^9, 
+  3.8678347465209293`*^9},
+ CellLabel->"Out[24]=",ExpressionUUID->"42d09aa2-753a-4ab7-9773-0aec1e165ea4"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"UpdateConsDegReduce", "[", 
+   RowBox[{"fac_", ",", "cons_", ",", "tower_", ",", "n_"}], "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"i", ",", "j", ",", "k", ",", "h", ",", "g", ",", "nCons"}], 
+     "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"nCons", "=", "cons"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"Do", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"Do", "[", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"If", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"fac", "[", 
+             RowBox[{"[", 
+              RowBox[{"2", ",", "i", ",", "3", ",", "j"}], "]"}], "]"}], "!=", 
+            RowBox[{"{", "}"}]}], ",", "\[IndentingNewLine]", 
+           RowBox[{"Do", "[", "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"h", "=", "1"}], ";", "\[IndentingNewLine]", 
+              RowBox[{"If", "[", 
+               RowBox[{
+                RowBox[{
+                 RowBox[{"fac", "[", 
+                  RowBox[{"[", 
+                   RowBox[{
+                   "2", ",", "i", ",", "3", ",", "j", ",", "k", ",", "1"}], 
+                   "]"}], "]"}], "   ", 
+                 RowBox[{"(*", 
+                  RowBox[{
+                   RowBox[{"an", " ", "element"}], ",", " ", 
+                   RowBox[{"the", " ", "ith", " ", "one"}], ",", " ", 
+                   RowBox[{"its", " ", "factors"}], ",", " ", 
+                   RowBox[{"the", " ", "jth", " ", "one"}], ",", " ", 
+                   RowBox[{
+                   "the", " ", "kth", " ", "apparition", " ", "the", " ", 
+                    "number", " ", "of", " ", "application", " ", "of", " ", 
+                    "sigma"}]}], "*)"}], "<", "0"}], ",", 
+                "\[IndentingNewLine]", 
+                RowBox[{
+                 RowBox[{"h", "=", 
+                  RowBox[{"1", "/", 
+                   RowBox[{"fac", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"1", ",", "j"}], "]"}], "]"}]}]}], ";"}]}], 
+               "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+              RowBox[{"If", "[", 
+               RowBox[{
+                RowBox[{
+                 RowBox[{"fac", "[", 
+                  RowBox[{"[", 
+                   RowBox[{
+                   "2", ",", "i", ",", "3", ",", "j", ",", "k", ",", "1"}], 
+                   "]"}], "]"}], ">", "0"}], ",", "\[IndentingNewLine]", 
+                RowBox[{
+                 RowBox[{"h", "=", 
+                  RowBox[{"fac", "[", 
+                   RowBox[{"[", 
+                    RowBox[{"1", ",", "j"}], "]"}], "]"}]}], ";"}]}], 
+               "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+              RowBox[{"g", "=", 
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{"MultiTSigma", "[", 
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"Abs", "[", 
+                    RowBox[{"fac", "[", 
+                    RowBox[{"[", 
+                    RowBox[{
+                    "2", ",", "i", ",", "3", ",", "j", ",", "k", ",", "1"}], 
+                    "]"}], "]"}], "]"}], "-", "1"}], ",", "h", ",", "tower"}],
+                   "]"}], ")"}], "^", 
+                RowBox[{"fac", "[", 
+                 RowBox[{"[", 
+                  RowBox[{
+                  "2", ",", "i", ",", "3", ",", "j", ",", "k", ",", "2"}], 
+                  "]"}], "]"}]}]}], ";", "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"nCons", "[", 
+                RowBox[{"[", "i", "]"}], "]"}], "=", 
+               RowBox[{
+                RowBox[{"nCons", "[", 
+                 RowBox[{"[", "i", "]"}], "]"}], "*", " ", "g"}]}], ";"}], 
+             "\[IndentingNewLine]", ",", 
+             RowBox[{"{", 
+              RowBox[{"k", ",", "1", ",", 
+               RowBox[{"Length", "[", 
+                RowBox[{"fac", "[", 
+                 RowBox[{"[", 
+                  RowBox[{"2", ",", "i", ",", "3", ",", "j"}], "]"}], "]"}], 
+                "]"}]}], "}"}]}], "]"}]}], "\[IndentingNewLine]", "]"}], 
+         "\[IndentingNewLine]", ",", 
+         RowBox[{"{", 
+          RowBox[{"j", ",", "1", ",", 
+           RowBox[{"Length", "[", 
+            RowBox[{"fac", "[", 
+             RowBox[{"[", "1", "]"}], "]"}], "]"}]}], "}"}]}], "]"}], 
+       "\[IndentingNewLine]", ",", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", "1", ",", "n"}], "}"}]}], "]"}], ";", 
+     "\[IndentingNewLine]", "nCons"}]}], "\[IndentingNewLine]", 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.863751648807254*^9, 3.863751665582982*^9}, {
+   3.863751695981868*^9, 3.8637517953317842`*^9}, {3.8637519220073557`*^9, 
+   3.863751925406693*^9}, {3.863752519580613*^9, 3.863752539540073*^9}, {
+   3.863752610404345*^9, 3.863752670411935*^9}, {3.8637528756670437`*^9, 
+   3.8637528878982162`*^9}, {3.863755271867021*^9, 3.863755276730747*^9}, {
+   3.863755326837819*^9, 3.863755329010289*^9}, {3.863756214329438*^9, 
+   3.863756273536297*^9}, {3.863756355080418*^9, 3.863756355684*^9}, 
+   3.8637566640570593`*^9, {3.86375670765385*^9, 3.863756723961769*^9}, {
+   3.8637571178444347`*^9, 3.863757118583276*^9}, {3.8637574567299843`*^9, 
+   3.8637574632464943`*^9}, {3.8637612482938232`*^9, 
+   3.8637613226750193`*^9}, {3.863761380118524*^9, 3.863761386188794*^9}, {
+   3.8637614183618*^9, 3.863761438540773*^9}, {3.863762020110161*^9, 
+   3.8637621680071173`*^9}, {3.863762938776368*^9, 3.8637629645543222`*^9}, {
+   3.863763141095285*^9, 3.8637632361122*^9}, {3.863763416915444*^9, 
+   3.863763446150586*^9}, {3.863763683674967*^9, 3.86376379414895*^9}, {
+   3.863763848746262*^9, 3.8637638679789124`*^9}, {3.8637641176888647`*^9, 
+   3.863764118177678*^9}, {3.863764252705474*^9, 3.8637642643776484`*^9}, 
+   3.863764331441193*^9, {3.863764805549645*^9, 3.863764805918249*^9}, {
+   3.863764860917469*^9, 3.863764861189908*^9}, 3.863765663352998*^9},
+ CellLabel->"In[25]:=",ExpressionUUID->"9e69ac88-bb69-4f8f-9200-16fe4d774f3f"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"UpdateConsDegReduce", "::", "usage"}], "=", 
+  "\"\<Arguments:\n* fac_: output of the function \
+GetSigmaFactorization[f,tower,0,0]. We recall that fac[1] is a maximal set of \
+NOT-sigma-equivalent factors, which involve the last monomial of tower, and \
+whose shifted versions appear in elements of f.\n* cons_: List\n* tower_: \
+list of elements {t,a,b} such that Tsigma[t]=at+b with {x,1,1} at first and \
+p-monomials in the end\n* n_: Length of cons_\nReturns: \nnCons such that \
+nCons[i]=cons[i]*h, with: \nTSigma[h,1,tower]/h is the factor that separates \
+f[i] from the sigma-reduced form F[i]. \nF[i] is chosen such that the only \
+factor that is sigma-equivalent to an element of fac[1] is this element \
+itself.\>\""}]], "Input",
+ CellChangeTimes->{{3.86377031667194*^9, 3.863770429400449*^9}, 
+   3.863770551063466*^9, {3.863770584911139*^9, 3.863770625070558*^9}, {
+   3.863771819350675*^9, 3.863771906861993*^9}, {3.863771986746111*^9, 
+   3.8637720696695223`*^9}, 3.8637721449329777`*^9, {3.8637721785646887`*^9, 
+   3.863772429627716*^9}, {3.863772465787632*^9, 3.863772665002067*^9}, {
+   3.863772752777583*^9, 3.86377277020896*^9}, {3.8637728966900682`*^9, 
+   3.8637728969845457`*^9}, 3.867984760873312*^9},
+ CellLabel->"In[26]:=",ExpressionUUID->"88390cf1-5432-4c2f-87da-8ac59d406dc4"],
+
+Cell[BoxData["\<\"Arguments:\\n* fac_: output of the function \
+GetSigmaFactorization[f,tower,0,0]. We recall that fac[1] is a maximal set of \
+NOT-sigma-equivalent factors, which involve the last monomial of tower, and \
+whose shifted versions appear in elements of f.\\n* cons_: List\\n* tower_: \
+list of elements {t,a,b} such that Tsigma[t]=at+b with {x,1,1} at first and \
+p-monomials in the end\\n* n_: Length of cons_\\nReturns: \\nnCons such that \
+nCons[i]=cons[i]*h, with: \\nTSigma[h,1,tower]/h is the factor that separates \
+f[i] from the sigma-reduced form F[i]. \\nF[i] is chosen such that the only \
+factor that is sigma-equivalent to an element of fac[1] is this element \
+itself.\"\>"], "Output",
+ CellChangeTimes->{3.863772771453354*^9, 3.863772898382197*^9, 
+  3.865317794903283*^9, 3.86531810677378*^9, 3.865326795135477*^9, 
+  3.8653967637014523`*^9, 3.865488263591033*^9, 3.865655394983841*^9, 
+  3.8656554644020243`*^9, 3.865655667426598*^9, 3.865667000135848*^9, 
+  3.8656762915558243`*^9, 3.865676416689702*^9, 3.866799280071785*^9, 
+  3.867834746558138*^9},
+ CellLabel->"Out[26]=",ExpressionUUID->"d6760136-57c6-4305-9cf6-0af77f9ad4ef"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"UpdateRestDegReduce", "[", 
+   RowBox[{"fac_", ",", "rest_", ",", "tower_", ",", "n_"}], "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"nRest", ",", "i", ",", "j", ",", "k"}], "}"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"nRest", "=", "rest"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"Do", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Do", "[", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"If", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"fac", "[", 
+              RowBox[{"[", 
+               RowBox[{"2", ",", "i", ",", "3", ",", "j"}], "]"}], "]"}], "!=", 
+             RowBox[{"{", "}"}]}], ",", "\[IndentingNewLine]", 
+            RowBox[{"Do", "[", "\[IndentingNewLine]", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"nRest", "[", 
+                RowBox[{"[", "i", "]"}], "]"}], "=", 
+               RowBox[{
+                RowBox[{
+                 RowBox[{"fac", "[", 
+                  RowBox[{"[", 
+                   RowBox[{"1", ",", "j"}], "]"}], "]"}], "^", 
+                 RowBox[{"fac", "[", 
+                  RowBox[{"[", 
+                   RowBox[{
+                   "2", ",", "i", ",", "3", ",", "j", ",", "k", ",", "2"}], 
+                   "]"}], "]"}]}], "*", 
+                RowBox[{"nRest", "[", 
+                 RowBox[{"[", "i", "]"}], "]"}]}]}], "\[IndentingNewLine]", 
+              ",", 
+              RowBox[{"{", 
+               RowBox[{"k", ",", "1", ",", 
+                RowBox[{"Length", "[", 
+                 RowBox[{"fac", "[", 
+                  RowBox[{"[", 
+                   RowBox[{"2", ",", "i", ",", "3", ",", "j"}], "]"}], "]"}], 
+                 "]"}]}], "}"}]}], "\[IndentingNewLine]", "]"}]}], 
+           "\[IndentingNewLine]", "]"}], "\[IndentingNewLine]", ",", 
+          RowBox[{"{", 
+           RowBox[{"j", ",", "1", ",", 
+            RowBox[{"Length", "[", 
+             RowBox[{"fac", "[", 
+              RowBox[{"[", "1", "]"}], "]"}], "]"}]}], "}"}]}], "]"}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"nRest", "[", 
+          RowBox[{"[", "i", "]"}], "]"}], "=", 
+         RowBox[{
+          RowBox[{"nRest", "[", 
+           RowBox[{"[", "i", "]"}], "]"}], "*", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"Last", "[", "tower", "]"}], "[", 
+            RowBox[{"[", "1", "]"}], "]"}], "^", 
+           RowBox[{"fac", "[", 
+            RowBox[{"[", 
+             RowBox[{"2", ",", "i", ",", "2"}], "]"}], "]"}]}]}]}], ";"}], 
+       "\[IndentingNewLine]", ",", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", "1", ",", "n"}], "}"}]}], "]"}], ";", 
+     "\[IndentingNewLine]", "nRest"}]}], "\[IndentingNewLine]", 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.86375181178926*^9, 3.863751940142043*^9}, {
+   3.863752029461828*^9, 3.8637520308615026`*^9}, {3.863752801026045*^9, 
+   3.863752850824403*^9}, {3.863752912400404*^9, 3.863752926696204*^9}, 
+   3.863755265820362*^9, {3.863756446134553*^9, 3.863756486889604*^9}, {
+   3.863756521545079*^9, 3.86375659808444*^9}, {3.8637567822035437`*^9, 
+   3.863756798488805*^9}, {3.8637568749402027`*^9, 3.863756908679544*^9}, {
+   3.863756952259568*^9, 3.8637570065430517`*^9}, {3.863757188363082*^9, 
+   3.863757261850721*^9}, {3.863757322437147*^9, 3.863757343844864*^9}, {
+   3.863757435836886*^9, 3.863757441811898*^9}},
+ CellLabel->"In[27]:=",ExpressionUUID->"214e287a-4d1d-440f-a434-f356dc520b0c"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"UpdateRestDegReduce", "::", "usage"}], "=", 
+  "\"\<Arguments:\n* fac_: output of the function \
+GetSigmaFactorization[f,tower,0,0]. We recall that fac[1] is a maximal set of \
+NOT-sigma-equivalent factors, which involve the last monomial of tower, and \
+whose shifted versions appear in elements of f.\n* rest_: List\n* tower_: \
+list of elements {t,a,b} such that Tsigma[t]=at+b with {x,1,1} at first and \
+p-monomials in the end\n* n_: Length of cons_\nReturns: \nnRest such that \
+nRest[i]=rest[i]*R, with: \nR is a sigma-reduced form F[i], where all factors \
+that are sigma-equivalent to an element of fac[1] are replaced by this \
+element itself.\>\""}]], "Input",
+ CellChangeTimes->{{3.863772796544733*^9, 3.8637728376011543`*^9}, {
+  3.863772881264887*^9, 3.863772881537455*^9}, {3.863772927888587*^9, 
+  3.863773025319694*^9}},
+ CellLabel->"In[28]:=",ExpressionUUID->"4766b015-ae88-4c00-8d6d-b4c0e3832f57"],
+
+Cell[BoxData["\<\"Arguments:\\n* fac_: output of the function \
+GetSigmaFactorization[f,tower,0,0]. We recall that fac[1] is a maximal set of \
+NOT-sigma-equivalent factors, which involve the last monomial of tower, and \
+whose shifted versions appear in elements of f.\\n* rest_: List\\n* tower_: \
+list of elements {t,a,b} such that Tsigma[t]=at+b with {x,1,1} at first and \
+p-monomials in the end\\n* n_: Length of cons_\\nReturns: \\nnRest such that \
+nRest[i]=rest[i]*R, with: \\nR is a sigma-reduced form F[i], where all \
+factors that are sigma-equivalent to an element of fac[1] are replaced by \
+this element itself.\"\>"], "Output",
+ CellChangeTimes->{3.863773039212891*^9, 3.8653177949448833`*^9, 
+  3.865318106801958*^9, 3.865326795165538*^9, 3.865396763739305*^9, 
+  3.865488263629632*^9, 3.865655395018866*^9, 3.865655464429542*^9, 
+  3.8656556674549303`*^9, 3.865667000169284*^9, 3.865676291597999*^9, 
+  3.86567641672859*^9, 3.8667992801304197`*^9, 3.8678347465972557`*^9},
+ CellLabel->"Out[28]=",ExpressionUUID->"cf89d536-a916-4040-9572-d8f93305ded5"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"SynchroDegreeReduce", "[", 
+   RowBox[{"ext_", ",", "argTower_", ",", " ", "argBounds_", ",", 
+    RowBox[{"verbose_", ":", "False"}]}], "]"}], ":=", "\[IndentingNewLine]", 
+  
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+     "f", ",", "n", ",", "tower", ",", "fac", ",", "cons", ",", "rest", ",", 
+      " ", "bounds", ",", "outputExt"}], "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"n", "=", 
+      RowBox[{"Length", "[", "ext", "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"f", "=", 
+      RowBox[{"Table", "[", 
+       RowBox[{
+        RowBox[{"ext", "[", 
+         RowBox[{"[", 
+          RowBox[{"i", ",", "2"}], "]"}], "]"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"i", ",", "1", ",", "n"}], "}"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"tower", "=", "argTower"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"cons", "=", 
+      RowBox[{"ConstantArray", "[", 
+       RowBox[{"1", ",", "n"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"rest", "=", 
+      RowBox[{"ConstantArray", "[", 
+       RowBox[{"1", ",", "n"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"While", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Length", "[", "tower", "]"}], ">", "0"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"fac", "=", 
+         RowBox[{"GetSigmaFactorization", "[", 
+          RowBox[{"f", ",", "tower", ",", "0", ",", "0"}], "]"}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"If", "[", 
+         RowBox[{"verbose", ",", 
+          RowBox[{"Print", "[", 
+           RowBox[{"\"\<factorization: \>\"", ",", "fac"}], "]"}]}], "]"}], 
+        ";", "\[IndentingNewLine]", 
+        RowBox[{"cons", "=", 
+         RowBox[{"UpdateConsDegReduce", "[", 
+          RowBox[{"fac", ",", "cons", ",", "tower", ",", "n"}], "]"}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"rest", "=", 
+         RowBox[{"UpdateRestDegReduce", "[", 
+          RowBox[{"fac", ",", "rest", ",", "tower", ",", "n"}], "]"}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"tower", "=", 
+         RowBox[{"Drop", "[", 
+          RowBox[{"tower", ",", 
+           RowBox[{"-", "1"}]}], "]"}]}], ";", "\[IndentingNewLine]", 
+        RowBox[{"f", "=", 
+         RowBox[{"Table", "[", 
+          RowBox[{
+           RowBox[{"fac", "[", 
+            RowBox[{"[", 
+             RowBox[{"2", ",", "i", ",", "1"}], "]"}], "]"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"i", ",", "1", ",", 
+             RowBox[{"Length", "[", 
+              RowBox[{"fac", "[", 
+               RowBox[{"[", "2", "]"}], "]"}], "]"}]}], "}"}]}], "]"}]}], ";",
+         "\[IndentingNewLine]", 
+        RowBox[{"If", "[", 
+         RowBox[{"verbose", ",", 
+          RowBox[{"Print", "[", 
+           RowBox[{"\"\<constants: \>\"", ",", "cons"}], "]"}]}], "]"}], 
+        ";"}]}], "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"(*", " ", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+        "At", " ", "the", " ", "end", " ", "of", " ", "each", " ", 
+         "execution", " ", "of", " ", "the", " ", "While"}], "-", 
+        RowBox[{"loop", " ", "content"}]}], ",", " ", 
+       RowBox[{"we", " ", "have", " ", "the", " ", 
+        RowBox[{"invariant", ":", " ", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"SigmaProduct", "[", 
+            RowBox[{
+             RowBox[{"Ev", "[", 
+              RowBox[{"TSigma", "[", 
+               RowBox[{
+                RowBox[{
+                 RowBox[{"rest", "[", "i", "]"}], "*", 
+                 RowBox[{"f", "[", "i", "]"}]}], ",", 
+                RowBox[{"-", "1"}], ",", "argTower"}], "]"}], "]"}], ",", 
+             RowBox[{"{", 
+              RowBox[{"x", ",", "B", ",", "n"}], "}"}]}], "]"}], "*", 
+           RowBox[{"Ev", "[", 
+            RowBox[{
+             RowBox[{"cons", "[", "i", "]"}], ",", "n", ",", "argTower"}], 
+            "]"}]}], " ", "==", " ", 
+          RowBox[{
+           RowBox[{"SigmaProduct", "[", 
+            RowBox[{
+             RowBox[{"Ev", "[", 
+              RowBox[{"TSigma", "[", 
+               RowBox[{
+                RowBox[{"argF", "[", "i", "]"}], ",", 
+                RowBox[{"-", "1"}], ",", "argTower"}], "]"}], "]"}], ",", 
+             RowBox[{"{", 
+              RowBox[{"x", ",", "B", ",", "n"}], "}"}]}], "]"}], " ", "if", 
+           " ", "B", " ", "is", " ", "sufficiently", " ", "high", " ", "for", 
+           " ", "the", " ", "products", " ", "to", " ", "be", " ", 
+           "defined"}]}]}]}]}], " ", "*)"}], "\[IndentingNewLine]", 
+     RowBox[{"bounds", "=", 
+      RowBox[{"Table", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"Ceiling", "[", 
+          RowBox[{"Max", "[", 
+           RowBox[{"Join", "[", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"argBounds", "[", 
+                RowBox[{"[", "i", "]"}], "]"}], "-", "1"}], "}"}], ",", 
+             RowBox[{"Map", "[", 
+              RowBox[{
+               RowBox[{
+                RowBox[{"#", "[", 
+                 RowBox[{"[", 
+                  RowBox[{"1", ",", "2"}], "]"}], "]"}], "&"}], ",", 
+               RowBox[{"Solve", "[", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{"Denominator", "[", 
+                   RowBox[{"TSigma", "[", 
+                    RowBox[{
+                    RowBox[{"cons", "[", 
+                    RowBox[{"[", "i", "]"}], "]"}], ",", 
+                    RowBox[{"-", "1"}], ",", "argTower"}], "]"}], "]"}], "==",
+                   "0"}], ",", 
+                 RowBox[{"argTower", "[", 
+                  RowBox[{"[", 
+                   RowBox[{"1", ",", "1"}], "]"}], "]"}], ",", 
+                 RowBox[{"Assumptions", "->", 
+                  RowBox[{
+                   RowBox[{"argTower", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"1", ",", "1"}], "]"}], "]"}], ">", "0"}]}]}], 
+                "]"}]}], "]"}], ",", 
+             RowBox[{"Map", "[", 
+              RowBox[{
+               RowBox[{
+                RowBox[{"#", "[", 
+                 RowBox[{"[", 
+                  RowBox[{"1", ",", "2"}], "]"}], "]"}], "&"}], ",", 
+               RowBox[{"Solve", "[", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{"Denominator", "[", 
+                   RowBox[{"TSigma", "[", 
+                    RowBox[{
+                    RowBox[{"rest", "[", 
+                    RowBox[{"[", "i", "]"}], "]"}], ",", 
+                    RowBox[{"-", "1"}], ",", "argTower"}], "]"}], "]"}], "==",
+                   "0"}], ",", 
+                 RowBox[{"argTower", "[", 
+                  RowBox[{"[", 
+                   RowBox[{"1", ",", "1"}], "]"}], "]"}], ",", 
+                 RowBox[{"Assumptions", "->", 
+                  RowBox[{
+                   RowBox[{"argTower", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"1", ",", "1"}], "]"}], "]"}], ">", "0"}]}]}], 
+                "]"}]}], "]"}], ",", 
+             RowBox[{"Map", "[", 
+              RowBox[{
+               RowBox[{
+                RowBox[{"#", "[", 
+                 RowBox[{"[", 
+                  RowBox[{"1", ",", "2"}], "]"}], "]"}], "&"}], ",", 
+               RowBox[{"Solve", "[", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{"Numerator", "[", 
+                   RowBox[{"TSigma", "[", 
+                    RowBox[{
+                    RowBox[{"rest", "[", 
+                    RowBox[{"[", "i", "]"}], "]"}], ",", 
+                    RowBox[{"-", "1"}], ",", "argTower"}], "]"}], "]"}], "==",
+                   "0"}], ",", 
+                 RowBox[{"argTower", "[", 
+                  RowBox[{"[", 
+                   RowBox[{"1", ",", "1"}], "]"}], "]"}], ",", 
+                 RowBox[{"Assumptions", "->", 
+                  RowBox[{
+                   RowBox[{"argTower", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"1", ",", "1"}], "]"}], "]"}], ">", "0"}]}]}], 
+                "]"}]}], "]"}]}], "]"}], "\[IndentingNewLine]", "]"}], "]"}], 
+         "+", "1"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"i", ",", "1", ",", "n"}], "}"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"(*", " ", 
+      RowBox[{
+       RowBox[{"forall", " ", "i"}], ",", " ", 
+       RowBox[{"we", " ", "garantee", " ", "that", " ", 
+        RowBox[{"bounds", "[", "i", "]"}], " ", "is", " ", "a", " ", 
+        "positive", " ", "integer", " ", "from", " ", "which", " ", 
+        RowBox[{"TSigma", "[", 
+         RowBox[{
+          RowBox[{"rest", "[", "i", "]"}], ",", 
+          RowBox[{"-", "1"}], ",", "argTower"}], "]"}], " ", "and", " ", 
+        RowBox[{"TSigma", "[", 
+         RowBox[{
+          RowBox[{"const", "[", "i", "]"}], ",", 
+          RowBox[{"-", "1"}], ",", "argTower"}], "]"}], " ", "are", " ", 
+        "defined", " ", "and", " ", "nonzero"}]}], " ", "*)"}], 
+     "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     RowBox[{"Do", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{"cons", "[", 
+          RowBox[{"[", "i", "]"}], "]"}], "=", 
+         RowBox[{
+          RowBox[{"cons", "[", 
+           RowBox[{"[", "i", "]"}], "]"}], "*", 
+          RowBox[{
+           RowBox[{"Product", "[", 
+            RowBox[{
+             RowBox[{"SingleEv", "[", 
+              RowBox[{
+               RowBox[{"TSigma", "[", 
+                RowBox[{
+                 RowBox[{"ext", "[", 
+                  RowBox[{"[", 
+                   RowBox[{"i", ",", "2"}], "]"}], "]"}], ",", 
+                 RowBox[{"-", "1"}], ",", "argTower"}], "]"}], ",", "j", ",", 
+               "argTower", ",", 
+               RowBox[{"{", "}"}]}], "]"}], ",", 
+             RowBox[{"{", 
+              RowBox[{"j", ",", 
+               RowBox[{"argBounds", "[", 
+                RowBox[{"[", "i", "]"}], "]"}], ",", 
+               RowBox[{
+                RowBox[{"bounds", "[", 
+                 RowBox[{"[", "i", "]"}], "]"}], "-", "1"}]}], "}"}]}], "]"}],
+            "/", 
+           RowBox[{
+            RowBox[{"(", " ", 
+             RowBox[{"SingleEv", "[", 
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{"TSigma", "[", 
+                 RowBox[{
+                  RowBox[{"cons", "[", 
+                   RowBox[{"[", "i", "]"}], "]"}], ",", 
+                  RowBox[{"-", "1"}], ",", "argTower"}], "]"}], "}"}], ",", 
+               RowBox[{"bounds", "[", 
+                RowBox[{"[", "i", "]"}], "]"}], ",", "argTower", ",", 
+               RowBox[{"{", "}"}]}], "]"}], ")"}], "[", 
+            RowBox[{"[", "1", "]"}], "]"}]}]}]}], ";", "\[IndentingNewLine]", 
+        
+        RowBox[{"(*", " ", 
+         RowBox[{
+          RowBox[{"we", " ", "multiply", " ", 
+           RowBox[{"cons", "[", "i", "]"}], " ", "to", " ", "a", " ", "value",
+            " ", "v", " ", "which", " ", "fills", " ", "in", " ", "the", " ", 
+           "gap", " ", 
+           RowBox[{"between", ":", " ", 
+            RowBox[{
+             RowBox[{"SigmaProduct", "[", 
+              RowBox[{
+               RowBox[{"Ev", "[", 
+                RowBox[{"TSigma", "[", 
+                 RowBox[{
+                  RowBox[{"rest", "[", "i", "]"}], ",", 
+                  RowBox[{"-", "1"}], ",", "argTower"}], "]"}], "]"}], ",", 
+               RowBox[{"{", 
+                RowBox[{"x", ",", 
+                 RowBox[{"bounds", "[", "i", "]"}], ",", "n"}], "}"}]}], 
+              "]"}], "*", 
+             RowBox[{"Ev", "[", 
+              RowBox[{
+               RowBox[{"cons", "[", "i", "]"}], ",", "n", ",", "argTower"}], 
+              "]"}], "*", 
+             RowBox[{"f", "[", "i", "]"}]}]}]}], ",", " ", 
+          RowBox[{"and", ":", " ", 
+           RowBox[{"SigmaProduct", "[", 
+            RowBox[{
+             RowBox[{"Ev", "[", 
+              RowBox[{"TSigma", "[", 
+               RowBox[{
+                RowBox[{"argF", "[", "i", "]"}], ",", 
+                RowBox[{"-", "1"}], ",", "argTower"}], "]"}], "]"}], ",", 
+             RowBox[{"{", 
+              RowBox[{"x", ",", 
+               RowBox[{"argBounds", "[", "i", "]"}], ",", "n"}], "}"}]}], 
+            "]"}]}], ",", " ", 
+          RowBox[{
+           RowBox[{"i", ".", "e", ".", " ", "when"}], " ", "we", " ", 
+           "replace", " ", "the", " ", "B", " ", "of", " ", "the", " ", 
+           "invariant", " ", "by", " ", "bounds", " ", "defined", " ", "for", 
+           " ", "each", " ", "one", " ", "of", " ", "the", " ", 
+           "products"}]}], " ", "*)"}], "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"rest", "[", 
+          RowBox[{"[", "i", "]"}], "]"}], "=", 
+         RowBox[{
+          RowBox[{"rest", "[", 
+           RowBox[{"[", "i", "]"}], "]"}], "*", 
+          RowBox[{"f", "[", 
+           RowBox[{"[", "i", "]"}], "]"}]}]}]}], "\[IndentingNewLine]", 
+       RowBox[{"(*", " ", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"f", "[", "i", "]"}], " ", "is", " ", "a", " ", "value"}], 
+         ",", " ", 
+         RowBox[{
+          RowBox[{"i", ".", "e", ".", " ", "it"}], " ", "does", " ", "not", 
+          " ", "depend", " ", "on", " ", 
+          RowBox[{"argTower", "'"}], "s", " ", 
+          RowBox[{"monomials", ".", " ", "We"}], " ", "take", " ", "it", " ", 
+          "into", " ", "account", " ", "in", " ", 
+          RowBox[{"rest", "[", "i", "]"}], " ", "so", " ", "that", " ", "we", 
+          " ", "have", " ", "the", " ", 
+          RowBox[{"equation", ":", " ", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"SigmaProduct", "[", 
+              RowBox[{
+               RowBox[{"Ev", "[", 
+                RowBox[{"TSigma", "[", 
+                 RowBox[{
+                  RowBox[{"rest", "[", "i", "]"}], ",", 
+                  RowBox[{"-", "1"}], ",", "argTower"}], "]"}], "]"}], ",", 
+               RowBox[{"{", 
+                RowBox[{"x", ",", 
+                 RowBox[{"bounds", "[", "i", "]"}], ",", "n"}], "}"}]}], 
+              "]"}], "*", 
+             RowBox[{"Ev", "[", 
+              RowBox[{
+               RowBox[{"cons", "[", "i", "]"}], ",", "n", ",", "argTower"}], 
+              "]"}]}], " ", "==", " ", 
+            RowBox[{"SigmaProduct", "[", 
+             RowBox[{
+              RowBox[{"Ev", "[", 
+               RowBox[{"TSigma", "[", 
+                RowBox[{
+                 RowBox[{"argF", "[", "i", "]"}], ",", 
+                 RowBox[{"-", "1"}], ",", "argTower"}], "]"}], "]"}], ",", 
+              RowBox[{"{", 
+               RowBox[{"x", ",", 
+                RowBox[{"argBounds", "[", "i", "]"}], ",", "n"}], "}"}]}], 
+             "]"}]}]}]}]}], " ", "*)"}], "\[IndentingNewLine]", ",", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", "1", ",", "n"}], "}"}]}], "]"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"outputExt", "=", 
+      RowBox[{"Table", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"ext", "[", 
+           RowBox[{"[", 
+            RowBox[{"i", ",", "1"}], "]"}], "]"}], ",", 
+          RowBox[{"rest", "[", 
+           RowBox[{"[", "i", "]"}], "]"}], ",", "0"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"i", ",", "1", ",", "n"}], "}"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{"cons", ",", "outputExt", ",", " ", "bounds"}], "}"}]}]}], 
+   "\[IndentingNewLine]", "]"}]}]], "Input",
+ CellChangeTimes->{{3.863753126213648*^9, 3.863753293724361*^9}, {
+   3.8637533412760067`*^9, 3.863753546418375*^9}, {3.863753588476172*^9, 
+   3.863753640954973*^9}, {3.8637537248276587`*^9, 3.863753734042315*^9}, {
+   3.863753867987554*^9, 3.863753926641046*^9}, 3.863754546327846*^9, {
+   3.8637552919963703`*^9, 3.863755302040593*^9}, {3.8637630579503202`*^9, 
+   3.863763071279694*^9}, {3.8637634814837523`*^9, 3.863763502380962*^9}, {
+   3.863765149428295*^9, 3.863765187522121*^9}, {3.863765217882225*^9, 
+   3.863765223813241*^9}, {3.8637652692657013`*^9, 3.863765469257401*^9}, {
+   3.863765679751697*^9, 3.863765742088399*^9}, {3.863765787743663*^9, 
+   3.863765905895306*^9}, {3.863765998274049*^9, 3.86376602492633*^9}, {
+   3.86376606892986*^9, 3.8637660746776943`*^9}, {3.863766172958478*^9, 
+   3.863766203246904*^9}, {3.863766252508774*^9, 3.863766255708972*^9}, {
+   3.863766380047063*^9, 3.8637663823083344`*^9}, {3.863766439085351*^9, 
+   3.8637664613558073`*^9}, {3.8637664917173223`*^9, 3.863766495243875*^9}, {
+   3.863766547565378*^9, 3.863766591473287*^9}, {3.8637672475893707`*^9, 
+   3.863767282465466*^9}, {3.86376731767243*^9, 3.8637673626067553`*^9}, {
+   3.863767450540585*^9, 3.863767486997531*^9}, {3.863767532293734*^9, 
+   3.86376763107767*^9}, {3.863767664493384*^9, 3.863767748693253*^9}, {
+   3.863768470211013*^9, 3.863768539049809*^9}, {3.863769107279573*^9, 
+   3.8637691649480677`*^9}, {3.8637692324297*^9, 3.863769301562995*^9}, {
+   3.863769337046732*^9, 3.863769341242446*^9}, {3.863769377610235*^9, 
+   3.863769399146098*^9}, {3.8637694300342627`*^9, 3.863769442593944*^9}, {
+   3.863769474830192*^9, 3.863769487845269*^9}, 3.863774442018409*^9, {
+   3.863775042838522*^9, 3.863775318709374*^9}, {3.86377537962149*^9, 
+   3.8637753940541573`*^9}, {3.86377543095688*^9, 3.8637754504212923`*^9}, {
+   3.863775522316749*^9, 3.863775774419366*^9}, {3.863775805747678*^9, 
+   3.86377586422724*^9}, {3.863775950544683*^9, 3.863775961434701*^9}, {
+   3.8637760460629396`*^9, 3.863776083297921*^9}, {3.8637779927939177`*^9, 
+   3.8637779932833147`*^9}, {3.863778059996523*^9, 3.863778075173052*^9}, {
+   3.863778144236742*^9, 3.863778199340893*^9}, {3.863778291071945*^9, 
+   3.863778346764098*^9}, 3.863778385544115*^9, 3.8637784328170557`*^9, {
+   3.863778469023787*^9, 3.8637784963547487`*^9}, 3.8637786357871017`*^9, {
+   3.865317055705249*^9, 3.8653171107743473`*^9}, {3.8653171452807617`*^9, 
+   3.865317222703814*^9}, {3.865333649191535*^9, 3.865333656071827*^9}},
+ CellLabel->"In[29]:=",ExpressionUUID->"af1f02de-e388-436c-b2d1-908accb11ea5"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"SynchroDegreeReduce", "::", "usage"}], "=", 
+  "\"\<Arguments:\n* argF_: List of N element in the rational field described \
+by argTower,\n* argTower_: list of elements {t,a,b} such that Tsigma[t]=at+b \
+with {x,1,1} at first and p-monomials in the end\nOptional arguments,\n* \
+argBounds_: argBounds[i] is a positive integer from which \
+TSigma[argF[i],-1,argTower] is defined and nonzero,\n* verbose_: [default: \
+False] If True, successive factorizations of considered terms w.r.t. current \
+tower, and successive constants will be displayed\nReturns: \n** cons: List \
+of N element in the rational field described by argTower,\n** rest: List of N \
+element in the rational field described by argTower, \n** bounds: bounds[i] \
+is a positive integer from which TSigma[rest[i],-1,argTower] is defined and \
+nonzero\nsuch that: forall i,\n(1) all rest[i] are sigma-reduced form, whose \
+all factors that are sigma-equivalent are equal\n(2) forall i, \
+SigmaProduct[Ev[TSigma[rest[i],-1,argTower]],{x,bounds[i],n}]*Ev[cons[i],n,\
+argTower] == SigmaProduct[Ev[TSigma[argF[i],-1,argTower]],{x,argBounds[i],n}]\
+\>\""}]], "Input",
+ CellChangeTimes->{{3.8637730569349957`*^9, 3.863773063446932*^9}, {
+   3.863773183129781*^9, 3.863773241934866*^9}, {3.863773313013925*^9, 
+   3.8637733376617928`*^9}, {3.8637733778216543`*^9, 
+   3.8637736432518578`*^9}, {3.8637736819154577`*^9, 3.863773833226686*^9}, {
+   3.863773866435089*^9, 3.863774171113118*^9}, {3.8637744723521223`*^9, 
+   3.863774527022728*^9}, {3.863774557622735*^9, 3.86377462486134*^9}, {
+   3.8637746636135902`*^9, 3.863774730893729*^9}, {3.863774815568426*^9, 
+   3.8637748294137287`*^9}, {3.863774893881494*^9, 3.863774943854678*^9}, 
+   3.8637750310035152`*^9},
+ CellLabel->"In[30]:=",ExpressionUUID->"23d3bb29-257c-4889-a01c-65ced42b3d9a"],
+
+Cell[BoxData["\<\"Arguments:\\n* argF_: List of N element in the rational \
+field described by argTower,\\n* argTower_: list of elements {t,a,b} such \
+that Tsigma[t]=at+b with {x,1,1} at first and p-monomials in the \
+end\\nOptional arguments,\\n* argBounds_: argBounds[i] is a positive integer \
+from which TSigma[argF[i],-1,argTower] is defined and nonzero,\\n* verbose_: \
+[default: False] If True, successive factorizations of considered terms \
+w.r.t. current tower, and successive constants will be displayed\\nReturns: \
+\\n** cons: List of N element in the rational field described by \
+argTower,\\n** rest: List of N element in the rational field described by \
+argTower, \\n** bounds: bounds[i] is a positive integer from which \
+TSigma[rest[i],-1,argTower] is defined and nonzero\\nsuch that: forall \
+i,\\n(1) all rest[i] are sigma-reduced form, whose all factors that are \
+sigma-equivalent are equal\\n(2) forall i, \
+SigmaProduct[Ev[TSigma[rest[i],-1,argTower]],{x,bounds[i],n}]*Ev[cons[i],n,\
+argTower] == SigmaProduct[Ev[TSigma[argF[i],-1,argTower]],{x,argBounds[i],n}]\
+\"\>"], "Output",
+ CellChangeTimes->{3.86377503275315*^9, 3.865317794997493*^9, 
+  3.865318106834268*^9, 3.865326795200384*^9, 3.865396763787518*^9, 
+  3.865488263685124*^9, 3.865655395070717*^9, 3.865655464474411*^9, 
+  3.8656556674969063`*^9, 3.865667000219893*^9, 3.8656762916322823`*^9, 
+  3.8656764167628307`*^9, 3.866799280209559*^9, 3.867834746647266*^9},
+ CellLabel->"Out[30]=",ExpressionUUID->"84297bc2-d69b-4003-86b1-23e38d5e0ec6"]
+}, Open  ]],
+
+Cell[BoxData["\[IndentingNewLine]"], "Input",
+ CellChangeTimes->{{3.86375176980733*^9, 3.8637517936610413`*^9}, {
+  3.863773724938581*^9, 3.86377372806647*^9}},
+ CellLabel->"In[31]:=",ExpressionUUID->"968a2b33-0935-44c0-8549-1cbecb8d6dd3"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["SimpleDegreeReduce", "Subsubsection",
+ CellChangeTimes->{{3.8656575438322678`*^9, 
+  3.865657548666213*^9}},ExpressionUUID->"63063a14-f6f9-44b9-8c1b-\
+37b8bec429ef"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"SimpleDegreeReduce", "[", 
+   RowBox[{"extension_", ",", "tower_", ",", "lowerBounds_", ",", 
+    RowBox[{"verbose_", ":", "False"}]}], "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+     "r", ",", "i", ",", " ", "simpProducts", ",", " ", "constants", ",", " ",
+       "fconstants", ",", " ", "gconstants", ",", " ", "newExtension", ",", 
+      " ", "newBounds"}], "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"r", "=", 
+      RowBox[{"Length", "[", "extension", "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"(*", 
+      RowBox[{
+       RowBox[{"simplification", " ", "of", " ", "P"}], "-", 
+       RowBox[{
+        RowBox[{"monomials", "'"}], " ", "factors"}]}], "*)"}], 
+     "\[IndentingNewLine]", 
+     RowBox[{"simpProducts", " ", "=", " ", 
+      RowBox[{"ConstantArray", "[", 
+       RowBox[{"1", ",", "r"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"Do", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{"simpProducts", "[", 
+          RowBox[{"[", "i", "]"}], "]"}], "=", 
+         RowBox[{"SimplifyProduct", "[", 
+          RowBox[{
+           RowBox[{"extension", "[", 
+            RowBox[{"[", 
+             RowBox[{"i", ",", "2"}], "]"}], "]"}], ",", "tower"}], "]"}]}], 
+        ";"}], "\[IndentingNewLine]", ",", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", "1", ",", "r"}], "}"}]}], "\[IndentingNewLine]", 
+      "]"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"If", "[", 
+      RowBox[{"verbose", ",", 
+       RowBox[{"Print", "[", 
+        RowBox[{
+        "\"\<simplified P-monomials' factors:\>\"", ",", "simpProducts"}], 
+        "]"}]}], "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+     "\[IndentingNewLine]", 
+     RowBox[{"(*", 
+      RowBox[{
+      "extraction", " ", "of", " ", "constants", " ", "and", " ", "new", " ", 
+       "Extension"}], "*)"}], "\[IndentingNewLine]", 
+     RowBox[{"newExtension", "=", 
+      RowBox[{"Table", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"p", "[", "i", "]"}], ",", 
+          RowBox[{"simpProducts", "[", 
+           RowBox[{"[", 
+            RowBox[{"i", ",", "1"}], "]"}], "]"}], ",", "0"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"i", ",", "1", ",", "r"}], "}"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     RowBox[{"(*", 
+      RowBox[{"correction", " ", "of", " ", "bounds"}], "*)"}], 
+     "\[IndentingNewLine]", 
+     RowBox[{"newBounds", " ", "=", 
+      RowBox[{"Table", "[", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"Ceiling", "[", 
+          RowBox[{"Max", "[", 
+           RowBox[{"Join", "[", "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{"Map", "[", 
+              RowBox[{
+               RowBox[{
+                RowBox[{"#", "[", 
+                 RowBox[{"[", 
+                  RowBox[{"1", ",", "2"}], "]"}], "]"}], "&"}], ",", 
+               RowBox[{"(", 
+                RowBox[{"Solve", "[", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"Denominator", "[", 
+                    RowBox[{"TSigma", "[", 
+                    RowBox[{
+                    RowBox[{"simpProducts", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"i", ",", "1"}], "]"}], "]"}], ",", 
+                    RowBox[{"-", "1"}], ",", "tower"}], "]"}], "]"}], "==", 
+                   "0"}], ",", 
+                  RowBox[{"tower", "[", 
+                   RowBox[{"[", 
+                    RowBox[{"1", ",", "1"}], "]"}], "]"}], ",", 
+                  RowBox[{"Assumptions", "->", 
+                   RowBox[{
+                    RowBox[{"tower", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"1", ",", "1"}], "]"}], "]"}], ">", "0"}]}]}], 
+                 "]"}], ")"}]}], "]"}], ",", "\[IndentingNewLine]", 
+             RowBox[{"Map", "[", 
+              RowBox[{
+               RowBox[{
+                RowBox[{"#", "[", 
+                 RowBox[{"[", 
+                  RowBox[{"1", ",", "2"}], "]"}], "]"}], "&"}], ",", 
+               RowBox[{"(", 
+                RowBox[{"Solve", "[", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"Numerator", "[", 
+                    RowBox[{"TSigma", "[", 
+                    RowBox[{
+                    RowBox[{"simpProducts", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"i", ",", "1"}], "]"}], "]"}], ",", 
+                    RowBox[{"-", "1"}], ",", "tower"}], "]"}], "]"}], "==", 
+                   "0"}], ",", 
+                  RowBox[{"tower", "[", 
+                   RowBox[{"[", 
+                    RowBox[{"1", ",", "1"}], "]"}], "]"}], ",", 
+                  RowBox[{"Assumptions", "->", 
+                   RowBox[{
+                    RowBox[{"tower", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"1", ",", "1"}], "]"}], "]"}], ">", "0"}]}]}], 
+                 "]"}], ")"}]}], "]"}], ",", "\[IndentingNewLine]", 
+             RowBox[{"Map", "[", 
+              RowBox[{
+               RowBox[{
+                RowBox[{"#", "[", 
+                 RowBox[{"[", 
+                  RowBox[{"1", ",", "2"}], "]"}], "]"}], "&"}], ",", 
+               RowBox[{"(", 
+                RowBox[{"Solve", "[", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"TSigma", "[", 
+                    RowBox[{
+                    RowBox[{"simpProducts", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"i", ",", "2"}], "]"}], "]"}], ",", 
+                    RowBox[{"-", "1"}], ",", "tower"}], "]"}], "==", "0"}], 
+                  ",", 
+                  RowBox[{"tower", "[", 
+                   RowBox[{"[", 
+                    RowBox[{"1", ",", "1"}], "]"}], "]"}], ",", 
+                  RowBox[{"Assumptions", "->", 
+                   RowBox[{
+                    RowBox[{"tower", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"1", ",", "1"}], "]"}], "]"}], ">", "0"}]}]}], 
+                 "]"}], ")"}]}], "]"}], ",", "\[IndentingNewLine]", 
+             RowBox[{"{", 
+              RowBox[{"lowerBounds", "[", 
+               RowBox[{"[", "i", "]"}], "]"}], "}"}]}], "\[IndentingNewLine]",
+             "]"}], "]"}], "]"}], "+", "1"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"i", ",", "1", ",", "r"}], "}"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"If", "[", 
+      RowBox[{"verbose", ",", " ", "\[IndentingNewLine]", 
+       RowBox[{"Print", "[", 
+        RowBox[{"\"\<newBounds=\>\"", ",", " ", "newBounds"}], "]"}]}], "]"}],
+      ";", "\[IndentingNewLine]", 
+     RowBox[{"gconstants", "=", 
+      RowBox[{"Table", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"simpProducts", "[", 
+           RowBox[{"[", 
+            RowBox[{"i", ",", "2"}], "]"}], "]"}], ")"}], "/", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"simpProducts", "[", 
+            RowBox[{"[", 
+             RowBox[{"i", ",", "2"}], "]"}], "]"}], "/.", " ", 
+           RowBox[{"x", "->", " ", 
+            RowBox[{
+             RowBox[{"newBounds", "[", 
+              RowBox[{"[", "i", "]"}], "]"}], "-", "1"}]}]}], ")"}]}], ",", 
+        RowBox[{"{", 
+         RowBox[{"i", ",", "1", ",", "r"}], "}"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"If", "[", 
+      RowBox[{"verbose", ",", "\[IndentingNewLine]", 
+       RowBox[{"Print", "[", 
+        RowBox[{"\"\<gconstants=\>\"", ",", "gconstants"}], "]"}]}], "]"}], 
+     ";", "\[IndentingNewLine]", 
+     RowBox[{"constants", "=", 
+      RowBox[{"ConstantArray", "[", 
+       RowBox[{"1", ",", "r"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"fconstants", "=", 
+      RowBox[{"ConstantArray", "[", 
+       RowBox[{"1", ",", "r"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"Do", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{"fconstants", "[", 
+          RowBox[{"[", "i", "]"}], "]"}], "=", 
+         RowBox[{"Product", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"extension", "[", 
+             RowBox[{"[", 
+              RowBox[{"i", ",", "2"}], "]"}], "]"}], "/.", " ", 
+            RowBox[{"x", " ", "->", " ", 
+             RowBox[{"k", "-", "1"}]}]}], ",", 
+           RowBox[{"{", 
+            RowBox[{"k", ",", 
+             RowBox[{"lowerBounds", "[", 
+              RowBox[{"[", "i", "]"}], "]"}], ",", 
+             RowBox[{
+              RowBox[{"newBounds", "[", 
+               RowBox[{"[", "i", "]"}], "]"}], "-", "1"}]}], "}"}]}], "]"}]}],
+         ";", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"constants", "[", 
+          RowBox[{"[", "i", "]"}], "]"}], "=", 
+         RowBox[{
+          RowBox[{"fconstants", "[", 
+           RowBox[{"[", "i", "]"}], "]"}], "*", 
+          RowBox[{"gconstants", "[", 
+           RowBox[{"[", "i", "]"}], "]"}]}]}], ";"}], "\[IndentingNewLine]", 
+       ",", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", "1", ",", "r"}], "}"}]}], "]"}], ";", " ", 
+     RowBox[{"(*", 
+      RowBox[{
+       RowBox[{"extension", "[", 
+        RowBox[{"[", 
+         RowBox[{"i", ",", "2"}], "]"}], "]"}], "=", 
+       RowBox[{"alpha", "[", 
+        RowBox[{"[", "i", "]"}], "]"}]}], "*)"}], "\[IndentingNewLine]", 
+     RowBox[{"If", "[", 
+      RowBox[{"verbose", ",", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"Print", "[", 
+         RowBox[{"\"\<fconstants=\>\"", ",", "fconstants"}], "]"}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{
+        "Print", "[", "\"\<returns : {constants, newExtension,newBounds}\>\"",
+          "]"}]}]}], "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{"constants", ",", " ", "newExtension", ",", " ", "newBounds"}], 
+      "}"}]}]}], "\[IndentingNewLine]", "]"}]}]], "Input",
+ CellChangeTimes->{{3.865657556977693*^9, 3.865657627760021*^9}, {
+   3.865657694453904*^9, 3.865657724622652*^9}, 3.865657772342152*^9, {
+   3.8656579860125*^9, 3.8656580627635098`*^9}, {3.865668244850408*^9, 
+   3.86566843043367*^9}, {3.865676151459787*^9, 3.8656761602018023`*^9}},
+ CellLabel->"In[32]:=",ExpressionUUID->"99bf2f80-1417-49c9-9734-0c4d3eaf383d"]
+}, Open  ]]
+},
+WindowSize->{582., 688.5},
+WindowMargins->{{Automatic, 3.75}, {Automatic, 43.5}},
+FrontEndVersion->"13.0 for Linux x86 (64-bit) (December 2, 2021)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"87b20000-860c-42aa-b3d5-b8d9d1fdf130"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 203, 3, 29, "Input",ExpressionUUID->"9c007287-db51-4e6f-b732-0c3f3905d84c"],
+Cell[786, 27, 702, 14, 40, "Print",ExpressionUUID->"7c1df951-a95d-455d-a383-a3f5a9b592c7"],
+Cell[1491, 43, 430, 6, 33, "Output",ExpressionUUID->"b3e11486-fc8f-4dba-961c-bf595a7c5c58"]
+}, Open  ]],
+Cell[1936, 52, 163, 3, 35, "Text",ExpressionUUID->"fd56dd1d-c19e-4c0f-8262-f9963e78921c"],
+Cell[CellGroupData[{
+Cell[2124, 59, 174, 3, 45, "Subsubsection",ExpressionUUID->"3187b775-4b33-4e23-a295-50fd58cffd24"],
+Cell[2301, 64, 1298, 29, 154, "Input",ExpressionUUID->"49587f04-6444-417b-a050-98e9e7f05b30"],
+Cell[CellGroupData[{
+Cell[3624, 97, 635, 10, 174, "Input",ExpressionUUID->"47869bb0-53ca-4ddf-83a1-43bd620b4d79"],
+Cell[4262, 109, 737, 10, 178, "Output",ExpressionUUID->"42d09aa2-753a-4ab7-9773-0aec1e165ea4"]
+}, Open  ]],
+Cell[5014, 122, 6080, 128, 570, "Input",ExpressionUUID->"9e69ac88-bb69-4f8f-9200-16fe4d774f3f"],
+Cell[CellGroupData[{
+Cell[11119, 254, 1340, 20, 401, "Input",ExpressionUUID->"88390cf1-5432-4c2f-87da-8ac59d406dc4"],
+Cell[12462, 276, 1162, 16, 385, "Output",ExpressionUUID->"d6760136-57c6-4305-9cf6-0af77f9ad4ef"]
+}, Open  ]],
+Cell[13639, 295, 3557, 82, 339, "Input",ExpressionUUID->"214e287a-4d1d-440f-a434-f356dc520b0c"],
+Cell[CellGroupData[{
+Cell[17221, 381, 951, 15, 360, "Input",ExpressionUUID->"4766b015-ae88-4c00-8d6d-b4c0e3832f57"],
+Cell[18175, 398, 1069, 14, 343, "Output",ExpressionUUID->"cf89d536-a916-4040-9572-d8f93305ded5"]
+}, Open  ]],
+Cell[19259, 415, 18060, 411, 1565, "Input",ExpressionUUID->"af1f02de-e388-436c-b2d1-908accb11ea5"],
+Cell[CellGroupData[{
+Cell[37344, 830, 1838, 27, 587, "Input",ExpressionUUID->"23d3bb29-257c-4889-a01c-65ced42b3d9a"],
+Cell[39185, 859, 1530, 21, 570, "Output",ExpressionUUID->"84297bc2-d69b-4003-86b1-23e38d5e0ec6"]
+}, Open  ]],
+Cell[40730, 883, 239, 3, 51, "Input",ExpressionUUID->"968a2b33-0935-44c0-8549-1cbecb8d6dd3"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[41006, 891, 171, 3, 45, "Subsubsection",ExpressionUUID->"63063a14-f6f9-44b9-8c1b-37b8bec429ef"],
+Cell[41180, 896, 10368, 252, 1151, "Input",ExpressionUUID->"99bf2f80-1417-49c9-9734-0c4d3eaf383d"]
+}, Open  ]]
+}
+]
+*)
+

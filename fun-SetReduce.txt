@@ -1,0 +1,130 @@
+(* **Set's size reduction functions** *)
+
+BuildBetasQis[alphas_, invB_, r_] := Module[{betas, q, mis},
+  betas = Range[r];
+  q = Range[r];
+  Do[
+   betas[[j]] = 1;
+   q[[j]] = 1;
+   Do[
+    betas[[j]] = betas[[j]]*alphas[[i]]^invB[[j, i]];
+    q[[j]] = q[[j]]*p[i]^invB[[j, i]];
+    (* Print[j,"---", i, q[[j]], invB[[j,i]]]; *)
+    , {i, 1, r}];
+   , {j, 1, r}];
+  {betas, q}
+  ] (*(k+1)th multiplicands of yis (yis=new xis) *)
+
+Unset[ProductsSetReduce]
+
+ProductsSetReduce[tower_, products_, lowBounds_, verbose_ : False] := 
+  Module[{r, alphas, M, u, A, DD, B, invB, d, betas, qis, his, lmax, 
+    rho, RPitower, gis, cjs, cis, bricks, representations},
+   If[verbose, Print["tower=", tower]];
+   r = Length[products];
+   If[verbose, Print["r=", r]];
+   alphas = Table[products[[i, 2]], {i, 1, r}];
+   If[verbose, Print["alphas=", alphas]];
+   
+   (* 1: Computation of yi={q[i],betas[[i]],0}, valid from x=zis[[
+   i]], for 0<=i<=r *)
+   
+   M = GetBasisOfHomogeneousGroup[alphas, tower] // Transpose ; 
+   If[verbose, Print["M=", M]];
+   If[M == {},
+    RPitower = Join[tower, products]; 
+    Print["The tower cannot be reduced"];
+    Return [{products, RPitower, lowBounds}]
+    ];
+   (*Print["reduction!"];*)
+   u = Length[M]; 
+   If[verbose, Print["u=", u]];
+   {A, DD, B} = SmithDecomposition[M];
+   invB = Inverse[B];
+   	If[verbose, 
+    Print["A=", A // MatrixForm, "D=", DD // MatrixForm, "B=", 
+     B // MatrixForm, "invB=", invB // MatrixForm]];
+   {betas, qis} = BuildBetasQis[alphas, invB, r];
+   If[verbose, Print["betas=", betas]];
+   If[verbose, Print["qis=", qis]];
+   his = Table[
+     Ceiling[Max[Join[
+         Map[#[[1, 2]] &, (Solve[Denominator[betas[[i]]] == 0, x, 
+            Assumptions -> x >= 0])],
+         Map[#[[1, 2]] &, (Solve[Numerator[betas[[i]]] == 0, x, 
+            Assumptions -> x >= 0])],
+         {-1}
+         ]]] + 2, {i, 1, r}];
+   If[verbose, Print["his=", his]];
+   
+   (* 2: Computation of gi and ci such that yi=gi*ci, for 1<=i<=u *)
+ 
+     lmax = Max[lowBounds];
+   If[verbose, Print["lmax=", lmax]];
+   d = DD[[u, u]]  ;
+   rho = (-1)^(2/d);
+   RPitower = Join[tower, {{IndexName[-1], rho, 0}}];
+   gis = (* for 1 <= i <= u *)
+    Table[(SolveDifferenceVectorSpace[{-betas[[i]]*rho^(d/DD[[i, i]]),
+           1}, {0}, tower][[2, 2]])*
+      IndexName[-1]^(d - d/DD[[i, i]]), {i, 1, u}];
+   If[verbose, Print["gis=", gis]];
+   
+   (* 3: Computation of corrective factors cj *)
+   
+   cjs = ConstantArray[1, r];
+   Do[
+    Do[
+     cjs[[j]] = (1/Ev[{gis[[j]]}, lmax, RPitower, {}][[1]]);
+     , {j, 1, 
+      u}]; (*the power -1 is taken into account in the inversion \
+between numerator and denominator compared to next case*)
+    Do[
+     cjs[[
+        j]] = (1/(Product[
+           Ev[{betas[[j]]}, IndexName[-2] - 1, RPitower, {}][[
+            1]], {IndexName[-2], his[[j]], lmax}]));
+     , {j, u + 1, r}];
+    , {i, 1, r}
+    ];
+   If[verbose, Print["cjs=", cjs]];
+   (* 4: Computation of representations repis of pis, for 1<=i<=r *)
+ 
+     cis = Table[
+     Product[Ev[{alphas[[i]]}, IndexName[-2] - 1, RPitower, {}][[
+       1]], {IndexName[-2], lowBounds[[i]], lmax}], {i, 1, r}];
+   If[verbose, Print["ffis=", cis]];
+   Do[IndexName[j] = 1; Unset[IndexName[j]], {j, u + 1, r}];
+   representations = 
+    Table[ cis[[i]]*
+      Product[(gis[[j]]* cjs[[j]])^ B[[i, j]], {j, 1, u}]*
+      Product[(q[IndexName[j]]*cjs[[j]])^ B[[i, j]], {j, u + 1, 
+        r}], {i, 1, r}];
+   RPitower = 
+    Join[RPitower, 
+     Table[{q[IndexName[j]], betas[[j]], 0}, {j, u + 1, 
+       r}]]; (*IndexName[j] standfs for q[j]*)
+   
+   If[verbose, Print["RPitower=", RPitower]];
+   If[verbose, Print["Representations=", representations]];
+   If[verbose, 
+    Print["returns : {representations,RPitower,newBounds for \
+RPi-monomials}"]];
+   {representations, RPitower, Take[his, {u + 1, r}]}
+   (*the last list corresponds to lower bounds for R-
+   monomial r and Pi-monomials q[j>u+1]*)
+   ];
+
+ProductsSetReduce::usage = "Arguments:
+* tower_: list of elements {t,a,b} such that Tsigma[t]=at+b,
+* products_: list of p-monomials defined by {t,a,0}
+* lowBounds_: starting index for evaluations of products's p-monomials,
+* verbose_: boolean (default False) - if True, all intermediate \
+values are displayed
+Returns: 
+** representations_: list equivalent to products_, with respect to \
+RPitower
+** RPitower_: an RPi-tower,
+** bounds_: starting indices for evaluations of RPitower's \
+pi-monomials,
+"

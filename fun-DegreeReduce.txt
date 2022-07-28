@@ -1,0 +1,245 @@
+(* **Degree Reduction functions** *)
+
+
+(* Tool functions for Synchronized Degree Reduction *)
+
+MultiTSigma[loops_, g_, tower_] := Module[{i, rep, prod},
+  rep = g;
+  prod = rep;
+  Do[
+   rep = TSigma[rep, tower];
+   prod = prod*rep, {i, 1, loops}];
+  prod]
+
+MultiTSigma::usage = "Arguments:
+* loops_: int>=0,
+* g_: element to shift, 
+* tower_: list of elements {t,a,b} such that Tsigma[t]=at+b with \
+{x,1,1} at first and p-monomials in the end
+Returns: Product_{i,0,loops}[(g shifted i times forward w.r.t. \
+tower)]"
+
+UpdateConsDegReduce[fac_, cons_, tower_, n_] := 
+ Module[{i, j, k, h, g, nCons},
+  nCons = cons;
+  Do[
+   Do[
+    If[fac[[2, i, 3, j]] != {},
+     Do[
+      h = 1;
+      If[fac[[2, i, 3, j, k, 1]]   (*an element, the ith one, 
+        its factors, the jth one, 
+        the kth apparition the number of application of sigma*)< 0,
+       h = 1/fac[[1, j]];
+       ];
+      If[fac[[2, i, 3, j, k, 1]] > 0,
+       h = fac[[1, j]];
+       ];
+      g = (MultiTSigma[Abs[fac[[2, i, 3, j, k, 1]]] - 1, h, tower])^
+        fac[[2, i, 3, j, k, 2]];
+      nCons[[i]] = nCons[[i]]* g;
+      , {k, 1, Length[fac[[2, i, 3, j]]]}]
+     ]
+    , {j, 1, Length[fac[[1]]]}]
+   , {i, 1, n}];
+  nCons
+  ]
+
+UpdateConsDegReduce::usage = "Arguments:
+* fac_: output of the function GetSigmaFactorization[f,tower,0,0]. We \
+recall that fac[1] is a maximal set of NOT-sigma-equivalent factors, \
+which involve the last monomial of tower, and whose shifted versions \
+appear in elements of f.
+* cons_: List
+* tower_: list of elements {t,a,b} such that Tsigma[t]=at+b with \
+{x,1,1} at first and p-monomials in the end
+* n_: Length of cons_
+Returns: 
+nCons such that nCons[i]=cons[i]*h, with: 
+TSigma[h,1,tower]/h is the factor that separates f[i] from the \
+sigma-reduced form F[i]. 
+F[i] is chosen such that the only factor that is sigma-equivalent to \
+an element of fac[1] is this element itself."
+
+UpdateRestDegReduce[fac_, rest_, tower_, n_] := 
+ Module[{nRest, i, j, k},
+  nRest = rest;
+  Do[
+   Do[
+    If[fac[[2, i, 3, j]] != {},
+     Do[
+      nRest[[i]] = fac[[1, j]]^fac[[2, i, 3, j, k, 2]]*nRest[[i]]
+      , {k, 1, Length[fac[[2, i, 3, j]]]}
+      ]
+     ]
+    , {j, 1, Length[fac[[1]]]}];
+   nRest[[i]] = nRest[[i]]*Last[tower][[1]]^fac[[2, i, 2]];
+   , {i, 1, n}];
+  nRest
+  ]
+
+UpdateRestDegReduce::usage = "Arguments:
+* fac_: output of the function GetSigmaFactorization[f,tower,0,0]. We \
+recall that fac[1] is a maximal set of NOT-sigma-equivalent factors, \
+which involve the last monomial of tower, and whose shifted versions \
+appear in elements of f.
+* rest_: List
+* tower_: list of elements {t,a,b} such that Tsigma[t]=at+b with \
+{x,1,1} at first and p-monomials in the end
+* n_: Length of cons_
+Returns: 
+nRest such that nRest[i]=rest[i]*R, with: 
+R is a sigma-reduced form F[i], where all factors that are \
+sigma-equivalent to an element of fac[1] are replaced by this element \
+itself."
+
+
+(* Synchronized Degree Reduction, based on GETSIGMAREDUCTION (from Sigma) *)
+
+SynchroDegreeReduce[ext_, argTower_, argBounds_, verbose_ : False] :=
+  Module[{f, n, tower, fac, cons, rest, bounds, outputExt},
+  n = Length[ext];
+  f = Table[ext[[i, 2]], {i, 1, n}];
+  tower = argTower;
+  cons = ConstantArray[1, n];
+  rest = ConstantArray[1, n];
+  While[Length[tower] > 0,
+   fac = GetSigmaFactorization[f, tower, 0, 0];
+   If[verbose, Print["factorization: ", fac]];
+   cons = UpdateConsDegReduce[fac, cons, tower, n];
+   rest = UpdateRestDegReduce[fac, rest, tower, n];
+   tower = Drop[tower, -1];
+   f = Table[fac[[2, i, 1]], {i, 1, Length[fac[[2]]]}];
+   If[verbose, Print["constants: ", cons]];
+   ];
+  (* At the end of each execution of the While-loop content, 
+  we have the invariant: SigmaProduct[Ev[TSigma[rest[i]*f[i],-1,
+  argTower]],{x,B,n}]*Ev[cons[i],n,argTower] == SigmaProduct[Ev[
+  TSigma[argF[i],-1,argTower]],{x,B,
+  n}] if B is sufficiently high for the products to be defined *)
+  
+  bounds = 
+   Table[Ceiling[
+      Max[Join[{argBounds[[i]] - 1}, 
+        Map[#[[1, 2]] &, 
+         Solve[Denominator[TSigma[cons[[i]], -1, argTower]] == 0, 
+          argTower[[1, 1]], Assumptions -> argTower[[1, 1]] > 0]], 
+        Map[#[[1, 2]] &, 
+         Solve[Denominator[TSigma[rest[[i]], -1, argTower]] == 0, 
+          argTower[[1, 1]], Assumptions -> argTower[[1, 1]] > 0]], 
+        Map[#[[1, 2]] &, 
+         Solve[Numerator[TSigma[rest[[i]], -1, argTower]] == 0, 
+          argTower[[1, 1]], Assumptions -> argTower[[1, 1]] > 0]]]
+       ]] + 1, {i, 1, n}];
+  (* forall i, we garantee that bounds[
+  i] is a positive integer from which TSigma[rest[i],-1,
+  argTower] and TSigma[const[i],-1,
+  argTower] are defined and nonzero *)
+  
+  Do[cons[[i]] = 
+    cons[[i]]*
+     Product[SingleEv[TSigma[ext[[i, 2]], -1, argTower], j, 
+        argTower, {}], {j, argBounds[[i]], bounds[[i]] - 1}]/( 
+        SingleEv[{TSigma[cons[[i]], -1, argTower]}, bounds[[i]], 
+         argTower, {}])[[1]];
+   (* we multiply cons[
+   i] to a value v which fills in the gap between: SigmaProduct[Ev[
+   TSigma[rest[i],-1,argTower]],{x,bounds[i],n}]*Ev[cons[i],n,
+   argTower]*f[i], and: SigmaProduct[Ev[TSigma[argF[i],-1,
+   argTower]],{x,argBounds[i],n}], i.e. 
+   when we replace the B of the invariant by bounds defined for each \
+one of the products *)
+   rest[[i]] = rest[[i]]*f[[i]]
+   (* f[i] is a value, i.e. 
+   it does not depend on argTower's monomials. 
+   We take it into account in rest[i] so that we have the equation: 
+   SigmaProduct[Ev[TSigma[rest[i],-1,argTower]],{x,bounds[i],n}]*Ev[
+   cons[i],n,argTower] == SigmaProduct[Ev[TSigma[argF[i],-1,
+   argTower]],{x,argBounds[i],n}] *)
+   , {i, 1, n}];
+  outputExt = Table[{ext[[i, 1]], rest[[i]], 0}, {i, 1, n}];
+  {cons, outputExt, bounds}
+  ]
+
+SynchroDegreeReduce::usage = "Arguments:
+* argF_: List of N element in the rational field described by argTower,
+* argTower_: list of elements {t,a,b} such that Tsigma[t]=at+b with \
+{x,1,1} at first and p-monomials in the end
+Optional arguments,
+* argBounds_: argBounds[i] is a positive integer from which \
+TSigma[argF[i],-1,argTower] is defined and nonzero,
+* verbose_: [default: False] If True, successive factorizations of \
+considered terms w.r.t. current tower, and successive constants will \
+be displayed
+Returns: 
+** cons: List of N element in the rational field described by argTower,
+** rest: List of N element in the rational field described by \
+argTower, 
+** bounds: bounds[i] is a positive integer from which \
+TSigma[rest[i],-1,argTower] is defined and nonzero
+such that: forall i,
+(1) all rest[i] are sigma-reduced form, whose all factors that are \
+sigma-equivalent are equal
+(2) forall i, \
+SigmaProduct[Ev[TSigma[rest[i],-1,argTower]],{x,bounds[i],n}]*Ev[cons[\
+i],n,argTower] == \
+SigmaProduct[Ev[TSigma[argF[i],-1,argTower]],{x,argBounds[i],n}]"
+
+
+
+(* ['simple' or 'parallel'] degree reduction : application of SIMPLIFYPRODUCT (Sigma-function) on every element of a set of P-monomials *)
+
+SimpleDegreeReduce[extension_, tower_, lowerBounds_, 
+  verbose_ : False] := 
+ Module[{r, i, simpProducts, constants, fconstants, gconstants, 
+   newExtension, newBounds},
+  r = Length[extension];
+  (*simplification of P-monomials' factors*)
+  
+  simpProducts = ConstantArray[1, r];
+  Do[
+   simpProducts[[i]] = SimplifyProduct[extension[[i, 2]], tower];
+   , {i, 1, r}
+   ];
+  If[verbose, Print["simplified P-monomials' factors:", simpProducts]
+   ];
+  
+  (*extraction of constants and new Extension*)
+  
+  newExtension = Table[{p[i], simpProducts[[i, 1]], 0}, {i, 1, r}];
+  
+  (*correction of bounds*)
+  newBounds = Table[
+    Ceiling[Max[Join[
+        Map[#[[1, 2]] &, (Solve[
+           Denominator[TSigma[simpProducts[[i, 1]], -1, tower]] == 0, 
+           tower[[1, 1]], Assumptions -> tower[[1, 1]] > 0])],
+        Map[#[[1, 2]] &, (Solve[
+           Numerator[TSigma[simpProducts[[i, 1]], -1, tower]] == 0, 
+           tower[[1, 1]], Assumptions -> tower[[1, 1]] > 0])],
+        Map[#[[1, 2]] &, (Solve[
+           TSigma[simpProducts[[i, 2]], -1, tower] == 0, 
+           tower[[1, 1]], Assumptions -> tower[[1, 1]] > 0])],
+        {lowerBounds[[i]]}
+        ]]] + 1, {i, 1, r}];
+  If[verbose, 
+   Print["newBounds=", newBounds]];
+  gconstants = 
+   Table[(simpProducts[[i, 2]])/(simpProducts[[i, 2]] /. 
+       x -> newBounds[[i]] - 1), {i, 1, r}];
+  If[verbose,
+   Print["gconstants=", gconstants]];
+  constants = ConstantArray[1, r];
+  fconstants = ConstantArray[1, r];
+  Do[
+   fconstants[[i]] = 
+    Product[extension[[i, 2]] /. x -> k - 1, {k, lowerBounds[[i]], 
+      newBounds[[i]] - 1}];
+   constants[[i]] = fconstants[[i]]*gconstants[[i]];
+   , {i, 1, r}]; (*extension[[i,2]]=alpha[[i]]*)
+  If[verbose,
+   Print["fconstants=", fconstants];
+   Print["returns : {constants, newExtension,newBounds}"]
+   ];
+  {constants, newExtension, newBounds}
+  ]
